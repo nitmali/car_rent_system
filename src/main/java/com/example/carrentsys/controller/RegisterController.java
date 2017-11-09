@@ -27,7 +27,6 @@ public class RegisterController {
 
     @RequestMapping(value = "/adminRegister", method = RequestMethod.POST)
     @ResponseBody
-    @Transactional(rollbackFor = Exception.class)
     public String adminRegister(HttpServletRequest request, Admin admin) {
         if (!adminRepository.existsByUsername(admin.getUsername())) {
             adminRepository.save(admin);
