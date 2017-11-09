@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class RegisterController {
     private final AdminRepository adminRepository;
@@ -22,27 +25,33 @@ public class RegisterController {
         this.clientRepository = clientRepository;
     }
 
-    @RequestMapping(value = "/adminRegister",method = RequestMethod.POST)
+    @RequestMapping(value = "/adminRegister", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
-    public String adminRegister(Admin admin){
-        if(!adminRepository.existsByUsername(admin.getUsername())){
+    public String adminRegister(HttpServletRequest request, Admin admin) {
+        if (!adminRepository.existsByUsername(admin.getUsername())) {
             adminRepository.save(admin);
+            HttpSession session = request.getSession();
+            session.setAttribute("username", admin.getUsername());
+            session.setAttribute("usertype", "admin");
             return "{\"msg\":\"success\"}";
-        }else {
+        } else {
             return "{\"msg\":\"repeat username\"}";
         }
     }
 
-    @RequestMapping(value = "/clientRegister",method = RequestMethod.POST)
+    @RequestMapping(value = "/clientRegister", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
-    public String clientRegister(Client client){
-        if(!clientRepository.existsByUsername(client.getUsername())&&
-                !clientRepository.existsByIdCard(client.getIdCard())){
+    public String clientRegister(HttpServletRequest request, Client client) {
+        if (!clientRepository.existsByUsername(client.getUsername()) &&
+                !clientRepository.existsByIdCard(client.getIdCard())) {
             clientRepository.save(client);
+            HttpSession session = request.getSession();
+            session.setAttribute("username", client.getUsername());
+            session.setAttribute("usertype", "client");
             return "{\"msg\":\"success\"}";
-        }else {
+        } else {
             return "{\"msg\":\"error\"}";
         }
     }

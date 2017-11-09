@@ -3,28 +3,28 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content=""/>
+  <meta name="author" content=""/>
 
   <title>租车系统 - 后台管理</title>
 
   <!-- Bootstrap Core CSS -->
-  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 
   <!-- MetisMenu CSS -->
-  <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+  <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet"/>
 
   <!-- Custom CSS -->
-  <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+  <link href="../dist/css/sb-admin-2.css" rel="stylesheet"/>
 
   <!-- Morris Charts CSS -->
-  <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+  <link href="../vendor/morrisjs/morris.css" rel="stylesheet"/>
 
   <!-- Custom Fonts -->
-  <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,44 +40,68 @@
 <body>
 
 
-<!--<div class="modal fade" tabindex="-1" role="dialog" id="modal">-->
-  <!--<div class="modal-dialog" role="document">-->
-    <!--<div class="modal-content">-->
-      <!--<div class="modal-header">-->
-        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
-            <!--aria-hidden="true">&times;</span></button>-->
-        <!--<h4 class="modal-title">编辑车辆信息</h4>-->
-      <!--</div>-->
-      <!--<div class="modal-body">-->
-        <!--<div class="form-group">-->
-          <!--<input class="form-control" type="text" placeholder="品牌" name="brand">-->
-        <!--</div>-->
-        <!--<div class="form-group">-->
-          <!--<input class="form-control" type="text" placeholder="颜色" name="color">-->
-        <!--</div>-->
-        <!--<div class="form-group">-->
-          <!--<input class="form-control" type="text" placeholder="车牌号" name="licensePlate">-->
-        <!--</div>-->
-        <!--<div class="form-group">-->
-          <!--<input class="form-control" type="text" placeholder="价格" name="price">-->
-        <!--</div>-->
-        <!--<div class="form-group">-->
-          <!--<select class="form-control" name="status">-->
-            <!--<option value="0">IDLE(空闲)</option>-->
-            <!--<option value="1">BOOKING(已预约)</option>-->
-            <!--<option value="2">USING(已借出)</option>-->
-          <!--</select>-->
-        <!--</div>-->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-client">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">客户信息</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          用户名:{{username}}
+        </div>
+        <div class="form-group">
+          身份证号码:{{idCard}}
+        </div>
+        <div class="form-group">
+          手机号:{{phone}}
+        </div>
 
-      <!--</div>-->
-      <!--<div class="modal-footer">-->
-        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <!--<button type="button" class="btn btn-primary" id="save">Save</button>-->
         <!--<button type="button" class="btn btn-danger" id="delete">Delete</button>-->
-      <!--</div>-->
-    <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
-  <!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
-<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-car">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">车辆信息</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          品牌: {{brand}}
+        </div>
+        <div class="form-group">
+          颜色: {{color}}
+        </div>
+        <div class="form-group">
+          车牌号: {{licensePlate}}
+        </div>
+        <div class="form-group">
+          价格: {{price}}
+        </div>
+        <div class="form-group">
+          状态: {{status}}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!--<button type="button" class="btn btn-primary" id="save">Save</button>-->
+        <!--<button type="button" class="btn btn-danger" id="delete">Delete</button>-->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <div id="wrapper">
 
@@ -120,7 +144,7 @@
         <ul class="nav" id="side-menu">
           <li class="sidebar-search">
             <div class="input-group custom-search-form">
-              <input type="text" class="form-control" placeholder="Search...">
+              <input type="text" class="form-control" placeholder="Search..."/>
               <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <i class="fa fa-search"></i>
@@ -133,7 +157,7 @@
             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
           </li>
           <li>
-            <a href="review.html"><i class="fa fa-edit fa-fw"></i> 订单审核</a>
+            <a href="rentinfo.html"><i class="fa fa-edit fa-fw"></i> 订单信息</a>
           </li>
           <li>
             <a href="carinfo.html"><i class="fa fa-car fa-fw"></i> 车辆信息</a>
@@ -150,7 +174,7 @@
   <div id="page-wrapper">
     <div class="row" id="car-info">
       <div class="col-lg-12">
-        <h1 class="page-header">订单审核</h1>
+        <h1 class="page-header">订单信息</h1>
       </div>
       <!-- /.col-lg-12 -->
     </div>
@@ -159,18 +183,19 @@
       <div class="col-lg-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            ORDER REVIEW
+            ORDER INFORMATION
           </div>
           <!-- /.panel-heading -->
           <div class="panel-body">
             <table width="100%" class="table table-striped table-bordered table-hover" id="order_table">
               <thead>
               <tr>
-                <th>编号</th>
-                <th>品牌</th>
-                <th>颜色</th>
-                <th>车牌号</th>
-                <th>价格(元/天)</th>
+                <th>订单编号</th>
+                <th>客户编号</th>
+                <th>车辆编号</th>
+                <th>预约开始时间</th>
+                <th>预约结束时间</th>
+                <th>提交时间</th>
                 <th>状态</th>
               </tr>
               </thead>
@@ -212,6 +237,9 @@
 <!-- Custom Theme JavaScript -->
 <script src="../dist/js/sb-admin-2.js"></script>
 
+<script src="/webjars/vue/2.5.2/vue.js"></script>
+
+<script src="../js/rentinfo.js"></script>
 
 </body>
 

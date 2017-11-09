@@ -4,7 +4,6 @@ import com.example.carrentsys.entity.Car;
 import com.example.carrentsys.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,7 +27,6 @@ public class CarController {
 
     @RequestMapping(value = "/saveCarInfo")
     @ResponseBody
-    @Transactional(rollbackFor = Exception.class)
     public String saveCarInfo(
             String id,
             String brand,
@@ -76,7 +74,6 @@ public class CarController {
 
     @RequestMapping(value = "/deleteCarInfo")
     @ResponseBody
-    @Transactional(rollbackFor = Exception.class)
     public String deleteCarInfo(String id) {
         if (id != null) {
             carRepository.delete(Integer.parseInt(id));
