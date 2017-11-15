@@ -1,19 +1,21 @@
 package com.example.carrentsys.controller;
 
 import com.example.carrentsys.Utils;
+import com.example.carrentsys.entity.Car;
 import com.example.carrentsys.entity.RentingLog;
-import com.example.carrentsys.repository.AdminRepository;
-import com.example.carrentsys.repository.CarRepository;
-import com.example.carrentsys.repository.ClientRepository;
 import com.example.carrentsys.repository.RentingLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,28 +26,21 @@ import java.util.Map;
 @Controller
 public class RentingLogController {
     private final RentingLogRepository rentingLogRepository;
-    private final CarRepository carRepository;
-    private final ClientRepository clientRepository;
-    private final AdminRepository adminRepository;
 
     @Autowired
-    public RentingLogController(RentingLogRepository rentingLogRepository, CarRepository carRepository, ClientRepository clientRepository, AdminRepository adminRepository) {
+    public RentingLogController(RentingLogRepository rentingLogRepository) {
         this.rentingLogRepository = rentingLogRepository;
-        this.carRepository = carRepository;
-        this.clientRepository = clientRepository;
-        this.adminRepository = adminRepository;
     }
+
 
     @RequestMapping("/getRentingLog")
     @ResponseBody
-    public Map<String, Object> getRentingLog(HttpServletRequest request,
-                                             @RequestParam(required = false) String callback,
-                                             @RequestParam(required = false) String searchType,
-                                             @RequestParam(value = "search[value]", defaultValue = "") String search,
+    public Map<String, Object> getRentingLog(@RequestParam(value = "search[value]", defaultValue = "") String search,
                                              @RequestParam(required = false, defaultValue = "1") int draw,
                                              @RequestParam(required = false, defaultValue = "0") int start,
                                              @RequestParam(required = false, defaultValue = "10") int length) {
-        PageRequest pagerequset = new PageRequest((start / length), length);
+        Sort sort = new Sort(Sort.Direction.DESC, "lendEndTime");
+        PageRequest pagerequset = new PageRequest((start / length), length, sort);
         Map<String, Object> maps = new HashMap<>();
         Page<RentingLog> page = rentingLogRepository.findAll(pagerequset);
         if (Utils.isNumeric(search)) {
@@ -81,22 +76,46 @@ public class RentingLogController {
         return rentingLogRepository.findByStatus(RentingLog.Status.PENDING);
     }
 
-    @RequestMapping(value = "/reviewLogs/{type}", method = RequestMethod.POST)
+    @RequestMapping(value = "/reviewLogs", method = RequestMethod.POST)
     @ResponseBody
-    public String modifyReviewLogs(@RequestParam("id") String id, @PathVariable(name = "type") String type) {
-        Assert.isNull(id, "id can not be empty");
+    @Transactional(rollbackFor = Exception.class)
+    public String handleReviewLogs(@RequestParam("id") String id, String type) {
         RentingLog rentingLog = rentingLogRepository.findOne(Integer.valueOf(id));
+        Car car = rentingLog.getCar();
         if (type.equals("PASS")) {
             rentingLog.setStatus(RentingLog.Status.PASS);
+            rentingLog.setLendStartTime(new Timestamp(System.currentTimeMillis()));
+            car.setStatus(Car.Status.USING);
+            rentingLog.setCar(car);
         } else if (type.equals("REJECT")) {
             rentingLog.setStatus(RentingLog.Status.REJECT);
+            car.setStatus(Car.Status.IDLE);
+            rentingLog.setCar(car);
         }
         rentingLog.setApprovalTime(new Timestamp(System.currentTimeMillis()));
         rentingLogRepository.save(rentingLog);
         return "{\"msg\":\"success\"}";
     }
 
-    @RequestMapping(value = "/countSubmitByTime")
+    @RequestMapping(value = "/givebackLogs", method = RequestMethod.GET)
+    @ResponseBody
+    public List<RentingLog> givebackLogs() {
+        return rentingLogRepository.findGivebackLogs();
+    }
+
+    @RequestMapping(value = "/givebackCar", method = RequestMethod.POST)
+    @ResponseBody
+    @Transactional(rollbackFor = Exception.class)
+    public String givebackCar(@RequestParam("id") String id) {
+        RentingLog rentingLog = rentingLogRepository.findOne(Integer.valueOf(id));
+        Car car = rentingLog.getCar();
+        rentingLog.setLendEndTime(new Timestamp(System.currentTimeMillis()));
+        car.setStatus(Car.Status.IDLE);
+        rentingLog.setCar(car);
+        return "{\"msg\":\"success\"}";
+    }
+
+    @RequestMapping(value = "/countSubmitByTime", method = RequestMethod.GET)
     @ResponseBody
     public long countSubmitByTime(String start, String end) {
         Assert.notNull(start, "start time can not be empty");

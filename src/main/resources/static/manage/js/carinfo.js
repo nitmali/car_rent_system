@@ -60,7 +60,7 @@ function getCarInfo() {
         processing:true,
         ajax: {
             url: '/getAllCars',
-            type: 'post',
+            type: 'get',
             datatype: 'json',
             dataSrc: ''
         },

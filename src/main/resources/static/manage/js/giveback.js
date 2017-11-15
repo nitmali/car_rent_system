@@ -1,6 +1,6 @@
 var table;
 $().ready(function () {
-    table = $("#review_table").DataTable({
+    table = $("#giveback_table").DataTable({
         language: {
             "sProcessing": "处理中...",
             "sLengthMenu": "显示 _MENU_ 项结果",
@@ -29,7 +29,7 @@ $().ready(function () {
         bAutoWidth: true,
         processing: true,
         ajax: {
-            url: '/reviewLogs',
+            url: '/givebackLogs',
             type: 'get',
             datatype: 'json',
             dataSrc: ''
@@ -38,32 +38,28 @@ $().ready(function () {
             {data: 'id'},
             {data: 'client.username'},
             {data: 'car.licensePlate'},
-            {data: 'planingLendStartTime'},
-            {data: 'planingLendEndTime'},
-            {data: 'submitTime'},
             {data: null}
         ],
         columnDefs: [{
-            targets: 6,
+            targets: 3,
             render: function (row) {
                 var id = row.id;
-                return '<a type="button" class="btn btn-primary" href="#" onclick="btn_action(' + id + ',\'PASS\')">通过</a> <a type="button" class="btn btn-danger" onclick="btn_action(' + id + ',\'REJECT\')" href="#">拒绝</a>';
+                return '<a type="button" class="btn btn-success" href="#" onclick="btn_action(' + id + ')">归还</a>';
             }
         },
-            {"orderable": false, "targets": 6}
+            {"orderable": false, "targets": 3}
         ]
     });
 
 });
 
-function btn_action(id, type) {
+function btn_action(id) {
     $.ajax({
-        url: '/reviewLogs',
+        url: '/givebackCar',
         type: "POST",
         dataType: "json",
         data: {
-            "id": id,
-            "type": type
+            "id": id
         },
         success: function (data) {
             if (data.msg === "success") {

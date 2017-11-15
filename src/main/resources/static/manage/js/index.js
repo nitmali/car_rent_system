@@ -1,7 +1,7 @@
 $().ready(function () {
     $.ajax({
         url: "/countCarsByStatus",
-        type: "POST",
+        type: "get",
         dataType: "json",
         data: {
             "status": status
