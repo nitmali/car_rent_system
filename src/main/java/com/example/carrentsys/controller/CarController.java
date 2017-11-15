@@ -5,9 +5,12 @@ import com.example.carrentsys.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Controller
@@ -19,9 +22,9 @@ public class CarController {
         this.carRepository = carRepository;
     }
 
-    @RequestMapping(value = "/getCarInfoList")
+    @RequestMapping(value = "/getAllCars")
     @ResponseBody
-    public List<Car> getCarInfoList() {
+    public List<Car> getAllCars() {
         return carRepository.findAll();
     }
 
@@ -42,10 +45,10 @@ public class CarController {
                 Objects.equals(status, "")) {
             return "{\"msg\":\"null\"}";
         } else {
-            if(licensePlate.length()>8) {
+            if (licensePlate.length() > 8) {
                 return "{\"msg\":\"error\"}";
             }
-            if (carRepository.existsByLicensePlate(licensePlate)&& !Objects.equals(id, String.valueOf(carRepository.findByLicensePlate(licensePlate).getId()))) {
+            if (carRepository.existsByLicensePlate(licensePlate) && !Objects.equals(id, String.valueOf(carRepository.findByLicensePlate(licensePlate).getId()))) {
                 return "{\"msg\":\"lp_repeat\"}";
             } else {
                 Car car = new Car();
@@ -72,7 +75,7 @@ public class CarController {
         }
     }
 
-    @RequestMapping(value = "/deleteCarInfo")
+    @RequestMapping(value = "/deleteCarInfo", method = RequestMethod.POST)
     @ResponseBody
     public String deleteCarInfo(String id) {
         if (id != null) {
@@ -81,5 +84,15 @@ public class CarController {
         } else {
             return "{\"msg\":\"error\"}";
         }
+    }
+
+    @RequestMapping(value = "/countCarsByStatus")
+    @ResponseBody
+    public Map<String, Integer> countByStatus() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("IDLE", carRepository.countByStatus(Car.Status.IDLE));
+        map.put("BOOKING", carRepository.countByStatus(Car.Status.BOOKING));
+        map.put("USING", carRepository.countByStatus(Car.Status.USING));
+        return map;
     }
 }

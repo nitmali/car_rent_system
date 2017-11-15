@@ -10,11 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +41,7 @@ public class RentingLogController {
     public Map<String, Object> getRentingLog(HttpServletRequest request,
                                              @RequestParam(required = false) String callback,
                                              @RequestParam(required = false) String searchType,
-                                             @RequestParam(value = "search[value]") String search,
+                                             @RequestParam(value = "search[value]", defaultValue = "") String search,
                                              @RequestParam(required = false, defaultValue = "1") int draw,
                                              @RequestParam(required = false, defaultValue = "0") int start,
                                              @RequestParam(required = false, defaultValue = "10") int length) {
@@ -73,4 +74,37 @@ public class RentingLogController {
         maps.put("data", page.getContent());
         return maps;
     }
+
+    @RequestMapping(value = "/reviewLogs", method = RequestMethod.GET)
+    @ResponseBody
+    public List<RentingLog> getreviewLogs() {
+        return rentingLogRepository.findByStatus(RentingLog.Status.PENDING);
+    }
+
+    @RequestMapping(value = "/reviewLogs/{type}", method = RequestMethod.POST)
+    @ResponseBody
+    public String modifyReviewLogs(@RequestParam("id") String id, @PathVariable(name = "type") String type) {
+        Assert.isNull(id, "id can not be empty");
+        RentingLog rentingLog = rentingLogRepository.findOne(Integer.valueOf(id));
+        if (type.equals("PASS")) {
+            rentingLog.setStatus(RentingLog.Status.PASS);
+        } else if (type.equals("REJECT")) {
+            rentingLog.setStatus(RentingLog.Status.REJECT);
+        }
+        rentingLog.setApprovalTime(new Timestamp(System.currentTimeMillis()));
+        rentingLogRepository.save(rentingLog);
+        return "{\"msg\":\"success\"}";
+    }
+
+    @RequestMapping(value = "/countSubmitByTime")
+    @ResponseBody
+    public long countSubmitByTime(String start, String end) {
+        Assert.notNull(start, "start time can not be empty");
+        Assert.notNull(end, "end time can not be empty");
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Long startTime = new Long(start);
+        Long endTime = new Long(end);
+        return rentingLogRepository.countRentingLogsBySubmitTimeBetween(Timestamp.valueOf(f.format(startTime)), Timestamp.valueOf(f.format(endTime)));
+    }
+
 }

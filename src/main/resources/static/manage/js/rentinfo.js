@@ -46,6 +46,7 @@ $().ready(function () {
         bAutoWidth: true,
         processing: true,
         serverSide: true,
+        searching: false,
         bSort: false,
         ajax: {
             url: '/getRentingLog',
@@ -54,21 +55,27 @@ $().ready(function () {
         },
         columns: [
             {data: 'id'},
-            {data: 'client.id'},
-            {data: 'car.id'},
+            {data: 'client.username'},
+            {data: 'car.licensePlate'},
+            {data: 'planingLendStartTime'},
+            {data: 'planingLendEndTime'},
             {
                 data: function (obj) {
-                    return new Date(obj.planingLendStartTime).toLocaleString();  //时间戳转换
+                    if (obj.lendStartTime == null) return null;
+                    return obj.lendStartTime;
                 }
             },
             {
                 data: function (obj) {
-                    return new Date(obj.planingLendEndTime).toLocaleString();
+                    if (obj.lendEndTime == null) return null;
+                    return obj.lendEndTime;
                 }
             },
+            {data: 'submitTime'},
             {
                 data: function (obj) {
-                    return new Date(obj.submitTime).toLocaleString();
+                    if (obj.approvalTime == null) return null;
+                    return obj.approvalTime;
                 }
             },
             {data: 'status'}

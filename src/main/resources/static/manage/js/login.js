@@ -31,12 +31,12 @@ function btnlogin_click(){
         $("#inputPasswd").parent().attr("class","form-group");
         if(flag===0){
             if($("#usertype").find("option:selected").val()==="client"){
-                var url="/clientLoginCheck";
+                var url = "/api/login/client";
                 var myhref = "/index.html";
                 myAjax(url,myhref);
 
             }else if($("#usertype").find("option:selected").val()==="admin"){
-                var url="/adminLoginCheck";
+                var url = "/api/login/admin";
                 var myhref="/manage/pages/index.html";
                 myAjax(url,myhref);
             }

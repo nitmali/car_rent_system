@@ -1,5 +1,7 @@
 package com.example.carrentsys.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -16,21 +18,27 @@ public class RentingLog {
     private Car car;
 
     @Column(nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Timestamp submitTime = new Timestamp(System.currentTimeMillis());
 
     @Column(nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Timestamp planingLendStartTime;
 
     @Column(nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Timestamp planingLendEndTime;
 
     @Column
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Timestamp approvalTime;
 
     @Column
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Timestamp lendStartTime;
 
     @Column
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Timestamp lendEndTime;
 
     @Column

@@ -59,7 +59,7 @@ function getCarInfo() {
         bAutoWidth: true,
         processing:true,
         ajax: {
-            url: '/getCarInfoList',
+            url: '/getAllCars',
             type: 'post',
             datatype: 'json',
             dataSrc: ''

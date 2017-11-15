@@ -1,13 +1,18 @@
 package com.example.carrentsys.repository;
 
 import com.example.carrentsys.entity.Car;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Transactional(rollbackFor = Exception.class)
-public interface CarRepository extends CrudRepository<Car,Integer> {
+@Repository
+public interface CarRepository extends JpaRepository<Car, Integer> {
+    @RestResource(exported = false)
+    @Override
+    void delete(Integer id);
+
     List<Car> findAll();
 
     List<Car> findByStatus(Car.Status status);
@@ -15,4 +20,6 @@ public interface CarRepository extends CrudRepository<Car,Integer> {
     boolean existsByLicensePlate(String licensePlate);
 
     Car findByLicensePlate(String licensePlate);
+
+    int countByStatus(Car.Status status);
 }
