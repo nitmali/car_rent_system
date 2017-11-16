@@ -31,13 +31,13 @@ public class LoginController {
         String passwd=request.getParameter("passwd");
         Assert.notNull(username, "username can not be empty");
         Assert.notNull(passwd, "password can not be empty");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
         if (usertype.equals("admin")) {
             if (adminRepository.findByUsername(username) != null) {
                 if (passwd.equals(adminRepository.findByUsername(username).getPassword())) {
                     HttpSession session = request.getSession();
                     session.setAttribute("username", username);
                     session.setAttribute("usertype", "admin");
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
                     Date date = new Date();
                     String resultDate = sdf.format(date);
                     System.out.println(resultDate);
@@ -56,7 +56,6 @@ public class LoginController {
                     HttpSession session = request.getSession();
                     session.setAttribute("username", username);
                     session.setAttribute("usertype", "client");
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
                     Date date = new Date();
                     String resultDate = sdf.format(date);
                     System.out.println(resultDate);

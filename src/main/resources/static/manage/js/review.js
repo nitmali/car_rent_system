@@ -69,7 +69,8 @@ function btn_action(id, type) {
             if (data.msg === "success") {
                 table.ajax.reload(null, false);
             } else {
-                console.log("error");
+                console.log(data);
+                alert("车辆正被使用");
             }
         },
         error: function () {

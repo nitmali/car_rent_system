@@ -1,8 +1,10 @@
 package com.example.carrentsys.controller;
 
-import com.example.carrentsys.Utils;
 import com.example.carrentsys.entity.Car;
+import com.example.carrentsys.entity.Client;
 import com.example.carrentsys.entity.RentingLog;
+import com.example.carrentsys.repository.CarRepository;
+import com.example.carrentsys.repository.ClientRepository;
 import com.example.carrentsys.repository.RentingLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,42 +27,26 @@ import java.util.Map;
 @Controller
 public class RentingLogController {
     private final RentingLogRepository rentingLogRepository;
+    private final CarRepository carRepository;
+    private final ClientRepository clientRepository;
 
     @Autowired
-    public RentingLogController(RentingLogRepository rentingLogRepository) {
+    public RentingLogController(RentingLogRepository rentingLogRepository, CarRepository carRepository, ClientRepository clientRepository) {
         this.rentingLogRepository = rentingLogRepository;
+        this.carRepository = carRepository;
+        this.clientRepository = clientRepository;
     }
 
 
     @RequestMapping("/getRentingLog")
     @ResponseBody
-    public Map<String, Object> getRentingLog(@RequestParam(value = "search[value]", defaultValue = "") String search,
-                                             @RequestParam(required = false, defaultValue = "1") int draw,
+    public Map<String, Object> getRentingLog(@RequestParam(required = false, defaultValue = "1") int draw,
                                              @RequestParam(required = false, defaultValue = "0") int start,
                                              @RequestParam(required = false, defaultValue = "10") int length) {
         Sort sort = new Sort(Sort.Direction.DESC, "lendEndTime");
         PageRequest pagerequset = new PageRequest((start / length), length, sort);
         Map<String, Object> maps = new HashMap<>();
         Page<RentingLog> page = rentingLogRepository.findAll(pagerequset);
-        if (Utils.isNumeric(search)) {
-            RentingLog rentingLog = rentingLogRepository.findOne(Integer.parseInt(search));
-            List<RentingLog> list = new ArrayList<>();
-            if (rentingLog != null) {
-                list.add(rentingLog);
-                maps.put("draw", draw);
-                maps.put("recordsTotal", 1);
-                maps.put("recordsFiltered", 1);
-                maps.put("data", list);
-            } else {
-                list.add(new RentingLog());
-                maps.put("draw", draw);
-                maps.put("recordsTotal", 1);
-                maps.put("recordsFiltered", 1);
-                maps.put("data", list);
-                maps.put("error", "无法找到相应编号");
-            }
-            return maps;
-        }
         long totalCount = page.getTotalElements();
         maps.put("draw", draw);
         maps.put("recordsTotal", totalCount);
@@ -83,6 +68,7 @@ public class RentingLogController {
         RentingLog rentingLog = rentingLogRepository.findOne(Integer.valueOf(id));
         Car car = rentingLog.getCar();
         if (type.equals("PASS")) {
+            if (car.getStatus() == Car.Status.USING) return "{\"msg\":\"car is using\"}";
             rentingLog.setStatus(RentingLog.Status.PASS);
             rentingLog.setLendStartTime(new Timestamp(System.currentTimeMillis()));
             car.setStatus(Car.Status.USING);
@@ -126,4 +112,19 @@ public class RentingLogController {
         return rentingLogRepository.countRentingLogsBySubmitTimeBetween(Timestamp.valueOf(f.format(startTime)), Timestamp.valueOf(f.format(endTime)));
     }
 
+    @RequestMapping(value = "/makeRenting", method = RequestMethod.POST)
+    @ResponseBody
+    public String makeRenting(RentingLog rentingLog) {
+        if (rentingLog.getPlaningLendEndTime().getTime() - rentingLog.getPlaningLendStartTime().getTime() <= 0)
+            return "{\"msg\":\"Plainning time error\"}";
+        Car car = carRepository.findOne(rentingLog.getCar().getId());
+        if (car.getStatus() == Car.Status.USING) return "{\"msg\":\"car is using\"}";
+        car.setStatus(Car.Status.BOOKING);
+        Client client = clientRepository.findOne(rentingLog.getClient().getId());
+        rentingLog.setCar(car);
+        rentingLog.setClient(client);
+        rentingLog.setStatus(RentingLog.Status.PENDING);
+        rentingLogRepository.save(rentingLog);
+        return "{\"msg\":\"success\"}";
+    }
 }

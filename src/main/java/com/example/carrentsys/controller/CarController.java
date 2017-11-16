@@ -4,9 +4,9 @@ import com.example.carrentsys.entity.Car;
 import com.example.carrentsys.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -101,9 +101,9 @@ public class CarController {
         return map;
     }
 
-    @RequestMapping(value = "/getCarsByStatus/{status}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getCarsByStatus", method = RequestMethod.GET)
     @ResponseBody
-    public List<Car> getCarsByStatus(@PathVariable("status") Car.Status status) {
+    public List<Car> getCarsByStatus(@RequestParam("status") Car.Status status) {
         return carRepository.findByStatus(status);
     }
 }

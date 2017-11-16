@@ -16,6 +16,6 @@ public class MainController {
     @RequestMapping(value = "/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "/index";
+        return "index";
     }
 }
