@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -114,15 +116,21 @@ public class RentingLogController {
 
     @RequestMapping(value = "/makeRenting", method = RequestMethod.POST)
     @ResponseBody
-    public String makeRenting(RentingLog rentingLog) {
-        if (rentingLog.getPlaningLendEndTime().getTime() - rentingLog.getPlaningLendStartTime().getTime() <= 0)
+    public String makeRenting(int carid, Timestamp planingLendStartTime, Timestamp planingLendEndTime, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (planingLendEndTime.getTime() - planingLendStartTime.getTime() <= 0)
             return "{\"msg\":\"Plainning time error\"}";
-        Car car = carRepository.findOne(rentingLog.getCar().getId());
+        Car car = carRepository.findOne(carid);
         if (car.getStatus() == Car.Status.USING) return "{\"msg\":\"car is using\"}";
         car.setStatus(Car.Status.BOOKING);
-        Client client = clientRepository.findOne(rentingLog.getClient().getId());
+        if (session.getAttribute("usertype") != "client") return "{\"msg\":\"error\"}";
+        String username = (String) session.getAttribute("username");
+        Client client = clientRepository.findByUsername(username);
+        RentingLog rentingLog = new RentingLog();
         rentingLog.setCar(car);
         rentingLog.setClient(client);
+        rentingLog.setPlaningLendEndTime(planingLendEndTime);
+        rentingLog.setPlaningLendStartTime(planingLendStartTime);
         rentingLog.setStatus(RentingLog.Status.PENDING);
         rentingLogRepository.save(rentingLog);
         return "{\"msg\":\"success\"}";
