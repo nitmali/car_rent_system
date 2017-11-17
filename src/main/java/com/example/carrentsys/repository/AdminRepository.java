@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AdminRepository extends CrudRepository<Admin,InternalError>{
+public interface AdminRepository extends CrudRepository<Admin, Integer> {
     Admin findByUsername(String username);
     boolean existsByUsername(String username);
 }
