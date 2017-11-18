@@ -1,3 +1,4 @@
-function HideWeekMonth() {
+
+window.onload = function () {
     $("#getlogin").hide();
 }
