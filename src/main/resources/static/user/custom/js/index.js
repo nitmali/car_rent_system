@@ -1,0 +1,3 @@
+function HideWeekMonth() {
+    $("#getlogin").hide();
+}

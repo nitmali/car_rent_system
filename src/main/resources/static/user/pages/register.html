@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <meta name="description" content="html 5 template">
+  <meta name="author" content="chinaz.com">
+  <title>Home</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../assets/css/plugins/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/css/plugins/jquery.smartmenus.bootstrap.css" rel="stylesheet">
+  <link href="../assets/css/plugins/nivo-slider.css" rel="stylesheet">
+  <link href="../assets/css/plugins/swiper.min.css" rel="stylesheet">
+  <link href="../assets/css/plugins/intlTelInput.min.css" rel="stylesheet">
+  <link href="../assets/css/plugins/remodal.min.css" rel="stylesheet">
+  <link href="../assets/css/plugins/animate.css" rel="stylesheet">
+  <link href="../assets/css/main-style.css" rel="stylesheet">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <link rel='stylesheet' href="../custom/css/login.css">
+</head>
+
+<body class="page__home">
+<!-- Loader -->
+<!-- //Loader -->
+<!-- Header -->
+<header class="site-header">
+  <div class="mobile-top-panel"></div>
+  <div class="mobile-top-panel__fixed">
+    <div class="container">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="menu-navigation navbar-collapse collapse">
+
+          <!-- Left nav -->
+          <ul class="menu-navigation__list nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="services-post.html">Services Post</a></li>
+            <li><a href="contacts.html">Contacts</a></li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+  <div class="header-container_wrap container">
+    <div class="header-container__flex">
+      <div class="logo">
+        <a href="index.html"><img src="../assets/images/logo.png" alt="Rent a car"></a>
+      </div>
+      <div class="phone_block">
+        <span><i class="icon-telephone"></i> 1-734-859-9821</span>
+        <small>我们的预订热线</small>
+      </div>
+    </div>
+  </div>
+  <div class="header-navigation-wrap stickUp">
+    <!-- Navbar fixed top -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="menu-navigation navbar-collapse collapse">
+          <!-- Left nav -->
+          <ul class="menu-navigation__list nav navbar-nav">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="services.html">预订服务</a></li>
+            <li><a href="services-post.html">后续服务</a></li>
+            <li><a href="contacts.html">给我们留言</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+
+      </div><!--/.container -->
+    </div>
+  </div>
+
+</header>
+<!-- // Header -->
+<!-- Content  -->
+<div style="background: url('../assets/images/slider/slide_2.jpg');background-size:cover">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6">
+        <div class="form-horizontal">
+          <span class="heading">新用户注册</span>
+          <div class="form-group">
+            <input type="text" class="form-control" id="inputUsername" placeholder="用户名" onclick="Inputusername()"
+                   onblur="compareusername()">
+            <span id="UsernameSpan" class="text text-danger"></span>
+          </div>
+          <div class="form-group help">
+            <input type="password" class="form-control" id="inputPassword" placeholder="密　码 (请输入至少6位的密码)"
+                   onblur="comparepassword()"
+                   onclick="InputPassword()">
+            <span id="PasswordSpan" class="text text-danger"></span>
+          </div>
+
+          <div class="form-group help">
+            <input type="password" class="form-control" id="inputPasswordConfirm" placeholder="再次输入密码"
+                   onblur="comparepassword()" onclick="InputPasswordConfirm()">
+            <span id="PasswordConfirmSpan" class="text text-danger"></span>
+          </div>
+          <div class="form-group help">
+            <input type="text" class="form-control" id="inpuId" placeholder="身份证号码" onblur="compareid()"
+                   onclick="Inputid()">
+            <span id="IdSpan" class="text text-danger"></span>
+          </div>
+          <div class="form-group help">
+            <input type="text" class="form-control" id="inputPhone" placeholder="手机号码" onblur="comparephone()"
+                   onclick="Inputphone()">
+            <span id="PhoneSpan" class="text text-danger"></span>
+          </div>
+
+          <div class="form-group help">
+            <div class="main-checkbox">
+              <input type="checkbox" value="None" id="checkbox1" name="check"/>
+              <label for="checkbox1" id="agree"></label>
+            </div>
+            <a href="#tiaokuan" class="text" id="tiaokuanbtn">同意服务条款</a>
+            <button class="btn" onclick="register()">注册</button>
+            <span id="registerspan" class="text text-danger"></span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="remodal" data-remodal-id="tiaokuan" style="width: 300px">
+
+    <p class="help-block">
+      这是一个条款
+    </p>
+  </div>
+
+</div>
+
+<!-- Google map -->
+<script src="../assets/js/jquery.1.12.4.min.js"></script>
+<script src="../assets/js/plugins/bootstrap.min.js"></script>
+<script src="../assets/js/plugins/wow.min.js"></script>
+<script src="../assets/js/plugins/jquery.smartmenus.min.js"></script>
+<script src="../assets/js/plugins/jquery.smartmenus.bootstrap.js"></script>
+<script src="../assets/js/plugins/jquery.nivo.slider.js"></script>
+<script src="../assets/js/plugins/swiper.min.js"></script>
+<script src="../assets/js/plugins/intlTelInput.min.js"></script>
+<script src="../assets/js/plugins/remodal.js"></script>
+<script src="../assets/js/plugins/stickup.min.js"></script>
+<script src="../assets/js/custom.js"></script>
+<!-- jQuery -->
+<script src="../../manage/vendor/js-md5/md5.min.js"></script>
+<script src="../custom/js/register.js"></script>
+</body>
+
+</html>

@@ -6,7 +6,6 @@ import com.example.carrentsys.repository.AdminRepository;
 import com.example.carrentsys.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,7 +40,6 @@ public class RegisterController {
 
     @RequestMapping(value = "/clientRegister", method = RequestMethod.POST)
     @ResponseBody
-    @Transactional(rollbackFor = Exception.class)
     public String clientRegister(HttpServletRequest request, Client client) {
         if (!clientRepository.existsByUsername(client.getUsername()) &&
                 !clientRepository.existsByIdCard(client.getIdCard())) {
@@ -50,8 +48,10 @@ public class RegisterController {
             session.setAttribute("username", client.getUsername());
             session.setAttribute("usertype", "client");
             return "{\"msg\":\"success\"}";
+        } else if (clientRepository.existsByIdCard(client.getIdCard())) {
+            return "{\"msg\":\"iderror\"}";
         } else {
-            return "{\"msg\":\"error\"}";
+            return "{\"msg\":\"nameerror\"}";
         }
     }
 }
