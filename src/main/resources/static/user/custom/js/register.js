@@ -4,14 +4,14 @@ var flag = [[false], [false], [false], [false], [false]];
 //post
 function register() {
 
-    if ($('#checkbox1').is(':checked')) {
+    if ($('#checkbox').is(':checked')) {
         $("#registerspan").html("")
         flag[0] = true;
     }
     if (flag[0] === true && flag[1] === true && flag[2] === true && flag[3] === true && flag[4] === true) {
         $.post("/clientRegister",
             {
-                username: $("#inputUsername").val(),
+                username: $("#inputUsernameRegister").val(),
                 password: md5($("#inputPasswordConfirm").val()),
                 idCard: $("#inpuId").val(),
                 phone: $("#inputPhone").val()
@@ -36,7 +36,7 @@ function register() {
 
 //username
 function Inputusername() {
-    $("#UsernameSpan").html("");
+    $("#inputUsernameRegister").html("");
 }
 
 function nameorid(ERROR) {
@@ -58,13 +58,13 @@ function compareusername() {
 //password
 function comparepassword() {
     $("#registerspan").html("")
-    if ($("#inputPassword").val().length < 6 && $("#inputPassword").val() !== "") {
+    if ($("#inputPasswordRegister").val().length < 6 && $("#inputPasswordRegister").val() !== "") {
         $("#PasswordSpan").html("请输入至少6位数的密码");
     }
-    if ($("#inputPasswordConfirm").val() !== $("#inputPassword").val() && $("#inputPasswordConfirm").val() !== "") {
+    if ($("#inputPasswordConfirm").val() !== $("#inputPasswordRegister").val() && $("#inputPasswordConfirm").val() !== "") {
         $("#PasswordConfirmSpan").html("两次密码输入不一致");
     }
-    if ($("#inputPasswordConfirm").val() === $("#inputPassword").val() && $("#inputPasswordConfirm").val() !== "") {
+    if ($("#inputPasswordConfirm").val() === $("#inputPasswordRegister").val() && $("#inputPasswordConfirm").val() !== "") {
         flag[2] = true;
     }
 }
