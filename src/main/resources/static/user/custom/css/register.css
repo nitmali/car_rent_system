@@ -1,0 +1,8 @@
+#registerdiv {
+    background: url("../../assets/images/slider/slide_2.jpg");
+    background-size: cover
+}
+
+.form-horizontal{
+    background-color: rgba(255,255,255,0.8);
+}
