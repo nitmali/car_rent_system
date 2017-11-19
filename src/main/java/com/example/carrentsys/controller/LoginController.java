@@ -1,7 +1,9 @@
 package com.example.carrentsys.controller;
 
+import com.example.carrentsys.entity.LoginLog;
 import com.example.carrentsys.repository.AdminRepository;
 import com.example.carrentsys.repository.ClientRepository;
+import com.example.carrentsys.repository.LoginLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,19 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @RestController
 public class LoginController {
     private final AdminRepository adminRepository;
-
     private final ClientRepository clientRepository;
+    private final LoginLogRepository loginLogRepository;
 
     @Autowired
-    public LoginController(AdminRepository adminRepository, ClientRepository clientRepository) {
+    public LoginController(AdminRepository adminRepository, ClientRepository clientRepository, LoginLogRepository loginLogRepository) {
         this.adminRepository = adminRepository;
         this.clientRepository = clientRepository;
+        this.loginLogRepository = loginLogRepository;
     }
 
     @RequestMapping(value = "/api/login/{usertype}")
@@ -31,18 +33,20 @@ public class LoginController {
         String passwd=request.getParameter("passwd");
         Assert.notNull(username, "username can not be empty");
         Assert.notNull(passwd, "password can not be empty");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+        HttpSession session = request.getSession();
+        session.setAttribute("username", username);
+        LoginLog loginLog = new LoginLog();
+        String ip = request.getRemoteAddr();
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        loginLog.setIp(ip);
+        loginLog.setLogintime(time);
+        loginLog.setUsername(username);
         if (usertype.equals("admin")) {
             if (adminRepository.findByUsername(username) != null) {
                 if (passwd.equals(adminRepository.findByUsername(username).getPassword())) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("username", username);
                     session.setAttribute("usertype", "admin");
-                    Date date = new Date();
-                    String resultDate = sdf.format(date);
-                    System.out.println(resultDate);
-                    String ip = request.getRemoteAddr();
-
+                    loginLog.setUsertype("admin");
+                    loginLogRepository.save(loginLog);
                     return "{\"msg\":\"success\"}";
                 } else {
                     return "{\"msg\":\"wpsd\"}";
@@ -51,24 +55,16 @@ public class LoginController {
                 return "{\"msg\":\"wid\"}";
             }
         } else if (usertype.equals("client")) {
-
             if (clientRepository.findByUsername(username) != null) {
                 if (passwd.equals(clientRepository.findByUsername(username).getPassword())) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("username", username);
                     session.setAttribute("usertype", "client");
-                    Date date = new Date();
-                    String resultDate = sdf.format(date);
-                    String ip = request.getRemoteAddr();
-
-                    System.out.println("get this success");
+                    loginLog.setUsertype("client");
+                    loginLogRepository.save(loginLog);
                     return "{\"msg\":\"success\"}";
                 } else {
-                    System.out.println("get this wpsd");
                     return "{\"msg\":\"wpsd\"}";
                 }
             } else {
-                System.out.println("get this wid");
                 return "{\"msg\":\"wid\"}";
             }
         }
