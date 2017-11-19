@@ -1,4 +1,4 @@
-
-window.onload = function () {
-    $("#getlogin").hide();
-}
+$(document).ready(function () {
+    $(".getlogin").hide();
+    $("#inputUsername").attr("autofocus", "true");
+});

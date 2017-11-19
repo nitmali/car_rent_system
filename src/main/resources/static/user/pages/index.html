@@ -63,13 +63,38 @@
 
           <!-- Left nav -->
           <ul class="menu-navigation__list nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About us</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="services-post.html">Services Post</a></li>
-            <li><a href="contacts.html">Contacts</a></li>
+            li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="services.html">预订服务</a></li>
+            <li><a href="services-post.html">后续服务</a></li>
+            <li><a href="contacts.html">给我们留言</a></li>
           </ul>
-
+          <div class="notlogin">
+            <div class="menu-navigation navbar-collapse collapse" style="float:right">
+              <!-- Left nav -->
+              <ul class="menu-navigation__list nav navbar-nav">
+                <li>&nbsp;</li>
+                <li><a href="#" data-toggle="modal" data-target="#loginmodal">登录</a></li>
+                <li><a href="register.html">注册</a></li>
+                <li><a href="../../manage/pages/login.html">管理员入口</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="getlogin">
+            <div class="menu-navigation navbar-collapse collapse" style="float:right">
+              <!-- Left nav -->
+              <ul class="menu-navigation__list nav navbar-nav">
+                <li>&nbsp;</li>
+                <li>
+                  <span class="myself">
+                    欢迎
+                  </span>
+                </li>
+                <li><a href="#">个人中心</a></li>
+                <li><a href="/logout" onclick="logout()">退出</a></li>
+              </ul>
+            </div>
+          </div>
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -106,7 +131,7 @@
             <li><a href="services-post.html">后续服务</a></li>
             <li><a href="contacts.html">给我们留言</a></li>
           </ul>
-          <div id="notlogin">
+          <div class="notlogin">
             <div class="menu-navigation navbar-collapse collapse" style="float:right">
               <!-- Left nav -->
               <ul class="menu-navigation__list nav navbar-nav">
@@ -117,13 +142,15 @@
               </ul>
             </div>
           </div>
-          <div id="getlogin">
+          <div class="getlogin">
             <div class="menu-navigation navbar-collapse collapse" style="float:right">
               <!-- Left nav -->
               <ul class="menu-navigation__list nav navbar-nav">
                 <li>&nbsp;</li>
-                <li><a href="#">个人中心</a></li>
-                <li><a href="#">退出</a></li>
+                <li>
+                  <a href="#"><span class="myself"></span></a>
+                </li>
+                <li><a href="/logout" onclick="logout()">退出</a></li>
               </ul>
             </div>
           </div>
@@ -153,7 +180,7 @@
       <div class="nivo-caption__inner">
         <div class="text">
           <h1 class="showtext showtext__h1">Trusted <br>by 5 Million<br> Customers<br> &amp; Counting</h1>
-          <span class="showtext showtext__link">Start your travel planning here!</span>
+          <a class="showtext showtext__link">Start your travel planning here!</a>
         </div>
       </div>
     </div>
@@ -161,7 +188,7 @@
       <div class="nivo-caption__inner left-side">
         <div class="text">
           <h1 class="showtext showtext__h1">Treat Yourself:<br> Book a Luxury<br> Car Rental</h1>
-          <span class="showtext showtext__link">Luxury Car Rental &amp; Chauffeured Cars</span>
+          <a class="showtext showtext__link">Luxury Car Rental &amp; Chauffeured Cars</a>
         </div>
       </div>
     </div>
@@ -169,7 +196,7 @@
       <div class="nivo-caption__inner">
         <div class="text">
           <h1 class="showtext showtext__h1">Pick up your<br> Luxury Car<br> Rental for less!</h1>
-          <span class="showtext showtext__link">Rent a Car and Save Up to 50%</span>
+          <a class="showtext showtext__link">Rent a Car and Save Up to 50%</a>
         </div>
       </div>
     </div>
@@ -337,7 +364,7 @@
           <ul class="footer-list">
             <li><a href="https://weibo.com/login.php">博客</a></li>
             <li><a href="https://www.zhihu.com/">FAQs</a></li>
-            <li><a  href="#" data-toggle="modal" data-target="#tk">服务条款</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#tk">服务条款</a></li>
           </ul>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
@@ -368,7 +395,7 @@
   <a href="#" class="scrollup"><i class="icon-arrow-down-sign-to-navigate"></i></a>
 </footer>
 <!--条款-->
-<div class="modal fade" id="tk"  aria-hidden="true">
+<div class="modal fade" id="tk" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -396,7 +423,8 @@
       <div class="col-md-offset-3 col-md-6">
         <div class="form-horizontal">
           <button type="button" class="close" data-dismiss="modal"
-                  aria-hidden="true">✘
+                  aria-hidden="true">
+            &nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;
           </button>
           <span class="heading">用户登录</span>
           <div class="form-group">
@@ -407,6 +435,9 @@
             <input type="password" class="form-control" id="inputPassword" placeholder="密　码">
             <i class="fa fa-lock"></i>
             <a href="#" class="fa fa-question-circle"></a>
+          </div>
+          <div class="form-group help">
+            <span class="text-danger" id="loginmessage"></span>
           </div>
           <div class="form-group">
             <div class="main-checkbox">
@@ -419,7 +450,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>,
 </div>
 
 

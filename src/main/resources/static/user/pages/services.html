@@ -59,13 +59,38 @@
 
           <!-- Left nav -->
           <ul class="menu-navigation__list nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About us</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="services-post.html">Services Post</a></li>
-            <li><a href="contacts.html">Contacts</a></li>
+            li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="services.html">预订服务</a></li>
+            <li><a href="services-post.html">后续服务</a></li>
+            <li><a href="contacts.html">给我们留言</a></li>
           </ul>
-
+          <div class="notlogin">
+            <div class="menu-navigation navbar-collapse collapse" style="float:right">
+              <!-- Left nav -->
+              <ul class="menu-navigation__list nav navbar-nav">
+                <li>&nbsp;</li>
+                <li><a href="#" data-toggle="modal" data-target="#loginmodal">登录</a></li>
+                <li><a href="register.html">注册</a></li>
+                <li><a href="../../manage/pages/login.html">管理员入口</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="getlogin">
+            <div class="menu-navigation navbar-collapse collapse" style="float:right">
+              <!-- Left nav -->
+              <ul class="menu-navigation__list nav navbar-nav">
+                <li>&nbsp;</li>
+                <li>
+                  <span class="myself">
+                    欢迎
+                  </span>
+                </li>
+                <li><a href="#">个人中心</a></li>
+                <li><a href="/logout" onclick="logout()">退出</a></li>
+              </ul>
+            </div>
+          </div>
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -102,7 +127,7 @@
             <li><a href="services-post.html">后续服务</a></li>
             <li><a href="contacts.html">给我们留言</a></li>
           </ul>
-          <div id="notlogin">
+          <div class="notlogin">
             <div class="menu-navigation navbar-collapse collapse" style="float:right">
               <!-- Left nav -->
               <ul class="menu-navigation__list nav navbar-nav">
@@ -113,13 +138,15 @@
               </ul>
             </div>
           </div>
-          <div id="getlogin">
+          <div class="getlogin">
             <div class="menu-navigation navbar-collapse collapse" style="float:right">
               <!-- Left nav -->
               <ul class="menu-navigation__list nav navbar-nav">
                 <li>&nbsp;</li>
-                <li><a href="#">个人中心</a></li>
-                <li><a href="#">退出</a></li>
+                <li>
+                  <a href="#"><span class="myself"></span></a>
+                </li>
+                <li><a href="/logout" onclick="logout()">退出</a></li>
               </ul>
             </div>
           </div>
@@ -135,160 +162,171 @@
 
 <!-- Content  -->
 <main id="page-content">
-  <div class="breadcrumbs">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="breadcrumbs__title">Our Services</div>
-          <div class="breadcrumbs__items">
-            <div class="breadcrumbs__wrap">
-              <div class="breadcrumbs__item">
-                <a href="index.html" class="breadcrumbs__item-link">Home</a> <span>/</span> <a href="services.html"
-                                                                                               class="breadcrumbs__item-link">Services</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- // Breadcrumbs  -->
-  <section class="service-info-box">
-    <div class="swiper-container-column swiper-container-column-second swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide odd-line">
-          <div class="service-block">
-            <figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_1.jpg"
-                                                                              alt=""></a></span></figure>
-            <div class="service-block__content">
-              <h3>24 Hour Airport Services</h3>
-              <p>The best and biggest airport transfer company in the city, Airport Transfers is here to provide you
-                with the best one-stop transportation service with minimal fuss and maximum comfort.</p>
-              <a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide even-line">
-          <div class="service-block">
-            <figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_2.jpg"
-                                                                              alt=""></a></span></figure>
-            <div class="service-block__content">
-              <h3>Corporate Meetings &amp; Events</h3>
-              <p>Does your company have employees or clients who frequently rent in the Los Angeles area? Setting up a
-                corporate account allowsus to pre-deliver vehicles to hotels, offices, residences.</p>
-              <a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide odd-line">
-          <div class="service-block">
-            <figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_3.jpg"
-                                                                              alt=""></a></span></figure>
-            <div class="service-block__content">
-              <h3>Business Travel</h3>
-              <p>We offer professional drivers who can chauffeur you to any destination you choose. Or ask for a type of
-                tour or drive you are in the mood for and let us do the rest. </p>
-              <a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide odd-line">
-          <div class="service-block">
-            <figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_4.jpg"
-                                                                              alt=""></a></span></figure>
-            <div class="service-block__content">
-              <h3>Private Tours</h3>
-              <p>Huge discounts. Free Delivery and Pickup. Free Car washes. Free upgrades. Free maintenance. We offer
-                amazing deals on car rental rates. Give us a call we make it easy and affordable.</p>
-              <a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide even-line">
-          <div class="service-block">
-            <figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_5.jpg"
-                                                                              alt=""></a></span></figure>
-            <div class="service-block__content">
-              <h3>To My Door</h3>
-              <p>Sometimes there just aren’t enough hours in the day. So, why would you want to spend an hour travelling
-                across town to pick up a hire car?</p>
-              <a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide odd-line">
-          <div class="service-block">
-            <figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_6.jpg"
-                                                                              alt=""></a></span></figure>
-            <div class="service-block__content">
-              <h3>Private Tours</h3>
-              <p>If you’ve got a busy trip ahead and you simply want to get straight behind the wheel when you arrive to
-                pick up your rental car, you’re in luck. Online Check-in is designed to get you out on the road as soon
-                as possible, and the best part is… it’s a free service.</p>
-              <a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="swiper-pagination swiper-pagination-column-main"></div>
-  </section>
-
   <div class="container">
     <div class="row">
-      <div class="col-sm-12">
-        <div class="phone-box">
-          <h1>Join Us and Save on Car Rentals!</h1>
-          <span class="text-link">Great offers for cheap car rental, daily, weekly long term rentals</span>
-          <h3 class="phone-box__number">Call Now: <span><i class="icon-telephone"></i> 1-800-123-4567</span></h3>
-        </div>
+      <div style="margin:200px auto">
+        <img src="../assets/images/bg-building.png">
+        <h4>此功能正在建设中...</h4>
+        <h4>In the building...</h4>
       </div>
     </div>
   </div>
-
-  <div class="services-box">
-    <div class="container">
-      <div class="box-list-posts swiper-container-services swiper-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="post-column">
-              <figure class="thumbnail"><img src="../assets/images/post-sm-img-1.jpg" alt=""></figure>
-              <div class="post-column__content">
-                <h3>Nearest<br> Airport Deals</h3>
-                <span class="text-link">Budget Prices for Long Term Rentals</span>
-                <a href="#" class="btn btn__marker"><i class="icon-arrows"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="post-column">
-              <figure class="thumbnail"><img src="../assets/images/post-sm-img-2.jpg" alt=""></figure>
-              <div class="post-column__content">
-                <h3>Online Reservations</h3>
-                <span class="text-link">Search Prices and Special Offers</span>
-                <a href="#" class="btn btn__marker"><i class="icon-arrows"></i></a>
-              </div>
-
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="post-column">
-              <figure class="thumbnail"><img src="../assets/images/post-sm-img-3.jpg" alt=""></figure>
-              <div class="post-column__content">
-                <h3>24/7 Road Assistance</h3>
-                <span class="text-link">Road Assistance &amp; Car Replacement</span>
-                <a href="#" class="btn btn__marker"><i class="icon-arrows"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-pagination swiper-pagination-services"></div>
-      </div>
-      <!-- // box-list-posts  -->
-    </div>
-  </div>
-
 </main>
+<!--<main id="page-content">-->
+  <!--<div class="breadcrumbs">-->
+    <!--<div class="container">-->
+      <!--<div class="row">-->
+        <!--<div class="col-xs-12">-->
+          <!--<div class="breadcrumbs__title">Our Services</div>-->
+          <!--<div class="breadcrumbs__items">-->
+            <!--<div class="breadcrumbs__wrap">-->
+              <!--<div class="breadcrumbs__item">-->
+                <!--<a href="index.html" class="breadcrumbs__item-link">Home</a> <span>/</span> <a href="services.html"-->
+                                                                                               <!--class="breadcrumbs__item-link">Services</a>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--&lt;!&ndash; // Breadcrumbs  &ndash;&gt;-->
+  <!--<section class="service-info-box">-->
+    <!--<div class="swiper-container-column swiper-container-column-second swiper-container">-->
+      <!--<div class="swiper-wrapper">-->
+        <!--<div class="swiper-slide odd-line">-->
+          <!--<div class="service-block">-->
+            <!--<figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_1.jpg"-->
+                                                                              <!--alt=""></a></span></figure>-->
+            <!--<div class="service-block__content">-->
+              <!--<h3>24 Hour Airport Services</h3>-->
+              <!--<p>The best and biggest airport transfer company in the city, Airport Transfers is here to provide you-->
+                <!--with the best one-stop transportation service with minimal fuss and maximum comfort.</p>-->
+              <!--<a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="swiper-slide even-line">-->
+          <!--<div class="service-block">-->
+            <!--<figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_2.jpg"-->
+                                                                              <!--alt=""></a></span></figure>-->
+            <!--<div class="service-block__content">-->
+              <!--<h3>Corporate Meetings &amp; Events</h3>-->
+              <!--<p>Does your company have employees or clients who frequently rent in the Los Angeles area? Setting up a-->
+                <!--corporate account allowsus to pre-deliver vehicles to hotels, offices, residences.</p>-->
+              <!--<a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="swiper-slide odd-line">-->
+          <!--<div class="service-block">-->
+            <!--<figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_3.jpg"-->
+                                                                              <!--alt=""></a></span></figure>-->
+            <!--<div class="service-block__content">-->
+              <!--<h3>Business Travel</h3>-->
+              <!--<p>We offer professional drivers who can chauffeur you to any destination you choose. Or ask for a type of-->
+                <!--tour or drive you are in the mood for and let us do the rest. </p>-->
+              <!--<a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="swiper-slide odd-line">-->
+          <!--<div class="service-block">-->
+            <!--<figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_4.jpg"-->
+                                                                              <!--alt=""></a></span></figure>-->
+            <!--<div class="service-block__content">-->
+              <!--<h3>Private Tours</h3>-->
+              <!--<p>Huge discounts. Free Delivery and Pickup. Free Car washes. Free upgrades. Free maintenance. We offer-->
+                <!--amazing deals on car rental rates. Give us a call we make it easy and affordable.</p>-->
+              <!--<a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="swiper-slide even-line">-->
+          <!--<div class="service-block">-->
+            <!--<figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_5.jpg"-->
+                                                                              <!--alt=""></a></span></figure>-->
+            <!--<div class="service-block__content">-->
+              <!--<h3>To My Door</h3>-->
+              <!--<p>Sometimes there just aren’t enough hours in the day. So, why would you want to spend an hour travelling-->
+                <!--across town to pick up a hire car?</p>-->
+              <!--<a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="swiper-slide odd-line">-->
+          <!--<div class="service-block">-->
+            <!--<figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_6.jpg"-->
+                                                                              <!--alt=""></a></span></figure>-->
+            <!--<div class="service-block__content">-->
+              <!--<h3>Private Tours</h3>-->
+              <!--<p>If you’ve got a busy trip ahead and you simply want to get straight behind the wheel when you arrive to-->
+                <!--pick up your rental car, you’re in luck. Online Check-in is designed to get you out on the road as soon-->
+                <!--as possible, and the best part is… it’s a free service.</p>-->
+              <!--<a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="swiper-pagination swiper-pagination-column-main"></div>-->
+  <!--</section>-->
+
+  <!--<div class="container">-->
+    <!--<div class="row">-->
+      <!--<div class="col-sm-12">-->
+        <!--<div class="phone-box">-->
+          <!--<h1>Join Us and Save on Car Rentals!</h1>-->
+          <!--<span class="text-link">Great offers for cheap car rental, daily, weekly long term rentals</span>-->
+          <!--<h3 class="phone-box__number">Call Now: <span><i class="icon-telephone"></i> 1-800-123-4567</span></h3>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="services-box">-->
+    <!--<div class="container">-->
+      <!--<div class="box-list-posts swiper-container-services swiper-container">-->
+        <!--<div class="swiper-wrapper">-->
+          <!--<div class="swiper-slide">-->
+            <!--<div class="post-column">-->
+              <!--<figure class="thumbnail"><img src="../assets/images/post-sm-img-1.jpg" alt=""></figure>-->
+              <!--<div class="post-column__content">-->
+                <!--<h3>Nearest<br> Airport Deals</h3>-->
+                <!--<span class="text-link">Budget Prices for Long Term Rentals</span>-->
+                <!--<a href="#" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="swiper-slide">-->
+            <!--<div class="post-column">-->
+              <!--<figure class="thumbnail"><img src="../assets/images/post-sm-img-2.jpg" alt=""></figure>-->
+              <!--<div class="post-column__content">-->
+                <!--<h3>Online Reservations</h3>-->
+                <!--<span class="text-link">Search Prices and Special Offers</span>-->
+                <!--<a href="#" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
+              <!--</div>-->
+
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="swiper-slide">-->
+            <!--<div class="post-column">-->
+              <!--<figure class="thumbnail"><img src="../assets/images/post-sm-img-3.jpg" alt=""></figure>-->
+              <!--<div class="post-column__content">-->
+                <!--<h3>24/7 Road Assistance</h3>-->
+                <!--<span class="text-link">Road Assistance &amp; Car Replacement</span>-->
+                <!--<a href="#" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="swiper-pagination swiper-pagination-services"></div>-->
+      <!--</div>-->
+      <!--&lt;!&ndash; // box-list-posts  &ndash;&gt;-->
+    <!--</div>-->
+  <!--</div>-->
+
+<!--</main>-->
 <!-- // Content  -->
 
 <!-- Footer -->
@@ -394,7 +432,7 @@
       <div class="col-md-offset-3 col-md-6">
         <div class="form-horizontal">
           <button type="button" class="close" data-dismiss="modal"
-                  aria-hidden="true">✘
+                  aria-hidden="true">&nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;
           </button>
           <span class="heading">用户登录</span>
           <div class="form-group">
@@ -405,6 +443,9 @@
             <input type="password" class="form-control" id="inputPassword" placeholder="密　码">
             <i class="fa fa-lock"></i>
             <a href="#" class="fa fa-question-circle"></a>
+          </div>
+          <div class="form-group help">
+            <span class="text-danger" id="loginmessage"></span>
           </div>
           <div class="form-group">
             <div class="main-checkbox">

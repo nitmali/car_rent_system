@@ -131,6 +131,15 @@
     transition: all 0.5s ease 0s;
 }
 
+#loginmessage {
+    float: left;
+}
+
+.modal .form-horizontal .close {
+    color: red;
+    font-size: 25px;
+}
+
 @media only screen and (max-width: 479px) {
     .form-horizontal .form-group {
         padding: 0 25px;

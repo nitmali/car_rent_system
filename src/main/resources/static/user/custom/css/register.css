@@ -1,10 +1,24 @@
 #registerdiv {
     height: 800px;
     background: url("../../assets/images/slider/slide_2.jpg");
-    background-size: cover
+    background-size: cover;
 }
 
-.form-horizontal{
-    margin-top:100px;
-    background-color: rgba(255,255,255,0.98);
+.form-horizontal {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    background-color: rgba(255, 255, 255, 0.98);
 }
+
+/*#registerdiv .container*/
+/*{*/
+/*background: red;*/
+/*}*/
+
+/*#registerdiv .row{*/
+/*background: yellow;*/
+/*}*/
+/*#registerdiv .col-md-offset-3 col-md-6*/
+/*{*/
+/*background: green;*/
+/*}*/

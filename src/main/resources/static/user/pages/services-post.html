@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
   <meta name="description" content="html 5 template">
   <meta name="author" content="chinaz.com">
-  <title></title>
+  <title>后续服务</title>
   <!-- Bootstrap core CSS -->
   <link href="../assets/css/plugins/bootstrap.min.css" rel="stylesheet">
   <link href="../assets/css/plugins/jquery.smartmenus.bootstrap.css" rel="stylesheet">
@@ -58,13 +58,38 @@
 
           <!-- Left nav -->
           <ul class="menu-navigation__list nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About us</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="services-post.html">Services Post</a></li>
-            <li><a href="contacts.html">Contacts</a></li>
+            li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="services.html">预订服务</a></li>
+            <li><a href="services-post.html">后续服务</a></li>
+            <li><a href="contacts.html">给我们留言</a></li>
           </ul>
-
+          <div class="notlogin">
+            <div class="menu-navigation navbar-collapse collapse" style="float:right">
+              <!-- Left nav -->
+              <ul class="menu-navigation__list nav navbar-nav">
+                <li>&nbsp;</li>
+                <li><a href="#" data-toggle="modal" data-target="#loginmodal">登录</a></li>
+                <li><a href="register.html">注册</a></li>
+                <li><a href="../../manage/pages/login.html">管理员入口</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="getlogin">
+            <div class="menu-navigation navbar-collapse collapse" style="float:right">
+              <!-- Left nav -->
+              <ul class="menu-navigation__list nav navbar-nav">
+                <li>&nbsp;</li>
+                <li>
+                  <span class="myself">
+                    欢迎
+                  </span>
+                </li>
+                <li><a href="#">个人中心</a></li>
+                <li><a href="/logout" onclick="logout()">退出</a></li>
+              </ul>
+            </div>
+          </div>
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -101,7 +126,7 @@
             <li><a href="services-post.html">后续服务</a></li>
             <li><a href="contacts.html">给我们留言</a></li>
           </ul>
-          <div id="notlogin">
+          <div class="notlogin">
             <div class="menu-navigation navbar-collapse collapse" style="float:right">
               <!-- Left nav -->
               <ul class="menu-navigation__list nav navbar-nav">
@@ -112,13 +137,15 @@
               </ul>
             </div>
           </div>
-          <div id="getlogin">
+          <div class="getlogin">
             <div class="menu-navigation navbar-collapse collapse" style="float:right">
               <!-- Left nav -->
               <ul class="menu-navigation__list nav navbar-nav">
                 <li>&nbsp;</li>
-                <li><a href="#">个人中心</a></li>
-                <li><a href="#">退出</a></li>
+                <li>
+                  <a href="#"><span class="myself"></span></a>
+                </li>
+                <li><a href="/logout" onclick="logout()">退出</a></li>
               </ul>
             </div>
           </div>
@@ -134,59 +161,12 @@
 
 <!-- Content  -->
 <main id="page-content">
-  <div class="breadcrumbs">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="breadcrumbs__title">Services</div>
-          <div class="breadcrumbs__items">
-            <div class="breadcrumbs__wrap">
-              <div class="breadcrumbs__item">
-                <a href="index.html" class="breadcrumbs__item-link">Home</a> <span>/</span> <a href="services.html"
-                                                                                               class="breadcrumbs__item-link">About
-                Us</a> <span>/</span> <a href="services-post.html" class="breadcrumbs__item-link"> 24 Hour Airport
-                Services</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- // Breadcrumbs  -->
   <div class="container">
     <div class="row">
-      <div class="col-xs-12">
-        <article class="services-post">
-          <figure class="thumbnail"><img src="../assets/images/services-post-img.jpg" alt=""></figure>
-          <div class="services-post__desc">
-            <h2>24 Hour Airport Services</h2>
-            <p>Rental Cars offers worldwide airport transportation, making its airport car services available at
-              hundreds of airport pick-up locations, anytime. Trying to find a taxi at an airport can be hectic any time
-              of day. Instead of worrying about finding and waiting in the right line just to get into a cab of
-              questionable quality and reliability, reserve an luxury sedan or stretch limousine that will be waiting to
-              pick you up when you arrive.</p>
-            <p>Airport car services are always on time and reliable, and they are available 24/7. Rental Cars services
-              include limousine airport transportation as well as luxury car service in Los Angeles, Hong Kong, Chicago,
-              and many other destinations. </p>
-            <a href="contacts.html" class="btn">ORDER SERVICE NOW</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <figure class="thumbnail banner-thumb">
-          <a href="#"><img src="../assets/images/banner-1.jpg" alt=""></a>
-        </figure>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <figure class="thumbnail banner-thumb">
-          <a href="#"><img src="../assets/images/banner-2.jpg" alt=""></a>
-        </figure>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <figure class="thumbnail banner-thumb">
-          <a href="#"><img src="../assets/images/banner-3.jpg" alt=""></a>
-        </figure>
+      <div style="margin:200px auto">
+        <img src="../assets/images/bg-building.png">
+        <h4>此功能正在建设中...</h4>
+        <h4>In the building...</h4>
       </div>
     </div>
   </div>
@@ -296,7 +276,7 @@
       <div class="col-md-offset-3 col-md-6">
         <div class="form-horizontal">
           <button type="button" class="close" data-dismiss="modal"
-                  aria-hidden="true">✘
+                  aria-hidden="true">&nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;
           </button>
           <span class="heading">用户登录</span>
           <div class="form-group">
@@ -307,6 +287,9 @@
             <input type="password" class="form-control" id="inputPassword" placeholder="密　码">
             <i class="fa fa-lock"></i>
             <a href="#" class="fa fa-question-circle"></a>
+          </div>
+          <div class="form-group help">
+            <span class="text-danger" id="loginmessage"></span>
           </div>
           <div class="form-group">
             <div class="main-checkbox">

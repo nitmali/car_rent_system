@@ -55,13 +55,38 @@
 
           <!-- Left nav -->
           <ul class="menu-navigation__list nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About us</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="services-post.html">Services Post</a></li>
-            <li><a href="contacts.html">Contacts</a></li>
+            li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="services.html">预订服务</a></li>
+            <li><a href="services-post.html">后续服务</a></li>
+            <li><a href="contacts.html">给我们留言</a></li>
           </ul>
-
+          <div class="notlogin">
+            <div class="menu-navigation navbar-collapse collapse" style="float:right">
+              <!-- Left nav -->
+              <ul class="menu-navigation__list nav navbar-nav">
+                <li>&nbsp;</li>
+                <li><a href="#" data-toggle="modal" data-target="#loginmodal">登录</a></li>
+                <li><a href="register.html">注册</a></li>
+                <li><a href="../../manage/pages/login.html">管理员入口</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="getlogin">
+            <div class="menu-navigation navbar-collapse collapse" style="float:right">
+              <!-- Left nav -->
+              <ul class="menu-navigation__list nav navbar-nav">
+                <li>&nbsp;</li>
+                <li>
+                  <span class="myself">
+                    欢迎
+                  </span>
+                </li>
+                <li><a href="#">个人中心</a></li>
+                <li><a href="/logout" onclick="logout()">退出</a></li>
+              </ul>
+            </div>
+          </div>
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -98,7 +123,7 @@
             <li><a href="services-post.html">后续服务</a></li>
             <li><a href="contacts.html">给我们留言</a></li>
           </ul>
-          <div id="notlogin">
+          <div class="notlogin">
             <div class="menu-navigation navbar-collapse collapse" style="float:right">
               <!-- Left nav -->
               <ul class="menu-navigation__list nav navbar-nav">
@@ -109,13 +134,15 @@
               </ul>
             </div>
           </div>
-          <div id="getlogin">
+          <div class="getlogin">
             <div class="menu-navigation navbar-collapse collapse" style="float:right">
               <!-- Left nav -->
               <ul class="menu-navigation__list nav navbar-nav">
                 <li>&nbsp;</li>
-                <li><a href="#">个人中心</a></li>
-                <li><a href="#">退出</a></li>
+                <li>
+                  <a href="#"><span class="myself"></span></a>
+                </li>
+                <li><a href="/logout" onclick="logout()">退出</a></li>
               </ul>
             </div>
           </div>
@@ -283,7 +310,7 @@
       <div class="col-md-offset-3 col-md-6">
         <div class="form-horizontal">
           <button type="button" class="close" data-dismiss="modal"
-                  aria-hidden="true">✘
+                  aria-hidden="true">&nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;
           </button>
           <span class="heading">用户登录</span>
           <div class="form-group">
@@ -294,6 +321,9 @@
             <input type="password" class="form-control" id="inputPassword" placeholder="密　码">
             <i class="fa fa-lock"></i>
             <a href="#" class="fa fa-question-circle"></a>
+          </div>
+          <div class="form-group help">
+            <span class="text-danger" id="loginmessage"></span>
           </div>
           <div class="form-group">
             <div class="main-checkbox">
@@ -323,6 +353,7 @@
 <!-- jQuery -->
 
 <script src="../../manage/vendor/js-md5/md5.min.js"></script>
+<script src="../custom/js/index.js"></script>
 <script src="../custom/js/login.js"></script>
 <script src="../custom/js/register.js"></script>
 

@@ -36,7 +36,7 @@ function register() {
 
 //username
 function Inputusername() {
-    $("#inputUsernameRegister").html("");
+    $("#UsernameSpan").html("");
 }
 
 function nameorid(ERROR) {
@@ -51,7 +51,6 @@ function nameorid(ERROR) {
 function compareusername() {
     if ($("#inputName").val() !== "") {
         flag[1] = true;
-
     }
 }
 
@@ -113,3 +112,8 @@ function Inputphone() {
     $("#registerspan").html("");
     $("#PhoneSpan").html("");
 }
+
+window.onload = function () {
+    $("#inputUsernameRegister")[0].focus();
+}
+
