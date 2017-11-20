@@ -24,15 +24,17 @@ $(document).ready(function () {
 });
 
 function loginin() {
+
+    //令牌
+    var str_username = $("#inputUsername").val();
+    // var str_password = $("#inputPassword").val();
+    $.cookie("Token", str_username, {expires: 7});
     // Remember Me
     if ($('#checkbox1').is(':checked')) {
-        var str_username = $("#inputUsername").val();
-        // var str_password = $("#inputPassword").val();
-        $.cookie("rmbUser", "true", {expires: 7}); //存储一个带7天期限的cookie
+
         $.cookie("username", str_username, {expires: 7});
         // $.cookie("password", str_password, {expires: 7});
     } else {
-        $.cookie("rmbUser", "false", {expire: -1});
         $.cookie("username", "", {expires: -1});
         $.cookie("password", "", {expires: -1});
     }
@@ -62,6 +64,7 @@ function loginin() {
 function logout() {
     $(".notlogin").show();
     $(".getlogin").hide();
+    $.cookie("Token", "", {expires: -1});
 }
 
 //jquery.cookie.js

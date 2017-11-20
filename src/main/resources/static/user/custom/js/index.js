@@ -5,14 +5,15 @@ $(document).ready(function () {
     $.get("/getusername",
         function (data) {
             if (data.msg !== "error") {
-                $(".myself").html(data.username);
-                $(".notlogin").hide();
-                $(".getlogin").show();
-                $("#loginmodal").modal("hide")
+                if ((data.usertype === "client") && (data.username === $.cookie("Token"))) {
+                    $(".myself").html(data.username);
+                    $(".notlogin").hide();
+                    $(".getlogin").show();
+                    $("#loginmodal").modal("hide")
+                }
             }
         }, "json"
     );
-
 
     //光标
     if ($("#inputUsername").val() === "") {
