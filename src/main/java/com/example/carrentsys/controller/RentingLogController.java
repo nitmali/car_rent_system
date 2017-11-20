@@ -40,7 +40,7 @@ public class RentingLogController {
     }
 
 
-    @RequestMapping("/getRentingLog")
+    @RequestMapping("/manage/getRentingLog")
     @ResponseBody
     public Map<String, Object> getRentingLog(@RequestParam(required = false, defaultValue = "1") int draw,
                                              @RequestParam(required = false, defaultValue = "0") int start,
@@ -57,13 +57,13 @@ public class RentingLogController {
         return maps;
     }
 
-    @RequestMapping(value = "/reviewLogs", method = RequestMethod.GET)
+    @RequestMapping(value = "/manage/reviewLogs", method = RequestMethod.GET)
     @ResponseBody
     public List<RentingLog> getreviewLogs() {
         return rentingLogRepository.findByStatus(RentingLog.Status.PENDING);
     }
 
-    @RequestMapping(value = "/reviewLogs", method = RequestMethod.POST)
+    @RequestMapping(value = "/manage/reviewLogs", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
     public String handleReviewLogs(@RequestParam("id") String id, String type) {
@@ -85,13 +85,13 @@ public class RentingLogController {
         return "{\"msg\":\"success\"}";
     }
 
-    @RequestMapping(value = "/givebackLogs", method = RequestMethod.GET)
+    @RequestMapping(value = "/manage/givebackLogs", method = RequestMethod.GET)
     @ResponseBody
     public List<RentingLog> givebackLogs() {
         return rentingLogRepository.findGivebackLogs();
     }
 
-    @RequestMapping(value = "/givebackCar", method = RequestMethod.POST)
+    @RequestMapping(value = "/manage/givebackCar", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
     public String givebackCar(@RequestParam("id") String id) {
