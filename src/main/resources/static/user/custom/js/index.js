@@ -1,4 +1,11 @@
 $(document).ready(function () {
     $(".getlogin").hide();
-    $("#inputUsername").attr("autofocus", "true");
+
+    //光标
+    if ($("#inputUsername").val() === "") {
+        $("#inputUsername").attr("autofocus", "true");
+    } else {
+        $("#inputPassword").attr("autofocus", "true");
+    }
+
 });

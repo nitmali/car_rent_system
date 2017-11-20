@@ -1,6 +1,5 @@
-
-// 回车键登录
 $(document).ready(function () {
+    // 回车键登录
     var modal_status = 0;//默认隐藏
     $('#loginmodal').on('show.bs.modal', function (e) {
         modal_status = 1;
@@ -13,26 +12,28 @@ $(document).ready(function () {
             loginin();
         }
     });
-});
 
-// Remember Me
-$(document).ready(function () {
+    // Remember Me
     $("#checkbox1").attr("checked", 'true');
     if ($.cookie("rmbUser") === "true") {
         $("#ck_rmbUser").attr("checked", true);
         $("#inputUsername").val($.cookie("username"));
-        $("#inputPassword").val($.cookie("password"));
+        //$("#inputPassword").val($.cookie("password"));
     }
 });
-function loginin() {
 
+$(document).ready(function () {
+
+});
+
+function loginin() {
     // Remember Me
     if ($('#checkbox1').is(':checked')) {
         var str_username = $("#inputUsername").val();
         var str_password = $("#inputPassword").val();
         $.cookie("rmbUser", "true", {expires: 7}); //存储一个带7天期限的cookie
         $.cookie("username", str_username, {expires: 7});
-        $.cookie("password", str_password, {expires: 7});
+        // $.cookie("password", str_password, {expires: 7});
     } else {
         $.cookie("rmbUser", "false", {expire: -1});
         $.cookie("username", "", {expires: -1});
@@ -53,7 +54,6 @@ function loginin() {
                     $(".notlogin").hide();
                     $(".getlogin").show();
                     $("#loginmodal").modal("hide")
-
                 } else {
                     $("#loginmessage").html("  账号或者密码错误");
                 }
@@ -63,7 +63,7 @@ function loginin() {
 }
 
 
-//bootstrap.cookie.js
+//jquery.cookie.js
 /*!
  * jQuery Cookie Plugin v1.4.1
  * https://github.com/carhartl/jquery-cookie

@@ -304,15 +304,15 @@ $document.ready(function () {
 			},
 			messages: {
 				name: {
-					required: "Please enter your name",
-					minlength: "Your name must consist of at least 2 characters"
+					required: "请输入您的姓名",
+					minlength: "你的名字必须包含至少2个字符"
 				},
 				message: {
-					required: "Please enter message",
-					minlength: "Your message must consist of at least 20 characters"
+					required: "请输入消息",
+					minlength: "您的留言必须包含至少20个字符"
 				},
 				email: {
-					required: "Please enter your email"
+					required: "请输入您的电子邮件"
 				}
 			},
 			submitHandler: function (form) {
