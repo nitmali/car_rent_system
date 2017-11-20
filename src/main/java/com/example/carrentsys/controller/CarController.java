@@ -2,6 +2,7 @@ package com.example.carrentsys.controller;
 
 import com.example.carrentsys.entity.Car;
 import com.example.carrentsys.repository.CarRepository;
+import com.example.carrentsys.repository.RentingLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,18 +10,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.sql.Timestamp;
+import java.util.*;
 
 @Controller
 public class CarController {
     private final CarRepository carRepository;
+    private final RentingLogRepository rentingLogRepository;
 
     @Autowired
-    public CarController(CarRepository carRepository) {
+    public CarController(CarRepository carRepository, RentingLogRepository rentingLogRepository) {
         this.carRepository = carRepository;
+        this.rentingLogRepository = rentingLogRepository;
     }
 
     @RequestMapping(value = "/manage/getAllCars", method = RequestMethod.GET)
@@ -105,5 +106,14 @@ public class CarController {
     @ResponseBody
     public List<Car> getCarsByStatus(@RequestParam("status") Car.Status status) {
         return carRepository.findByStatus(status);
+    }
+
+    @RequestMapping(value = "/getAvailableCars", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Car> getAvailableCars(Timestamp planingLendStartTime, Timestamp planingLendEndTime) {
+        List<Car> availableCars = new ArrayList<>();
+        availableCars.addAll(carRepository.findAll());
+        availableCars.removeAll(rentingLogRepository.findUnavailableCarNotIDLE(planingLendStartTime, planingLendEndTime));
+        return availableCars;
     }
 }

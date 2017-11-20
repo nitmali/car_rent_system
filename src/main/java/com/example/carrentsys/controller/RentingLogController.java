@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +99,7 @@ public class RentingLogController {
         RentingLog rentingLog = rentingLogRepository.findOne(Integer.valueOf(id));
         Car car = rentingLog.getCar();
         rentingLog.setLendEndTime(new Timestamp(System.currentTimeMillis()));
+        rentingLog.setStatus(RentingLog.Status.FINISH);
         car.setStatus(Car.Status.IDLE);
         rentingLog.setCar(car);
         return "{\"msg\":\"success\"}";
@@ -121,7 +123,12 @@ public class RentingLogController {
         if (planingLendEndTime.getTime() - planingLendStartTime.getTime() <= 0)
             return "{\"msg\":\"Plainning time error\"}";
         Car car = carRepository.findOne(carid);
-        if (car.getStatus() == Car.Status.USING) return "{\"msg\":\"car is using\"}";
+        List<Car> availableCars = new ArrayList<>();
+        availableCars.addAll(carRepository.findAll());
+        availableCars.removeAll(rentingLogRepository.findUnavailableCarNotIDLE(planingLendStartTime, planingLendEndTime));
+        if (!availableCars.contains(car)) {
+            return "{\"msg\":\"car is not available\"}";
+        }
         car.setStatus(Car.Status.BOOKING);
         if (session.getAttribute("usertype") != "client") return "{\"msg\":\"error\"}";
         String username = (String) session.getAttribute("username");

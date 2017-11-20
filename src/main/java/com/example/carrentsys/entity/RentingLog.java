@@ -48,7 +48,8 @@ public class RentingLog {
     public enum Status {
         PENDING,
         PASS,
-        REJECT
+        REJECT,
+        FINISH
     }
 
     public int getId() {
