@@ -55,7 +55,7 @@
 
           <!-- Left nav -->
           <ul class="menu-navigation__list nav navbar-nav">
-            li><a href="index.html">首页</a></li>
+            <li><a href="index.html">首页</a></li>
             <li><a href="about.html">关于我们</a></li>
             <li><a href="services.html">预订服务</a></li>
             <li><a href="services-post.html">后续服务</a></li>
@@ -76,9 +76,8 @@
             <div class="menu-navigation navbar-collapse collapse" style="float:right">
               <!-- Left nav -->
               <ul class="menu-navigation__list nav navbar-nav">
-                <li>&nbsp;</li>>
-                </li>
-                <li><a href="person.html"><span class="myself"></span></a>/li>
+                <li>&nbsp;</li>
+                <li><a href="profile.html"><span class="myself"></span></a></li>
                 <li><a href="/logout" onclick="logout()">退出</a></li>
               </ul>
             </div>
@@ -136,7 +135,7 @@
               <ul class="menu-navigation__list nav navbar-nav">
                 <li>&nbsp;</li>
                 <li>
-                  <a href="person.html"><span class="myself"></span></a>
+                  <a href="profile.html"><span class="myself"></span></a>
                 </li>
                 <li><a href="/logout" onclick="logout()">退出</a></li>
               </ul>
@@ -191,7 +190,7 @@
               <input type="checkbox" value="None" id="checkbox" name="check"/>
               <label for="checkbox" id="agree"></label>
             </div>
-            <a href="#tiaokuan" class="text" id="tiaokuanbtn">同意服务条款</a>
+            <a href="#" class="text" id="tiaokuanbtn" data-toggle="modal" data-target="#tkregister">同意服务条款</a>
             <button class="btn" onclick="register()">注册</button>
             <span id="registerspan" class="text text-danger"></span>
           </div>

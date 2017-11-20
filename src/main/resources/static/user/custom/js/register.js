@@ -5,7 +5,7 @@ var flag = [[false], [false], [false], [false], [false]];
 function register() {
 
     if ($('#checkbox').is(':checked')) {
-        $("#registerspan").html("")
+        $("#registerspan").html("");
         flag[0] = true;
     }
     if (flag[0] === true && flag[1] === true && flag[2] === true && flag[3] === true && flag[4] === true) {
@@ -56,7 +56,7 @@ function compareusername() {
 
 //password
 function comparepassword() {
-    $("#registerspan").html("")
+    $("#registerspan").html("");
     if ($("#inputPasswordRegister").val().length < 6 && $("#inputPasswordRegister").val() !== "") {
         $("#PasswordSpan").html("请输入至少6位数的密码");
     }
@@ -113,7 +113,7 @@ function Inputphone() {
     $("#PhoneSpan").html("");
 }
 
-window.onload = function () {
+$(document).ready(function () {
     $("#inputUsernameRegister")[0].focus();
-}
+});
 

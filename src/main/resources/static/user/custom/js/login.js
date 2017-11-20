@@ -1,12 +1,12 @@
 $(document).ready(function () {
     // 回车键登录
     var modal_status = 0;//默认隐藏
-    $('#loginmodal').on('show.bs.modal', function (e) {
+    $('#loginmodal').on('show.bs.modal', function () {
         modal_status = 1;
-    })
-    $('#loginmodal').on('hidden.bs.modal', function (e) {
+    });
+    $('#loginmodal').on('hidden.bs.modal', function () {
         modal_status = 0;
-    })
+    });
     $(document).keydown(function (event) {
         if (event.keyCode === 13 && modal_status === 1) {
             loginin();
@@ -20,9 +20,6 @@ $(document).ready(function () {
         $("#inputUsername").val($.cookie("username"));
         //$("#inputPassword").val($.cookie("password"));
     }
-});
-
-$(document).ready(function () {
 
 });
 
@@ -30,7 +27,7 @@ function loginin() {
     // Remember Me
     if ($('#checkbox1').is(':checked')) {
         var str_username = $("#inputUsername").val();
-        var str_password = $("#inputPassword").val();
+        // var str_password = $("#inputPassword").val();
         $.cookie("rmbUser", "true", {expires: 7}); //存储一个带7天期限的cookie
         $.cookie("username", str_username, {expires: 7});
         // $.cookie("password", str_password, {expires: 7});
@@ -45,7 +42,7 @@ function loginin() {
         $.post("/api/login/client",
             {
                 username: $("#inputUsername").val(),
-                passwd: md5($("#inputPassword").val()),
+                passwd: md5($("#inputPassword").val())
             },
             function (data) {
                 if (data.msg === "success") {
@@ -62,6 +59,10 @@ function loginin() {
     }
 }
 
+function logout() {
+    $(".notlogin").show();
+    $(".getlogin").hide();
+}
 
 //jquery.cookie.js
 /*!

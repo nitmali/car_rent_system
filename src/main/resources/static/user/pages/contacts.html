@@ -21,8 +21,8 @@
   <!-- Icon Font-->
   <link href="../iconfont/style.css" rel="stylesheet">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
-        rel="stylesheet">
+  <!--<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"-->
+        <!--rel="stylesheet">-->
 
   <link rel='stylesheet' href="../custom/css/index.css">
   <link rel='stylesheet' href="../custom/css/login.css">
@@ -58,7 +58,7 @@
 
           <!-- Left nav -->
           <ul class="menu-navigation__list nav navbar-nav">
-            li><a href="index.html">首页</a></li>
+            <li><a href="index.html">首页</a></li>
             <li><a href="about.html">关于我们</a></li>
             <li><a href="services.html">预订服务</a></li>
             <li><a href="services-post.html">后续服务</a></li>
@@ -80,7 +80,7 @@
               <!-- Left nav -->
               <ul class="menu-navigation__list nav navbar-nav">
                 <li>&nbsp;</li>
-                <li><a href="person.html"><span class="myself"></span></a></li>
+                <li><a href="profile.html"><span class="myself"></span></a></li>
                 <li><a href="/logout" onclick="logout()">退出</a></li>
               </ul>
             </div>
@@ -138,7 +138,7 @@
               <ul class="menu-navigation__list nav navbar-nav">
                 <li>&nbsp;</li>
                 <li>
-                  <a href="person.html"><span class="myself"></span></a>
+                  <a href="profile.html"><span class="myself"></span></a>
                 </li>
                 <li><a href="/logout" onclick="logout()">退出</a></li>
               </ul>
@@ -156,75 +156,12 @@
 
 <!-- Content  -->
 <main id="page-content">
-  <div class="breadcrumbs">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="breadcrumbs__title">Contacts</div>
-          <div class="breadcrumbs__items">
-            <div class="breadcrumbs__wrap">
-              <div class="breadcrumbs__item">
-                <a href="index.html" class="breadcrumbs__item-link">Home</a> <span>/</span> <a href="contacts.html"
-                                                                                               class="breadcrumbs__item-link">Contacts</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- // Breadcrumbs  -->
-  <section class="contact-map">
-    <div id="contacts-map"></div>
-    <div class="contact-info-block">
-      <div class="logo-contacts">
-        <a href="index.html" class="logo"><img src="../assets/images/logo-contacts.png" alt=""></a>
-      </div>
-      <div class="contact-info">
-        <span class="phone_number"><i class="icon-telephone"></i> 173-4859-9821</span>
-        <span class="location_info">
-					<i class="icon-placeholder-for-map"></i>
-					<em>公司名称 NIT</em>
-					<em>浙江省宁波市</em>
-					<em>浙江大学宁波理工学院.</em>
-          <em>数据学院</em> </span>
-      </div>
-      <div class="social-list">
-        <ul class="social-list__icons">
-          <li><a href="#"><i class="icon-facebook-logo"></i></a></li>
-          <li><a href="#"><i class="icon-twitter-letter-logo"></i></a></li>
-          <li><a href="#"><i class="icon-google-plus"></i></a></li>
-          <li><a href="#"><i class="icon-linkedin-logo"></i></a></li>
-        </ul>
-      </div>
-    </div>
-  </section>
   <div class="container">
     <div class="row">
-      <div class="col-xs-12">
-        <div class="wrap-form">
-          <h1>留言板</h1>
-          <form id="contactform" class="contact-form comment-form" name="contactform" method="post" novalidate>
-            <div id="success">
-              <p>Your message was sent successfully!</p>
-            </div>
-            <div id="error">
-              <p>Something went wrong, try refreshing and submitting the form again.</p>
-            </div>
-            <div class="input-wrapper first-child">
-              <input type="text" class="input-custom input-full" name="name" placeholder="您的姓名">
-            </div>
-            <div class="input-wrapper last-child">
-              <input type="text" class="input-custom input-full" name="email" placeholder="E-mail">
-            </div>
-            <div class="textarea-wrapper">
-              <textarea class="textarea-custom input-full" name="Comment" placeholder="留言"></textarea>
-            </div>
-            <div class="btn-wrapper">
-              <button type="submit" id="submit" class="btn btn-form">Send message</button>
-            </div>
-          </form>
-        </div>
+      <div style="margin:200px auto">
+        <img src="../assets/images/bg-building.png">
+        <h4>此功能正在建设中...</h4>
+        <h4>In the building...</h4>
       </div>
     </div>
   </div>
@@ -363,7 +300,7 @@
 </div>
 
 <!-- Google map -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>-->
 <!-- Google map -->
 <script src="../assets/js/jquery.1.12.4.min.js"></script>
 <script src="../assets/js/plugins/bootstrap.min.js"></script>
