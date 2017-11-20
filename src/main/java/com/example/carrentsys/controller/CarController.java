@@ -23,13 +23,13 @@ public class CarController {
         this.carRepository = carRepository;
     }
 
-    @RequestMapping(value = "/getAllCars", method = RequestMethod.GET)
+    @RequestMapping(value = "/manage/getAllCars", method = RequestMethod.GET)
     @ResponseBody
     public List<Car> getAllCars() {
         return carRepository.findAll();
     }
 
-    @RequestMapping(value = "/saveCarInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/manage/saveCarInfo", method = RequestMethod.POST)
     @ResponseBody
     public String saveCarInfo(
             String id,
@@ -80,7 +80,7 @@ public class CarController {
         }
     }
 
-    @RequestMapping(value = "/deleteCarInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/manage/deleteCarInfo", method = RequestMethod.POST)
     @ResponseBody
     public String deleteCarInfo(String id) {
         if (id != null) {

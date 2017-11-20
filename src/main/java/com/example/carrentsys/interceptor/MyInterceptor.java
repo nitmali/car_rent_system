@@ -1,4 +1,4 @@
-package com.example.carrentsys;
+package com.example.carrentsys.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,15 +11,16 @@ public class MyInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         String usertype = (String) httpServletRequest.getSession().getAttribute("usertype");
-        if (usertype != null) {
-            if (Objects.equals(usertype, "admin")) {
-                return true;
-            } else if (Objects.equals(usertype, "client")) {
-                return true;
-            }
+        String uri = httpServletRequest.getRequestURI();
+        if (usertype == null) {
+            httpServletResponse.sendRedirect("/");
+            return false;
+        } else if (Objects.equals(usertype, "client") && uri.matches("/manage/(.*)")) {
+            httpServletResponse.sendRedirect("/");
+            return false;
+        } else {
+            return true;
         }
-        httpServletResponse.sendRedirect("/");
-        return false;
     }
 
     @Override

@@ -29,7 +29,7 @@ $().ready(function () {
         bAutoWidth: true,
         processing: true,
         ajax: {
-            url: '/reviewLogs',
+            url: '/manage/reviewLogs',
             type: 'get',
             datatype: 'json',
             dataSrc: ''
@@ -58,7 +58,7 @@ $().ready(function () {
 
 function btn_action(id, type) {
     $.ajax({
-        url: '/reviewLogs',
+        url: '/manage/reviewLogs',
         type: "POST",
         dataType: "json",
         data: {

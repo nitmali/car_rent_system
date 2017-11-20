@@ -29,7 +29,7 @@ $().ready(function () {
         bAutoWidth: true,
         processing: true,
         ajax: {
-            url: '/givebackLogs',
+            url: '/manage/givebackLogs',
             type: 'get',
             datatype: 'json',
             dataSrc: ''
@@ -55,7 +55,7 @@ $().ready(function () {
 
 function btn_action(id) {
     $.ajax({
-        url: '/givebackCar',
+        url: '/manage/givebackCar',
         type: "POST",
         dataType: "json",
         data: {

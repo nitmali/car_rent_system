@@ -34,7 +34,6 @@ public class LoginController {
         Assert.notNull(username, "username can not be empty");
         Assert.notNull(passwd, "password can not be empty");
         HttpSession session = request.getSession();
-        session.setAttribute("username", username);
         LoginLog loginLog = new LoginLog();
         String ip = request.getRemoteAddr();
         Timestamp time = new Timestamp(System.currentTimeMillis());
@@ -45,6 +44,7 @@ public class LoginController {
             if (adminRepository.findByUsername(username) != null) {
                 if (passwd.equals(adminRepository.findByUsername(username).getPassword())) {
                     session.setAttribute("usertype", "admin");
+                    session.setAttribute("username", username);
                     loginLog.setUsertype("admin");
                     loginLogRepository.save(loginLog);
                     return "{\"msg\":\"success\"}";
@@ -58,6 +58,7 @@ public class LoginController {
             if (clientRepository.findByUsername(username) != null) {
                 if (passwd.equals(clientRepository.findByUsername(username).getPassword())) {
                     session.setAttribute("usertype", "client");
+                    session.setAttribute("username", username);
                     loginLog.setUsertype("client");
                     loginLogRepository.save(loginLog);
                     return "{\"msg\":\"success\"}";

@@ -49,7 +49,7 @@ $().ready(function () {
         searching: false,
         bSort: false,
         ajax: {
-            url: '/getRentingLog',
+            url: '/manage/getRentingLog',
             type: 'post',
             datatype: 'json'
         },
