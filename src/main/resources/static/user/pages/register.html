@@ -62,25 +62,12 @@
             <li><a href="contacts.html">给我们留言</a></li>
           </ul>
           <div class="notlogin">
-            <div class="menu-navigation navbar-collapse collapse" style="float:right">
-              <!-- Left nav -->
-              <ul class="menu-navigation__list nav navbar-nav">
-                <li>&nbsp;</li>
-                <li><a href="#" data-toggle="modal" data-target="#loginmodal">登录</a></li>
-                <li><a href="register.html" style="color: #6678ea">注册</a></li>
-                <li><a href="../../manage/pages/login.html">管理员入口</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="getlogin">
-            <div class="menu-navigation navbar-collapse collapse" style="float:right">
-              <!-- Left nav -->
-              <ul class="menu-navigation__list nav navbar-nav">
-                <li>&nbsp;</li>
-                <li><a href="profile.html"><span class="myself"></span></a></li>
-                <li><a href="/logout" onclick="logout()">退出</a></li>
-              </ul>
-            </div>
+            <!-- Left nav -->
+            <ul class="menu-navigation__list nav navbar-nav">
+              <li>&nbsp;</li>
+              <li><a href="register.html" style="color: #6678ea">注册</a></li>
+              <li><a href="../../manage/pages/login.html">管理员入口</a></li>
+            </ul>
           </div>
         </div><!--/.nav-collapse -->
       </div>
@@ -123,7 +110,6 @@
               <!-- Left nav -->
               <ul class="menu-navigation__list nav navbar-nav">
                 <li>&nbsp;</li>
-                <li><a href="#" data-toggle="modal" data-target="#loginmodal">登录</a></li>
                 <li><a href="register.html" style="color: #6678ea">注册</a></li>
                 <li><a href="../../manage/pages/login.html">管理员入口</a></li>
               </ul>
@@ -158,7 +144,8 @@
         <div class="form-horizontal">
           <span class="heading">新用户注册</span>
           <div class="form-group">
-            <input type="text" class="form-control" id="inputUsernameRegister" placeholder="用户名" onclick="Inputusername()"
+            <input type="text" class="form-control" id="inputUsernameRegister" placeholder="用户名"
+                   onclick="Inputusername()"
                    onblur="compareusername()">
             <span id="UsernameSpan" class="text text-danger"></span>
           </div>
@@ -298,41 +285,6 @@
   </div><!-- /.modal -->
 </div>
 
-<!--登录页面-->
-<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-offset-3 col-md-6">
-        <div class="form-horizontal">
-          <button type="button" class="close" data-dismiss="modal"
-                  aria-hidden="true">&nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;
-          </button>
-          <span class="heading">用户登录</span>
-          <div class="form-group">
-            <input type="text" class="form-control" id="inputUsername" placeholder="用户名">
-            <i class="fa fa-user"></i>
-          </div>
-          <div class="form-group help">
-            <input type="password" class="form-control" id="inputPassword" placeholder="密　码">
-            <i class="fa fa-lock"></i>
-            <a href="#" class="fa fa-question-circle"></a>
-          </div>
-          <div class="form-group help">
-            <span class="text-danger" id="loginmessage"></span>
-          </div>
-          <div class="form-group">
-            <div class="main-checkbox">
-              <input type="checkbox" value="None" id="checkbox1" name="check"/>
-              <label for="checkbox1"></label>
-            </div>
-            <span class="text">Remember me</span>
-            <button class="btn btn-default" onclick="loginin()">登录</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <!-- Google map -->
 <script src="../assets/js/jquery.1.12.4.min.js"></script>
 <script src="../assets/js/plugins/bootstrap.min.js"></script>

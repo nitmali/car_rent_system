@@ -21,12 +21,9 @@
   <![endif]-->
   <!-- Icon Font-->
   <link href="../iconfont/style.css" rel="stylesheet">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
-        rel="stylesheet">
-
+  <link rel='stylesheet' href="../assets/css/plugins/services.css">
   <link rel='stylesheet' href="../custom/css/index.css">
-  <link rel='stylesheet' href="../custom/css/login.css">
+
 </head>
 
 <body class="page__services">
@@ -66,25 +63,21 @@
             <li><a href="contacts.html">给我们留言</a></li>
           </ul>
           <div class="notlogin">
-            <div class="menu-navigation navbar-collapse collapse" style="float:right">
-              <!-- Left nav -->
-              <ul class="menu-navigation__list nav navbar-nav">
-                <li>&nbsp;</li>
-                <li><a href="#" data-toggle="modal" data-target="#loginmodal">登录</a></li>
-                <li><a href="register.html">注册</a></li>
-                <li><a href="../../manage/pages/login.html">管理员入口</a></li>
-              </ul>
-            </div>
+            <!-- Left nav -->
+            <ul class="menu-navigation__list nav navbar-nav">
+              <li>&nbsp;</li>
+              <li><a href="#" data-toggle="modal" data-target="#loginmodal">登录</a></li>
+              <li><a href="register.html">注册</a></li>
+              <li><a href="../../manage/pages/login.html">管理员入口</a></li>
+            </ul>
           </div>
           <div class="getlogin">
-            <div class="menu-navigation navbar-collapse collapse" style="float:right">
-              <!-- Left nav -->
-              <ul class="menu-navigation__list nav navbar-nav">
-                <li>&nbsp;</li>
-                <li><a href="profile.html"><span class="myself"></span></a></li>
-                <li><a href="/logout" onclick="logout()">退出</a></li>
-              </ul>
-            </div>
+            <!-- Left nav -->
+            <ul class="menu-navigation__list nav navbar-nav">
+              <li>&nbsp;</li>
+              <li><a href="profile.html"><span class="myself"></span></a></li>
+              <li><a href="/logout" onclick="logout()">退出</a></li>
+            </ul>
           </div>
         </div><!--/.nav-collapse -->
       </div>
@@ -155,175 +148,89 @@
 </header>
 <!-- // Header -->
 
-<!-- Content  -->
-<main id="page-content">
-  <div class="container">
-    <div class="row">
-      <div style="margin:200px auto">
-        <img src="../assets/images/bg-building.png">
-        <h4>此功能正在建设中...</h4>
-        <h4>In the building...</h4>
+<!--预定-->
+<div id="services">
+  <div class="zc_main zc_carcon">
+    <!--筛选栏-->
+    <div id="filter" style="position: fixed">
+      <div class="lchoose_box">
+        <div class="cl-lbox bdbtm orderRent price1">
+          <p class="zc_left_title">价格 <span class="sma12">(元)</span></p>
+          <ul class="pri_range">
+            <li class="bar1 orderlevelcheck filter_rent_money all"><a class="checked jgdefault"><span
+                class="w40"></span></a></li>
+            <li class="bar2 prli orderlevelcheck filter_rent_money"><a data="0-150"><span
+                class="w40"></span></a></li>
+            <li class="bar3 prli orderlevelcheck filter_rent_money"><a data="150-300"><span
+                class="w40"></span></a></li>
+            <li class="bar4 prli orderlevelcheck filter_rent_money"><a data="300-500"><span
+                class="w40"></span></a></li>
+            <li class="bar5 prli orderlevelcheck filter_rent_money"><a data="500-*"><span
+                class="w70"></span></a></li>
+          </ul>
+          <ul class="pri_num">
+            <li class="pri1 w37 checked jgdefault">不限</li>
+            <li class="pri2 w35 numli">0</li>
+            <li class="pri3 w42 numli">150</li>
+            <li class="pri4 w42 numli">300</li>
+            <li class="pri5 w37 numli">500</li>
+            <li class="pri6 w44 numli">500+</li>
+          </ul>
+        </div>
+        <div class="cl-lbox bdbtm orderBrand">
+          <p class="zc_left_title">品牌</p>
+          <ul class="car_brand">
+            <li class="orderlevelcheck filter_brand all"><a class="checked ppdefault">不限</a></li>
+            <li class="orderlevelcheck filter_brand brandname"><a>凯迪拉克</a></li>
+            <li class="orderlevelcheck filter_brand brandname"><a>悦达起亚</a></li>
+            <li class="orderlevelcheck filter_brand brandname"><a>沃尔沃</a></li>
+            <li class="orderlevelcheck filter_brand brandname"><a>大众</a></li>
+            <li class="orderlevelcheck filter_brand brandname"><a>丰田</a></li>
+            <li class="orderlevelcheck filter_brand brandname"><a>别克</a></li>
+            <li class="orderlevelcheck filter_brand brandname"><a>雪佛兰</a></li>
+          </ul>
+        </div>
+        <dl class="storedl">
+          <dt>门店地址(取车地址):</dt>
+          <dd>浙江省宁波市鄞州区浙江大学宁波理工学院西门（08:00-10:00）
+            <a href="http://map.baidu.com/?newmap=1&ie=utf-8&s=
+            s%26wd%3D%E6%B5%99%E6%B1%9F%E5%A4%A7%E5%AD%A6%E5%AE%81%E6%B3%A2%E7%90%86%E5%B7%A5" target="view_window">
+              线路查询</a>
+          <dd/>
+          <dd> 专车配送请联系：17348599821
+          </dd>
+          <dt>还车地址：</dt>
+          <dd>浙江省宁波市鄞州区浙江大学宁波理工学院</dd>
+          <dt class="oline">营业时间:
+            <span>08:00-10:00
+              </span>
+          </dt>
+          <dt class="oline">门店电话:
+            <span>
+                  17348599821
+                </span>
+          </dt>
+        </dl>
       </div>
     </div>
+    <!--//筛选栏-->
+    <!--预定-->
+    <div class="zc_rightlist fr">
+      <div class="zc_boxshd minhght" style="min-height: 600px;">
+        <div class="clist_ct ">
+          <table>
+            <tbody id="carttable">
+            <!--车辆信息-->
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <!--//预定-->
   </div>
-</main>
-<!--<main id="page-content">-->
-  <!--<div class="breadcrumbs">-->
-    <!--<div class="container">-->
-      <!--<div class="row">-->
-        <!--<div class="col-xs-12">-->
-          <!--<div class="breadcrumbs__title">Our Services</div>-->
-          <!--<div class="breadcrumbs__items">-->
-            <!--<div class="breadcrumbs__wrap">-->
-              <!--<div class="breadcrumbs__item">-->
-                <!--<a href="index.html" class="breadcrumbs__item-link">Home</a> <span>/</span> <a href="services.html"-->
-                                                                                               <!--class="breadcrumbs__item-link">Services</a>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--&lt;!&ndash; // Breadcrumbs  &ndash;&gt;-->
-  <!--<section class="service-info-box">-->
-    <!--<div class="swiper-container-column swiper-container-column-second swiper-container">-->
-      <!--<div class="swiper-wrapper">-->
-        <!--<div class="swiper-slide odd-line">-->
-          <!--<div class="service-block">-->
-            <!--<figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_1.jpg"-->
-                                                                              <!--alt=""></a></span></figure>-->
-            <!--<div class="service-block__content">-->
-              <!--<h3>24 Hour Airport Services</h3>-->
-              <!--<p>The best and biggest airport transfer company in the city, Airport Transfers is here to provide you-->
-                <!--with the best one-stop transportation service with minimal fuss and maximum comfort.</p>-->
-              <!--<a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="swiper-slide even-line">-->
-          <!--<div class="service-block">-->
-            <!--<figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_2.jpg"-->
-                                                                              <!--alt=""></a></span></figure>-->
-            <!--<div class="service-block__content">-->
-              <!--<h3>Corporate Meetings &amp; Events</h3>-->
-              <!--<p>Does your company have employees or clients who frequently rent in the Los Angeles area? Setting up a-->
-                <!--corporate account allowsus to pre-deliver vehicles to hotels, offices, residences.</p>-->
-              <!--<a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="swiper-slide odd-line">-->
-          <!--<div class="service-block">-->
-            <!--<figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_3.jpg"-->
-                                                                              <!--alt=""></a></span></figure>-->
-            <!--<div class="service-block__content">-->
-              <!--<h3>Business Travel</h3>-->
-              <!--<p>We offer professional drivers who can chauffeur you to any destination you choose. Or ask for a type of-->
-                <!--tour or drive you are in the mood for and let us do the rest. </p>-->
-              <!--<a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="swiper-slide odd-line">-->
-          <!--<div class="service-block">-->
-            <!--<figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_4.jpg"-->
-                                                                              <!--alt=""></a></span></figure>-->
-            <!--<div class="service-block__content">-->
-              <!--<h3>Private Tours</h3>-->
-              <!--<p>Huge discounts. Free Delivery and Pickup. Free Car washes. Free upgrades. Free maintenance. We offer-->
-                <!--amazing deals on car rental rates. Give us a call we make it easy and affordable.</p>-->
-              <!--<a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="swiper-slide even-line">-->
-          <!--<div class="service-block">-->
-            <!--<figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_5.jpg"-->
-                                                                              <!--alt=""></a></span></figure>-->
-            <!--<div class="service-block__content">-->
-              <!--<h3>To My Door</h3>-->
-              <!--<p>Sometimes there just aren’t enough hours in the day. So, why would you want to spend an hour travelling-->
-                <!--across town to pick up a hire car?</p>-->
-              <!--<a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="swiper-slide odd-line">-->
-          <!--<div class="service-block">-->
-            <!--<figure class="thumbnail"><span><a href="services-post.html"><img src="../assets/images/service_img_6.jpg"-->
-                                                                              <!--alt=""></a></span></figure>-->
-            <!--<div class="service-block__content">-->
-              <!--<h3>Private Tours</h3>-->
-              <!--<p>If you’ve got a busy trip ahead and you simply want to get straight behind the wheel when you arrive to-->
-                <!--pick up your rental car, you’re in luck. Online Check-in is designed to get you out on the road as soon-->
-                <!--as possible, and the best part is… it’s a free service.</p>-->
-              <!--<a href="services-post.html" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="swiper-pagination swiper-pagination-column-main"></div>-->
-  <!--</section>-->
-
-  <!--<div class="container">-->
-    <!--<div class="row">-->
-      <!--<div class="col-sm-12">-->
-        <!--<div class="phone-box">-->
-          <!--<h1>Join Us and Save on Car Rentals!</h1>-->
-          <!--<span class="text-link">Great offers for cheap car rental, daily, weekly long term rentals</span>-->
-          <!--<h3 class="phone-box__number">Call Now: <span><i class="icon-telephone"></i> 1-800-123-4567</span></h3>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-
-  <!--<div class="services-box">-->
-    <!--<div class="container">-->
-      <!--<div class="box-list-posts swiper-container-services swiper-container">-->
-        <!--<div class="swiper-wrapper">-->
-          <!--<div class="swiper-slide">-->
-            <!--<div class="post-column">-->
-              <!--<figure class="thumbnail"><img src="../assets/images/post-sm-img-1.jpg" alt=""></figure>-->
-              <!--<div class="post-column__content">-->
-                <!--<h3>Nearest<br> Airport Deals</h3>-->
-                <!--<span class="text-link">Budget Prices for Long Term Rentals</span>-->
-                <!--<a href="#" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="swiper-slide">-->
-            <!--<div class="post-column">-->
-              <!--<figure class="thumbnail"><img src="../assets/images/post-sm-img-2.jpg" alt=""></figure>-->
-              <!--<div class="post-column__content">-->
-                <!--<h3>Online Reservations</h3>-->
-                <!--<span class="text-link">Search Prices and Special Offers</span>-->
-                <!--<a href="#" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
-              <!--</div>-->
-
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="swiper-slide">-->
-            <!--<div class="post-column">-->
-              <!--<figure class="thumbnail"><img src="../assets/images/post-sm-img-3.jpg" alt=""></figure>-->
-              <!--<div class="post-column__content">-->
-                <!--<h3>24/7 Road Assistance</h3>-->
-                <!--<span class="text-link">Road Assistance &amp; Car Replacement</span>-->
-                <!--<a href="#" class="btn btn__marker"><i class="icon-arrows"></i></a>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="swiper-pagination swiper-pagination-services"></div>-->
-      <!--</div>-->
-      <!--&lt;!&ndash; // box-list-posts  &ndash;&gt;-->
-    <!--</div>-->
-  <!--</div>-->
-
-<!--</main>-->
-<!-- // Content  -->
-
+</div>
 <!-- Footer -->
 <footer class="site-footer">
   <section class="site-footer__top-panel">
@@ -398,6 +305,9 @@
   </section>
   <a href="#" class="scrollup"><i class="icon-arrow-down-sign-to-navigate"></i></a>
 </footer>
+<!--预定选项-->
+<span id="carmodal"></span>
+<!--条款-->
 <div class="modal fade" id="tk" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -421,6 +331,7 @@
 </div>
 <!-- //Footer -->
 <!--登录页面-->
+<link rel='stylesheet' href="../custom/css/login.css">
 <div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="container">
     <div class="row">
@@ -456,6 +367,7 @@
   </div>
 </div>
 
+
 <script src="../assets/js/jquery.1.12.4.min.js"></script>
 <script src="../assets/js/plugins/bootstrap.min.js"></script>
 <script src="../assets/js/plugins/jquery.smartmenus.min.js"></script>
@@ -463,8 +375,9 @@
 <script src="../assets/js/plugins/swiper.min.js"></script>
 <script src="../assets/js/plugins/stickup.min.js"></script>
 <script src="../assets/js/custom.js"></script>
-
 <script src="../../manage/vendor/js-md5/md5.min.js"></script>
+
+<script src="../custom/js/services.js"></script>
 <script src="../custom/js/login.js"></script>
 <script src="../custom/js/index.js"></script>
 

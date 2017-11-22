@@ -48,7 +48,6 @@ function loginin() {
             },
             function (data) {
                 if (data.msg === "success") {
-                    //window.location.href = "index.html";
                     $(".myself").html($("#inputUsername").val());
                     $(".notlogin").hide();
                     $(".getlogin").show();
