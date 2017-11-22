@@ -5,6 +5,7 @@ import com.example.carrentsys.repository.CarRepository;
 import com.example.carrentsys.repository.RentingLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -110,10 +111,15 @@ public class CarController {
 
     @RequestMapping(value = "/getAvailableCars", method = RequestMethod.GET)
     @ResponseBody
-    public List<Car> getAvailableCars(Timestamp planingLendStartTime, Timestamp planingLendEndTime) {
+    public List<Car> getAvailableCars(Timestamp planingLendStartTime, Timestamp planingLendEndTime, int start, int end) {
+        if (planingLendEndTime.getTime() < planingLendStartTime.getTime()) return new ArrayList<>();
+        if (start >= end) return new ArrayList<>();
+        Assert.notNull(planingLendEndTime, "planing time can not be empty");
+        Assert.notNull(planingLendStartTime, "planing time can not be empty");
         List<Car> availableCars = new ArrayList<>();
         availableCars.addAll(carRepository.findAll());
         availableCars.removeAll(rentingLogRepository.findUnavailableCarNotIDLE(planingLendStartTime, planingLendEndTime));
+        availableCars.removeAll(carRepository.findByPriceOutof(start, end));
         return availableCars;
     }
 }

@@ -47,7 +47,7 @@ $().ready(function () {
             targets: 6,
             render: function (row) {
                 var id = row.id;
-                return '<a type="button" class="btn btn-primary" href="#" onclick="btn_action(' + id + ',\'PASS\')">通过</a> <a type="button" class="btn btn-danger" onclick="btn_action(' + id + ',\'REJECT\')" href="#">拒绝</a>';
+                return '<a type="button" class="btn btn-primary" href="#" onclick="btn_action(' + id + ',\'PASS\')">通过(取车)</a> <a type="button" class="btn btn-danger" onclick="btn_action(' + id + ',\'REJECT\')" href="#">拒绝</a>';
             }
         },
             {"orderable": false, "targets": 6}

@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -107,13 +106,10 @@ public class RentingLogController {
 
     @RequestMapping(value = "/countSubmitByTime", method = RequestMethod.GET)
     @ResponseBody
-    public long countSubmitByTime(String start, String end) {
+    public long countSubmitByTime(Timestamp start, Timestamp end) {
         Assert.notNull(start, "start time can not be empty");
         Assert.notNull(end, "end time can not be empty");
-        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Long startTime = new Long(start);
-        Long endTime = new Long(end);
-        return rentingLogRepository.countRentingLogsBySubmitTimeBetween(Timestamp.valueOf(f.format(startTime)), Timestamp.valueOf(f.format(endTime)));
+        return rentingLogRepository.countRentingLogsBySubmitTimeBetween(start, end);
     }
 
     @RequestMapping(value = "/makeRenting", method = RequestMethod.POST)
@@ -121,7 +117,7 @@ public class RentingLogController {
     public String makeRenting(int carid, Timestamp planingLendStartTime, Timestamp planingLendEndTime, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (planingLendEndTime.getTime() - planingLendStartTime.getTime() <= 0)
-            return "{\"msg\":\"Plainning time error\"}";
+            return "{\"msg\":\"plainning time error\"}";
         Car car = carRepository.findOne(carid);
         List<Car> availableCars = new ArrayList<>();
         availableCars.addAll(carRepository.findAll());
