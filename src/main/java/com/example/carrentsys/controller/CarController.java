@@ -111,15 +111,15 @@ public class CarController {
 
     @RequestMapping(value = "/getAvailableCars", method = RequestMethod.GET)
     @ResponseBody
-    public List<Car> getAvailableCars(Timestamp planingLendStartTime, Timestamp planingLendEndTime, int start, int end) {
+    public List<Car> getAvailableCars(Timestamp planingLendStartTime, Timestamp planingLendEndTime, int lowestPrice, int highestPrice) {
         if (planingLendEndTime.getTime() < planingLendStartTime.getTime()) return new ArrayList<>();
-        if (start >= end) return new ArrayList<>();
+        if (lowestPrice >= highestPrice) return new ArrayList<>();
         Assert.notNull(planingLendEndTime, "planing time can not be empty");
         Assert.notNull(planingLendStartTime, "planing time can not be empty");
         List<Car> availableCars = new ArrayList<>();
         availableCars.addAll(carRepository.findAll());
         availableCars.removeAll(rentingLogRepository.findUnavailableCarNotIDLE(planingLendStartTime, planingLendEndTime));
-        availableCars.removeAll(carRepository.findByPriceOutof(start, end));
+        availableCars.removeAll(carRepository.findByPriceOutof(lowestPrice, highestPrice));
         return availableCars;
     }
 }

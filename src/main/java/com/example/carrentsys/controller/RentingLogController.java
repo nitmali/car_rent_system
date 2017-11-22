@@ -126,7 +126,7 @@ public class RentingLogController {
             return "{\"msg\":\"car is not available\"}";
         }
         car.setStatus(Car.Status.BOOKING);
-        if (session.getAttribute("usertype") != "client") return "{\"msg\":\"error\"}";
+        if (session.getAttribute("usertype") != "client") return "{\"msg\":\"usertype error\"}";
         String username = (String) session.getAttribute("username");
         Client client = clientRepository.findByUsername(username);
         RentingLog rentingLog = new RentingLog();
