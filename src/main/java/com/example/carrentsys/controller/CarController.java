@@ -56,7 +56,7 @@ public class CarController {
             } else {
                 Car car = new Car();
                 if (id != null) {
-                    car.setId(Integer.parseInt(id));
+                    car = carRepository.findOne(Integer.valueOf(id));
                 }
                 car.setBrand(brand);
                 car.setColor(color);
