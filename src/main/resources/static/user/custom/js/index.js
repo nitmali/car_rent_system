@@ -1,7 +1,10 @@
 $(document).ready(function () {
-
     $(".getlogin").hide();
+    user();
+    focus();
+});
 
+function user() {
     $.get("/getusername",
         function (data) {
             if (data.msg !== "error") {
@@ -14,13 +17,12 @@ $(document).ready(function () {
             }
         }, "json"
     );
+}
 
-    //光标
+function focus() {
     if ($("#inputUsername").val() === "") {
         $("#inputUsername").attr("autofocus", "true");
     } else {
         $("#inputPassword").attr("autofocus", "true");
     }
-
-});
-
+}

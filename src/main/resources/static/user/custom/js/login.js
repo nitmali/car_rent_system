@@ -1,5 +1,18 @@
 $(document).ready(function () {
-    // 回车键登录
+    loginofenter();
+    remember();
+});
+
+function remember() {
+    $("#checkbox1").attr("checked", 'true');
+    if ($.cookie("rmbUser") === "true") {
+        $("#ck_rmbUser").attr("checked", true);
+        $("#inputUsername").val($.cookie("username"));
+        //$("#inputPassword").val($.cookie("password"));
+    }
+}
+
+function loginofenter() {
     var modal_status = 0;//默认隐藏
     $('#loginmodal').on('show.bs.modal', function () {
         modal_status = 1;
@@ -12,26 +25,16 @@ $(document).ready(function () {
             loginin();
         }
     });
-
-    // Remember Me
-    $("#checkbox1").attr("checked", 'true');
-    if ($.cookie("rmbUser") === "true") {
-        $("#ck_rmbUser").attr("checked", true);
-        $("#inputUsername").val($.cookie("username"));
-        //$("#inputPassword").val($.cookie("password"));
-    }
-
-});
+}
 
 function loginin() {
-
     //令牌
     var str_username = $("#inputUsername").val();
     // var str_password = $("#inputPassword").val();
     $.cookie("Token", str_username, {expires: 7});
     // Remember Me
     if ($('#checkbox1').is(':checked')) {
-
+        $.cookie("rmbUser", "true", {expires: 7});
         $.cookie("username", str_username, {expires: 7});
         // $.cookie("password", str_password, {expires: 7});
     } else {

@@ -53,7 +53,6 @@ function compareusername() {
         flag[1] = true;
     }
 }
-
 //password
 function comparepassword() {
     $("#registerspan").html("");
@@ -78,7 +77,6 @@ function InputPasswordConfirm() {
     $("#registerspan").html("");
     $("#PasswordConfirmSpan").html("");
 }
-
 //idcard
 function compareid() {
     $("#registerspan").html("");
@@ -95,7 +93,6 @@ function Inputid() {
     $("#registerspan").html("");
     $("#IdSpan").html("");
 }
-
 //phone
 function comparephone() {
     $("#registerspan").html("");

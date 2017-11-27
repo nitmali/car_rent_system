@@ -23,6 +23,7 @@
   <link href="../iconfont/style.css" rel="stylesheet">
   <link rel='stylesheet' href="../assets/css/plugins/services.css">
   <link rel='stylesheet' href="../custom/css/index.css">
+  <link rel='stylesheet' href="../custom/services/css/customservices.css">
 
 </head>
 
@@ -152,30 +153,37 @@
 <div id="services">
   <div class="zc_main zc_carcon">
     <!--筛选栏-->
-    <div id="filter" style="position: fixed">
+    <div id="filter" class="initialfilter">
       <div class="lchoose_box">
         <div class="cl-lbox bdbtm orderRent price1">
           <p class="zc_left_title">价格 <span class="sma12">(元)</span></p>
-          <ul class="pri_range">
-            <li class="bar1 orderlevelcheck filter_rent_money all"><a class="checked jgdefault"><span
-                class="w40"></span></a></li>
-            <li class="bar2 prli orderlevelcheck filter_rent_money"><a data="0-150"><span
-                class="w40"></span></a></li>
-            <li class="bar3 prli orderlevelcheck filter_rent_money"><a data="150-300"><span
-                class="w40"></span></a></li>
-            <li class="bar4 prli orderlevelcheck filter_rent_money"><a data="300-500"><span
-                class="w40"></span></a></li>
-            <li class="bar5 prli orderlevelcheck filter_rent_money"><a data="500-*"><span
-                class="w70"></span></a></li>
-          </ul>
-          <ul class="pri_num">
-            <li class="pri1 w37 checked jgdefault">不限</li>
-            <li class="pri2 w35 numli">0</li>
-            <li class="pri3 w42 numli">150</li>
-            <li class="pri4 w42 numli">300</li>
-            <li class="pri5 w37 numli">500</li>
-            <li class="pri6 w44 numli">500+</li>
-          </ul>
+          <!--价格筛选-->
+          <div>
+            <table>
+              <tr>
+                <td>
+                  <div>
+                    <input type="number" class="form-control" value="None" id="lowestprice" onblur="price()">
+                  </div>
+
+                </td>
+                <td>
+                  <em style="font-size: 5px">&nbsp;—&nbsp;</em>
+                </td>
+                <td>
+                  <div>
+                    <input type="number" class="form-control" value="None" id="highestprice" onblur="price()">
+                  </div>
+                </td>
+                <td>
+                  &nbsp;
+                </td>
+                <td>
+                  <a href="#" class="filter-price" onclick="sorecar()"><h4 id="sortcar">↓</h4></a>
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
         <div class="cl-lbox bdbtm orderBrand">
           <p class="zc_left_title">品牌</p>
@@ -230,6 +238,9 @@
     <div class="clear"></div>
     <!--//预定-->
   </div>
+</div>
+<div style="height: 10px">
+
 </div>
 <!-- Footer -->
 <footer class="site-footer">
@@ -377,9 +388,9 @@
 <script src="../assets/js/custom.js"></script>
 <script src="../../manage/vendor/js-md5/md5.min.js"></script>
 
-<script src="../custom/js/services.js"></script>
 <script src="../custom/js/login.js"></script>
 <script src="../custom/js/index.js"></script>
+<script src="../custom/services/js/services.js"></script>
 
 </body>
 

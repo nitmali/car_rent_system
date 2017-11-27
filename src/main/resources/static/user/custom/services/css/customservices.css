@@ -1,0 +1,16 @@
+.initialfilter {
+    position: absolute;
+}
+
+.scrollfilter {
+    position: absolute;
+}
+
+.filter {
+    position: fixed;
+    top: 50px;
+}
+
+a:link {
+    text-decoration: none;
+}
