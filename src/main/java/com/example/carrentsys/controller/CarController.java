@@ -1,8 +1,8 @@
 package com.example.carrentsys.controller;
 
 import com.example.carrentsys.entity.Car;
-import com.example.carrentsys.repository.CarRepository;
 import com.example.carrentsys.repository.RentingLogRepository;
+import com.example.carrentsys.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -12,23 +12,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Controller
 public class CarController {
-    private final CarRepository carRepository;
+    private final CarService carService;
     private final RentingLogRepository rentingLogRepository;
 
     @Autowired
-    public CarController(CarRepository carRepository, RentingLogRepository rentingLogRepository) {
-        this.carRepository = carRepository;
+    public CarController(CarService carRepository, RentingLogRepository rentingLogRepository) {
+        this.carService = carRepository;
         this.rentingLogRepository = rentingLogRepository;
     }
 
     @RequestMapping(value = "/manage/getAllCars", method = RequestMethod.GET)
     @ResponseBody
     public List<Car> getAllCars() {
-        return carRepository.findAll();
+        return carService.findAll();
     }
 
     @RequestMapping(value = "/manage/saveCarInfo", method = RequestMethod.POST)
@@ -51,12 +54,12 @@ public class CarController {
             if (licensePlate.length() > 8) {
                 return "{\"msg\":\"error\"}";
             }
-            if (carRepository.existsByLicensePlate(licensePlate) && !Objects.equals(id, String.valueOf(carRepository.findByLicensePlate(licensePlate).getId()))) {
+            if (carService.existsByLicensePlate(licensePlate) && !Objects.equals(id, String.valueOf(carService.findByLicensePlate(licensePlate).getId()))) {
                 return "{\"msg\":\"lp_repeat\"}";
             } else {
                 Car car = new Car();
                 if (id != null) {
-                    car = carRepository.findOne(Integer.valueOf(id));
+                    car = carService.findOne(Integer.valueOf(id));
                 }
                 car.setBrand(brand);
                 car.setColor(color);
@@ -76,7 +79,7 @@ public class CarController {
                         System.out.println("status input error!");
                         return "{\"msg\":\"error\"}";
                 }
-                carRepository.save(car);
+                carService.save(car);
                 return "{\"msg\":\"success\"}";
             }
         }
@@ -86,7 +89,7 @@ public class CarController {
     @ResponseBody
     public String deleteCarInfo(String id) {
         if (id != null) {
-            carRepository.delete(Integer.parseInt(id));
+            carService.delete(Integer.parseInt(id));
             return "{\"msg\":\"success\"}";
         } else {
             return "{\"msg\":\"error\"}";
@@ -97,29 +100,23 @@ public class CarController {
     @ResponseBody
     public Map<String, Integer> countByStatus() {
         Map<String, Integer> map = new HashMap<>();
-        map.put("IDLE", carRepository.countByStatus(Car.Status.IDLE));
-        map.put("BOOKING", carRepository.countByStatus(Car.Status.BOOKING));
-        map.put("USING", carRepository.countByStatus(Car.Status.USING));
+        map.put("IDLE", carService.countByStatus(Car.Status.IDLE));
+        map.put("BOOKING", carService.countByStatus(Car.Status.BOOKING));
+        map.put("USING", carService.countByStatus(Car.Status.USING));
         return map;
     }
 
     @RequestMapping(value = "/getCarsByStatus", method = RequestMethod.GET)
     @ResponseBody
     public List<Car> getCarsByStatus(@RequestParam("status") Car.Status status) {
-        return carRepository.findByStatus(status);
+        return carService.findByStatus(status);
     }
 
     @RequestMapping(value = "/getAvailableCars", method = RequestMethod.GET)
     @ResponseBody
     public List<Car> getAvailableCars(Timestamp planingLendStartTime, Timestamp planingLendEndTime, int lowestPrice, int highestPrice) {
-        if (planingLendEndTime.getTime() < planingLendStartTime.getTime()) return new ArrayList<>();
-        if (lowestPrice >= highestPrice) return new ArrayList<>();
         Assert.notNull(planingLendEndTime, "planing time can not be empty");
         Assert.notNull(planingLendStartTime, "planing time can not be empty");
-        List<Car> availableCars = new ArrayList<>();
-        availableCars.addAll(carRepository.findAll());
-        availableCars.removeAll(rentingLogRepository.findUnavailableCarNotIDLE(planingLendStartTime, planingLendEndTime));
-        availableCars.removeAll(carRepository.findByPriceOutof(lowestPrice, highestPrice));
-        return availableCars;
+        return carService.getAvailableCars(planingLendStartTime, planingLendEndTime, lowestPrice, highestPrice);
     }
 }

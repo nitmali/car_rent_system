@@ -3,9 +3,9 @@ package com.example.carrentsys.controller;
 import com.example.carrentsys.entity.Car;
 import com.example.carrentsys.entity.Client;
 import com.example.carrentsys.entity.RentingLog;
-import com.example.carrentsys.repository.CarRepository;
-import com.example.carrentsys.repository.ClientRepository;
-import com.example.carrentsys.repository.RentingLogRepository;
+import com.example.carrentsys.service.CarService;
+import com.example.carrentsys.service.ClientService;
+import com.example.carrentsys.service.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,15 +28,15 @@ import java.util.Map;
 
 @Controller
 public class RentingLogController {
-    private final RentingLogRepository rentingLogRepository;
-    private final CarRepository carRepository;
-    private final ClientRepository clientRepository;
+    private final RentService rentService;
+    private final CarService carService;
+    private final ClientService clientService;
 
     @Autowired
-    public RentingLogController(RentingLogRepository rentingLogRepository, CarRepository carRepository, ClientRepository clientRepository) {
-        this.rentingLogRepository = rentingLogRepository;
-        this.carRepository = carRepository;
-        this.clientRepository = clientRepository;
+    public RentingLogController(RentService rentService, CarService carRepository, ClientService clientService) {
+        this.rentService = rentService;
+        this.carService = carRepository;
+        this.clientService = clientService;
     }
 
 
@@ -48,7 +48,7 @@ public class RentingLogController {
         Sort sort = new Sort(Sort.Direction.DESC, "lendEndTime");
         PageRequest pagerequset = new PageRequest((start / length), length, sort);
         Map<String, Object> maps = new HashMap<>();
-        Page<RentingLog> page = rentingLogRepository.findAll(pagerequset);
+        Page<RentingLog> page = rentService.findAll(pagerequset);
         long totalCount = page.getTotalElements();
         maps.put("draw", draw);
         maps.put("recordsTotal", totalCount);
@@ -60,14 +60,14 @@ public class RentingLogController {
     @RequestMapping(value = "/manage/reviewLogs", method = RequestMethod.GET)
     @ResponseBody
     public List<RentingLog> getreviewLogs() {
-        return rentingLogRepository.findByStatus(RentingLog.Status.PENDING);
+        return rentService.findByStatus(RentingLog.Status.PENDING);
     }
 
     @RequestMapping(value = "/manage/reviewLogs", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
     public String handleReviewLogs(@RequestParam("id") String id, String type) {
-        RentingLog rentingLog = rentingLogRepository.findOne(Integer.valueOf(id));
+        RentingLog rentingLog = rentService.findOne(Integer.valueOf(id));
         Car car = rentingLog.getCar();
         if (type.equals("PASS")) {
             if (car.getStatus() == Car.Status.USING) return "{\"msg\":\"car is using\"}";
@@ -81,21 +81,21 @@ public class RentingLogController {
             rentingLog.setCar(car);
         }
         rentingLog.setApprovalTime(new Timestamp(System.currentTimeMillis()));
-        rentingLogRepository.save(rentingLog);
+        rentService.save(rentingLog);
         return "{\"msg\":\"success\"}";
     }
 
     @RequestMapping(value = "/manage/givebackLogs", method = RequestMethod.GET)
     @ResponseBody
     public List<RentingLog> givebackLogs() {
-        return rentingLogRepository.findGivebackLogs();
+        return rentService.findGivebackLogs();
     }
 
     @RequestMapping(value = "/manage/givebackCar", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
     public String givebackCar(@RequestParam("id") String id) {
-        RentingLog rentingLog = rentingLogRepository.findOne(Integer.valueOf(id));
+        RentingLog rentingLog = rentService.findOne(Integer.valueOf(id));
         Car car = rentingLog.getCar();
         rentingLog.setLendEndTime(new Timestamp(System.currentTimeMillis()));
         rentingLog.setStatus(RentingLog.Status.FINISH);
@@ -109,7 +109,7 @@ public class RentingLogController {
     public long countSubmitByTime(Timestamp start, Timestamp end) {
         Assert.notNull(start, "start time can not be empty");
         Assert.notNull(end, "end time can not be empty");
-        return rentingLogRepository.countRentingLogsBySubmitTimeBetween(start, end);
+        return rentService.countSubmits(start, end);
     }
 
     @RequestMapping(value = "/makeRenting", method = RequestMethod.POST)
@@ -118,24 +118,23 @@ public class RentingLogController {
         HttpSession session = request.getSession();
         if (planingLendEndTime.getTime() - planingLendStartTime.getTime() <= 0)
             return "{\"msg\":\"plainning time error\"}";
-        Car car = carRepository.findOne(carid);
+        Car car = carService.findOne(carid);
         List<Car> availableCars = new ArrayList<>();
-        availableCars.addAll(carRepository.findAll());
-        availableCars.removeAll(rentingLogRepository.findUnavailableCarNotIDLE(planingLendStartTime, planingLendEndTime));
+        availableCars.addAll(carService.getAvailableCars(planingLendStartTime, planingLendEndTime));
         if (!availableCars.contains(car)) {
             return "{\"msg\":\"car is not available\"}";
         }
         car.setStatus(Car.Status.BOOKING);
         if (session.getAttribute("usertype") != "client") return "{\"msg\":\"usertype error\"}";
         String username = (String) session.getAttribute("username");
-        Client client = clientRepository.findByUsername(username);
+        Client client = clientService.findByUsername(username);
         RentingLog rentingLog = new RentingLog();
         rentingLog.setCar(car);
         rentingLog.setClient(client);
         rentingLog.setPlaningLendEndTime(planingLendEndTime);
         rentingLog.setPlaningLendStartTime(planingLendStartTime);
         rentingLog.setStatus(RentingLog.Status.PENDING);
-        rentingLogRepository.save(rentingLog);
+        rentService.save(rentingLog);
         return "{\"msg\":\"success\"}";
     }
 }

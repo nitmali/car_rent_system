@@ -2,8 +2,8 @@ package com.example.carrentsys.controller;
 
 import com.example.carrentsys.entity.Admin;
 import com.example.carrentsys.entity.Client;
-import com.example.carrentsys.repository.AdminRepository;
-import com.example.carrentsys.repository.ClientRepository;
+import com.example.carrentsys.service.AdminService;
+import com.example.carrentsys.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,20 +15,20 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class RegisterController {
-    private final AdminRepository adminRepository;
-    private final ClientRepository clientRepository;
+    private final AdminService adminService;
+    private final ClientService clientService;
 
     @Autowired
-    public RegisterController(AdminRepository adminRepository, ClientRepository clientRepository) {
-        this.adminRepository = adminRepository;
-        this.clientRepository = clientRepository;
+    public RegisterController(AdminService adminService, ClientService clientService) {
+        this.adminService = adminService;
+        this.clientService = clientService;
     }
 
     @RequestMapping(value = "/adminRegister", method = RequestMethod.POST)
     @ResponseBody
     public String adminRegister(HttpServletRequest request, Admin admin) {
-        if (!adminRepository.existsByUsername(admin.getUsername())) {
-            adminRepository.save(admin);
+        if (!adminService.existsByUsername(admin.getUsername())) {
+            adminService.save(admin);
             HttpSession session = request.getSession();
             session.setAttribute("username", admin.getUsername());
             session.setAttribute("usertype", "admin");
@@ -41,14 +41,14 @@ public class RegisterController {
     @RequestMapping(value = "/clientRegister", method = RequestMethod.POST)
     @ResponseBody
     public String clientRegister(HttpServletRequest request, Client client) {
-        if (!clientRepository.existsByUsername(client.getUsername()) &&
-                !clientRepository.existsByIdCard(client.getIdCard())) {
-            clientRepository.save(client);
+        if (!clientService.existsByUsername(client.getUsername()) &&
+                !clientService.existsByIdCard(client.getIdCard())) {
+            clientService.save(client);
             HttpSession session = request.getSession();
             session.setAttribute("username", client.getUsername());
             session.setAttribute("usertype", "client");
             return "{\"msg\":\"success\"}";
-        } else if (clientRepository.existsByIdCard(client.getIdCard())) {
+        } else if (clientService.existsByIdCard(client.getIdCard())) {
             return "{\"msg\":\"iderror\"}";
         } else {
             return "{\"msg\":\"nameerror\"}";

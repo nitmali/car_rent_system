@@ -1,13 +1,14 @@
 package com.example.carrentsys.controller;
 
 import com.example.carrentsys.entity.LoginLog;
-import com.example.carrentsys.repository.AdminRepository;
-import com.example.carrentsys.repository.ClientRepository;
-import com.example.carrentsys.repository.LoginLogRepository;
+import com.example.carrentsys.service.AdminService;
+import com.example.carrentsys.service.ClientService;
+import com.example.carrentsys.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,18 +17,18 @@ import java.sql.Timestamp;
 
 @RestController
 public class LoginController {
-    private final AdminRepository adminRepository;
-    private final ClientRepository clientRepository;
-    private final LoginLogRepository loginLogRepository;
+    private final AdminService adminService;
+    private final ClientService clientService;
+    private final LogService logService;
 
     @Autowired
-    public LoginController(AdminRepository adminRepository, ClientRepository clientRepository, LoginLogRepository loginLogRepository) {
-        this.adminRepository = adminRepository;
-        this.clientRepository = clientRepository;
-        this.loginLogRepository = loginLogRepository;
+    public LoginController(AdminService adminService, ClientService clientService, LogService logService) {
+        this.adminService = adminService;
+        this.clientService = clientService;
+        this.logService = logService;
     }
 
-    @RequestMapping(value = "/api/login/{usertype}")
+    @RequestMapping(value = "/api/login/{usertype}", method = RequestMethod.POST)
     public String loginCheck(@PathVariable(name = "usertype") String usertype, HttpServletRequest request) {
         String username=request.getParameter("username");
         String passwd=request.getParameter("passwd");
@@ -41,12 +42,12 @@ public class LoginController {
         loginLog.setLogintime(time);
         loginLog.setUsername(username);
         if (usertype.equals("admin")) {
-            if (adminRepository.findByUsername(username) != null) {
-                if (passwd.equals(adminRepository.findByUsername(username).getPassword())) {
+            if (adminService.findByUsername(username) != null) {
+                if (passwd.equals(adminService.findByUsername(username).getPassword())) {
                     session.setAttribute("usertype", "admin");
                     session.setAttribute("username", username);
                     loginLog.setUsertype("admin");
-                    loginLogRepository.save(loginLog);
+                    logService.save(loginLog);
                     return "{\"msg\":\"success\"}";
                 } else {
                     return "{\"msg\":\"wpsd\"}";
@@ -55,12 +56,12 @@ public class LoginController {
                 return "{\"msg\":\"wid\"}";
             }
         } else if (usertype.equals("client")) {
-            if (clientRepository.findByUsername(username) != null) {
-                if (passwd.equals(clientRepository.findByUsername(username).getPassword())) {
+            if (clientService.findByUsername(username) != null) {
+                if (passwd.equals(clientService.findByUsername(username).getPassword())) {
                     session.setAttribute("usertype", "client");
                     session.setAttribute("username", username);
                     loginLog.setUsertype("client");
-                    loginLogRepository.save(loginLog);
+                    logService.save(loginLog);
                     return "{\"msg\":\"success\"}";
                 } else {
                     return "{\"msg\":\"wpsd\"}";
