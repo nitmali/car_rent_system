@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class RegisterController {
+public class UserController {
     private final AdminService adminService;
     private final ClientService clientService;
 
     @Autowired
-    public RegisterController(AdminService adminService, ClientService clientService) {
+    public UserController(AdminService adminService, ClientService clientService) {
         this.adminService = adminService;
         this.clientService = clientService;
     }
@@ -53,5 +53,35 @@ public class RegisterController {
         } else {
             return "{\"msg\":\"nameerror\"}";
         }
+    }
+
+    @RequestMapping(value = "/clientInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public Client getClientInfo(HttpServletRequest request) {
+        return clientService.findByUsername((String) request.getSession().getAttribute("username"));
+    }
+
+    @RequestMapping(value = "/clientInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public String modifyClientInfo(Client client) {
+        Integer id = clientService.findByUsername(client.getUsername()).getId();
+        client.setId(id);
+        clientService.save(client);
+        return "{\"msg\":\"success\"}";
+    }
+
+    @RequestMapping(value = "/adminInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public Admin getAdminInfo(HttpServletRequest request) {
+        return adminService.findByUsername((String) request.getSession().getAttribute("username"));
+    }
+
+    @RequestMapping(value = "/adminInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public String modifyAdminInfo(Admin admin) {
+        Integer id = adminService.findByUsername(admin.getUsername()).getId();
+        admin.setId(id);
+        adminService.save(admin);
+        return "{\"msg\":\"success\"}";
     }
 }

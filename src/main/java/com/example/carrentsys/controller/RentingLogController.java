@@ -116,6 +116,7 @@ public class RentingLogController {
     @ResponseBody
     public String makeRenting(int carid, Timestamp planingLendStartTime, Timestamp planingLendEndTime, HttpServletRequest request) {
         HttpSession session = request.getSession();
+        if (session.getAttribute("usertype") != "client") return "{\"msg\":\"usertype error\"}";
         if (planingLendEndTime.getTime() - planingLendStartTime.getTime() <= 0)
             return "{\"msg\":\"plainning time error\"}";
         Car car = carService.findOne(carid);
@@ -125,7 +126,6 @@ public class RentingLogController {
             return "{\"msg\":\"car is not available\"}";
         }
         car.setStatus(Car.Status.BOOKING);
-        if (session.getAttribute("usertype") != "client") return "{\"msg\":\"usertype error\"}";
         String username = (String) session.getAttribute("username");
         Client client = clientService.findByUsername(username);
         RentingLog rentingLog = new RentingLog();

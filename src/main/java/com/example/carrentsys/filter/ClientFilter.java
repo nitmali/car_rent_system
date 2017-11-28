@@ -28,7 +28,7 @@ public class ClientFilter implements Filter {
         }
 
         if (flag) {
-            System.out.println("过滤器ServletFilter正在执行...");
+            System.out.println("ClientFilter Processing...");
             response.sendRedirect("/");
         } else {
             filterChain.doFilter(servletRequest, servletResponse);

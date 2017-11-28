@@ -34,7 +34,7 @@ public class AdminFilter implements Filter {
         }
 
         if (flag) {
-            System.out.println("过滤器AdminFilter正在执行...");
+            System.out.println("AdminFilter Processing...");
             response.sendRedirect("/");
         } else {
             filterChain.doFilter(servletRequest, servletResponse);
