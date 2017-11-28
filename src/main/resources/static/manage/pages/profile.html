@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>租车系统 - 注册</title>
+  <title>个人中心 - 后台管理</title>
 
   <!-- Bootstrap Core CSS -->
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -32,12 +32,6 @@
 
   <link rel="icon" type="image/png" href="../image/car.png"/>
 
-  <style>
-    [v-cloak] {
-      display: none;
-    }
-  </style>
-
 </head>
 
 <body>
@@ -47,13 +41,13 @@
     <div class="col-md-4 col-md-offset-4">
       <div class="login-panel panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">注册</h3>
+          <h3 class="panel-title">个人中心</h3>
         </div>
         <div class="panel-body">
-          <form data-toggle="validator" role="form">
+          <form id="form">
             <div class="form-group">
-              <input type="text" class="form-control" id="inputName" placeholder="用户名" name="username" required>
-              <div v-cloak id="app" style="color: #a94442">{{ message }}</div>
+              <input type="text" class="form-control" id="inputName" placeholder="用户名" name="username" disabled
+                     v-model="name">
             </div>
             <div class="form-group has-feedback">
               <div class="form-group">
@@ -62,15 +56,16 @@
                 <div class="help-block">最少6个字符</div>
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" id="inputPasswordConfirm" name="password" data-match="#inputPassword"
-                       data-match-error="输入不一致" placeholder="确认密码" required>
+                <input type="password" class="form-control" id="inputPasswordConfirm" name="password"
+                       data-match="#inputPassword"
+                       data-match-error="输入不一致" placeholder="确认密码" v-model="passwd" required>
               </div>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="昵称" name="nickname">
+              <input type="text" class="form-control" placeholder="昵称" name="nickname" v-model="nickname">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="部门" name="deprt">
+              <input type="text" class="form-control" placeholder="部门" name="deprt" v-model="deprt">
             </div>
             <div class="form-group">
               <div class="checkbox">
@@ -104,15 +99,16 @@
 <script src="../dist/js/sb-admin-2.js"></script>
 
 <!--Validator-->
-<script src="../vendor/validator/validator.min.js"></script>
+<!--<script src="../vendor/validator/validator.js"></script>-->
 
-<!--Vue.js-->
 <script src="../vendor/Vuejs/vue.js"></script>
 
 <script src="../vendor/js-md5/md5.min.js"></script>
 
-<script src="../js/register.js"></script>
+<!--Validator-->
+<script src="../vendor/validator/validator.min.js"></script>
 
+<script src="../js/profile.js"></script>
 
 </body>
 

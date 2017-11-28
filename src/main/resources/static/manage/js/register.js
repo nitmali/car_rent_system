@@ -7,9 +7,8 @@ $().ready(function () {
     });
     $("#submit").click(function () {
         if($("#submit.disabled").length===0){
-            $.post("/adminRegister",
+            $.post("/adminInfo",
                 {
-                    username: $("#inputName").val(),
                     password: md5($("#inputPasswordConfirm").val()),
                     nickname: $("input[name='nickname']").val(),
                     deprt: $("input[name='deprt']").val()
