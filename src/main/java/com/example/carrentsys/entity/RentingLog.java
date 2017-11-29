@@ -17,6 +17,9 @@ public class RentingLog {
     @ManyToOne
     private Car car;
 
+    @ManyToOne
+    private Admin admin;
+
     @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Timestamp submitTime = new Timestamp(System.currentTimeMillis());
@@ -130,5 +133,13 @@ public class RentingLog {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
     }
 }

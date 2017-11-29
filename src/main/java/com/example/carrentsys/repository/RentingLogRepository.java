@@ -21,4 +21,6 @@ public interface RentingLogRepository extends JpaRepository<RentingLog, Integer>
 
     @Query(value = "SELECT DISTINCT r.car FROM RentingLog r WHERE (r.planingLendStartTime BETWEEN ?1 AND ?2 OR r.planingLendEndTime BETWEEN ?1 AND ?2) AND r.status NOT LIKE 'FINISH'")
     List<Car> findUnavailableCarNotIDLE(Timestamp planingStartTime, Timestamp planingEndTime);
+
+    int countByCar(Car car);
 }

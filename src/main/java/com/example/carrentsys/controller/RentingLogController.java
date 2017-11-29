@@ -1,8 +1,10 @@
 package com.example.carrentsys.controller;
 
+import com.example.carrentsys.entity.Admin;
 import com.example.carrentsys.entity.Car;
 import com.example.carrentsys.entity.Client;
 import com.example.carrentsys.entity.RentingLog;
+import com.example.carrentsys.service.AdminService;
 import com.example.carrentsys.service.CarService;
 import com.example.carrentsys.service.ClientService;
 import com.example.carrentsys.service.RentService;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,12 +32,14 @@ public class RentingLogController {
     private final RentService rentService;
     private final CarService carService;
     private final ClientService clientService;
+    private final AdminService adminService;
 
     @Autowired
-    public RentingLogController(RentService rentService, CarService carRepository, ClientService clientService) {
+    public RentingLogController(RentService rentService, CarService carRepository, ClientService clientService, AdminService adminService) {
         this.rentService = rentService;
         this.carService = carRepository;
         this.clientService = clientService;
+        this.adminService = adminService;
     }
 
 
@@ -66,7 +69,9 @@ public class RentingLogController {
     @RequestMapping(value = "/manage/reviewLogs", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
-    public String handleReviewLogs(@RequestParam("id") String id, String type) {
+    public String handleReviewLogs(@RequestParam("id") String id, String type, HttpServletRequest request) {
+        String username = (String) request.getSession().getAttribute("username");
+        Admin admin = adminService.findByUsername(username);
         RentingLog rentingLog = rentService.findOne(Integer.valueOf(id));
         Car car = rentingLog.getCar();
         if (type.equals("PASS")) {
@@ -81,6 +86,7 @@ public class RentingLogController {
             rentingLog.setCar(car);
         }
         rentingLog.setApprovalTime(new Timestamp(System.currentTimeMillis()));
+        rentingLog.setAdmin(admin);
         rentService.save(rentingLog);
         return "{\"msg\":\"success\"}";
     }
@@ -93,7 +99,6 @@ public class RentingLogController {
 
     @RequestMapping(value = "/manage/givebackCar", method = RequestMethod.POST)
     @ResponseBody
-    @Transactional(rollbackFor = Exception.class)
     public String givebackCar(@RequestParam("id") String id) {
         RentingLog rentingLog = rentService.findOne(Integer.valueOf(id));
         Car car = rentingLog.getCar();
@@ -101,6 +106,7 @@ public class RentingLogController {
         rentingLog.setStatus(RentingLog.Status.FINISH);
         car.setStatus(Car.Status.IDLE);
         rentingLog.setCar(car);
+        rentService.save(rentingLog);
         return "{\"msg\":\"success\"}";
     }
 
@@ -120,8 +126,7 @@ public class RentingLogController {
         if (planingLendEndTime.getTime() - planingLendStartTime.getTime() <= 0)
             return "{\"msg\":\"plainning time error\"}";
         Car car = carService.findOne(carid);
-        List<Car> availableCars = new ArrayList<>();
-        availableCars.addAll(carService.getAvailableCars(planingLendStartTime, planingLendEndTime));
+        List<Car> availableCars = carService.getAvailableCars(planingLendStartTime, planingLendEndTime);
         if (!availableCars.contains(car)) {
             return "{\"msg\":\"car is not available\"}";
         }
@@ -136,5 +141,11 @@ public class RentingLogController {
         rentingLog.setStatus(RentingLog.Status.PENDING);
         rentService.save(rentingLog);
         return "{\"msg\":\"success\"}";
+    }
+
+    @RequestMapping(value = "/countCarLogs", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map> countCarLogs() {
+        return rentService.countByCar();
     }
 }

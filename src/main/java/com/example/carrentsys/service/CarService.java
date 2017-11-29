@@ -5,12 +5,14 @@ import com.example.carrentsys.repository.CarRepository;
 import com.example.carrentsys.repository.RentingLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class CarService {
     private final CarRepository carRepository;
     private final RentingLogRepository rentingLogRepository;

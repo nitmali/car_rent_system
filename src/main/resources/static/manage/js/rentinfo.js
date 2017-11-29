@@ -61,21 +61,27 @@ $().ready(function () {
             {data: 'planingLendEndTime'},
             {
                 data: function (obj) {
-                    if (obj.lendStartTime == null) return null;
+                    if (obj.lendStartTime === null) return null;
                     return obj.lendStartTime;
                 }
             },
             {
                 data: function (obj) {
-                    if (obj.lendEndTime == null) return null;
+                    if (obj.lendEndTime === null) return null;
                     return obj.lendEndTime;
                 }
             },
             {data: 'submitTime'},
             {
                 data: function (obj) {
-                    if (obj.approvalTime == null) return null;
+                    if (obj.approvalTime === null) return null;
                     return obj.approvalTime;
+                }
+            },
+            {
+                data: function (obj) {
+                    if (obj.admin === null) return null;
+                    return obj.admin.username;
                 }
             },
             {data: 'status'}
