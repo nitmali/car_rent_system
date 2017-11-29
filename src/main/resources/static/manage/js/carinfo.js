@@ -57,7 +57,7 @@ function getCarInfo() {
         },
         responsive: true,
         bAutoWidth: true,
-        processing:true,
+        processing: true,
         ajax: {
             url: '/manage/getAllCars',
             type: 'get',
@@ -78,32 +78,54 @@ function getCarInfo() {
 function modifyCarInfo() {
     $("#add_car").click(function () {
         $("#delete").hide();
+        $("input[name='id']").val(null);
         $("input[name='brand']").val("");
         $("input[name='color']").val("");
         $("input[name='licensePlate']").val("");
         $("input[name='price']").val("");
         $("select[name='status']").val(0);
+        $("#img").val("");
         var modal = $("#modal").modal();
 
         $("#save").unbind("click").click(function () {
-            $.post("/manage/saveCarInfo",
-                {
-                    brand: $("input[name='brand']").val(),
-                    color: $("input[name='color']").val(),
-                    licensePlate: $("input[name='licensePlate']").val(),
-                    price: $("input[name='price']").val(),
-                    status: $("select[name='status']").val()
-                }, function (data) {
+            // $.post("/manage/saveCarInfo",
+            //     {
+            //         brand: $("input[name='brand']").val(),
+            //         color: $("input[name='color']").val(),
+            //         licensePlate: $("input[name='licensePlate']").val(),
+            //         price: $("input[name='price']").val(),
+            //         status: $("select[name='status']").val()
+            //     }, function (data) {
+            //         if (data.msg === "success") {
+            //             modal.modal("hide");
+            //             //window.location.reload();
+            //             table.ajax.reload(null,false); //Ajax刷新,分页不重置
+            //         } else if (data.msg === "lp_repeat") {
+            //             alert("车牌号重复");
+            //         }else{
+            //             alert("输入错误");
+            //         }
+            //     },"json");
+            $.ajax({
+                url: '/manage/saveCarInfo',
+                type: 'POST',
+                cache: false,
+                data: new FormData($('#form')[0]),
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function (data) {
                     if (data.msg === "success") {
                         modal.modal("hide");
                         //window.location.reload();
-                        table.ajax.reload(null,false); //Ajax刷新,分页不重置
+                        table.ajax.reload(null, false); //Ajax刷新,分页不重置
                     } else if (data.msg === "lp_repeat") {
                         alert("车牌号重复");
-                    }else{
+                    } else {
                         alert("输入错误");
                     }
-                },"json");
+                }
+            });
         });
     });
 
@@ -112,6 +134,7 @@ function modifyCarInfo() {
             var rowdata = table.row(this).data();
             var modal = $("#modal").modal();
             $("#delete").show();
+            $("input[name='id']").val(rowdata.id);
             $("input[name='brand']").val(rowdata.brand);
             $("input[name='color']").val(rowdata.color);
             $("input[name='licensePlate']").val(rowdata.licensePlate);
@@ -123,36 +146,38 @@ function modifyCarInfo() {
             } else if (rowdata.status === "IDLE") {
                 $("select[name='status']").val(0);
             }
+            $("#img").attr('src', '/carImage?id=' + rowdata.id);
 
             $("#delete").unbind("click").click(function () {
                 $.post("/manage/deleteCarInfo", {id: rowdata.id}, function (data) {
                     if (data.msg !== "error") {
                         modal.modal("hide");
-                        table.ajax.reload(null,false);
+                        table.ajax.reload(null, false);
                     }
-                },"json");
+                }, "json");
             });
 
             $("#save").unbind("click").click(function () {
-                $.post("/manage/saveCarInfo",
-                    {
-                        id: rowdata.id,
-                        brand: $("input[name='brand']").val(),
-                        color: $("input[name='color']").val(),
-                        licensePlate: $("input[name='licensePlate']").val(),
-                        price: $("input[name='price']").val(),
-                        status: $("select[name='status']").val()
-                    }, function (data) {
+                $.ajax({
+                    url: '/manage/saveCarInfo',
+                    type: 'POST',
+                    cache: false,
+                    data: new FormData($('#form')[0]),
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function (data) {
                         if (data.msg === "success") {
                             modal.modal("hide");
                             //window.location.reload();
-                            table.ajax.reload(null,false);
-                        }else if (data.msg === "lp_repeat") {
+                            table.ajax.reload(null, false); //Ajax刷新,分页不重置
+                        } else if (data.msg === "lp_repeat") {
                             alert("车牌号重复");
-                        }else {
+                        } else {
                             alert("输入错误");
                         }
-                    },"json");
+                    }
+                });
             })
         });
 }

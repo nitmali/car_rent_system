@@ -34,7 +34,7 @@ $().ready(function () {
             xkey: 'licensePlate',
             ykeys: ['count'],
             labels: ['数量'],
-            resize: false
+            resize: true
         });
     });
 
