@@ -63,7 +63,7 @@ public class CarService {
         if (planingLendEndTime.getTime() < planingLendStartTime.getTime()) return new ArrayList<>();
         List<Car> availableCars = new ArrayList<>();
         availableCars.addAll(carRepository.findAll());
-        availableCars.removeAll(rentingLogRepository.findUnavailableCarNotIDLE(planingLendStartTime, planingLendEndTime));
+        availableCars.removeAll(rentingLogRepository.findUnavailableCars(planingLendStartTime, planingLendEndTime));
         return availableCars;
     }
 
