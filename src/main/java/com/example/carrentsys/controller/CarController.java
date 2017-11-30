@@ -31,13 +31,13 @@ public class CarController {
         this.storageService = storageService;
     }
 
-    @RequestMapping(value = "/manage/getAllCars", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllCars", method = RequestMethod.GET)
     @ResponseBody
     public List<Car> getAllCars() {
         return carService.findAll();
     }
 
-    @RequestMapping(value = "/manage/saveCarInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/protect/saveCarInfo", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
     public String saveCarInfo(
@@ -103,7 +103,7 @@ public class CarController {
                 "attachment; filename=\"" + picname + "\"").body(file);
     }
 
-    @RequestMapping(value = "/manage/deleteCarInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/protect/deleteCarInfo", method = RequestMethod.POST)
     @ResponseBody
     public String deleteCarInfo(Integer id) {
         if (id != null) {

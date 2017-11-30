@@ -59,7 +59,7 @@ function getCarInfo() {
         bAutoWidth: true,
         processing: true,
         ajax: {
-            url: '/manage/getAllCars',
+            url: '/getAllCars',
             type: 'get',
             datatype: 'json',
             dataSrc: ''
@@ -108,7 +108,7 @@ function modifyCarInfo() {
             //         }
             //     },"json");
             $.ajax({
-                url: '/manage/saveCarInfo',
+                url: '/protect/saveCarInfo',
                 type: 'POST',
                 cache: false,
                 data: new FormData($('#form')[0]),
@@ -152,7 +152,7 @@ function modifyCarInfo() {
             $("input[name='pic']").val('');
 
             $("#delete").unbind("click").click(function () {
-                $.post("/manage/deleteCarInfo", {id: rowdata.id}, function (data) {
+                $.post("/protect/deleteCarInfo", {id: rowdata.id}, function (data) {
                     if (data.msg !== "error") {
                         modal.modal("hide");
                         table.ajax.reload(null, false);
@@ -162,7 +162,7 @@ function modifyCarInfo() {
 
             $("#save").unbind("click").click(function () {
                 $.ajax({
-                    url: '/manage/saveCarInfo',
+                    url: '/protect/saveCarInfo',
                     type: 'POST',
                     cache: false,
                     data: new FormData($('#form')[0]),
