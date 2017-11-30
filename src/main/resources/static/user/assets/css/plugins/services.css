@@ -6790,10 +6790,11 @@ a.moreabox:hover {
 }
 
 .smfw-arrow {
-    width: 79px;
-    height: 29px;
+    width: 15px;
+    height: 10px;
     display: inline-block;
-    background: url(https://image.zuchecdn.com/newversion/common/smfw_arrow.png) no-repeat
+    background-image: url(../../images/services/zhi.jpg);
+    background-size: cover;
 }
 
 .zc_index_select .bhnew.zc_index_dz .zc_item_cont.smfwdl dd.fr {
