@@ -1,6 +1,8 @@
 package com.example.carrentsys.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -26,6 +28,7 @@ public class Car {
     private Status status;
 
     @Column
+    @JsonIgnore
     private String image;
 
     public enum Status {

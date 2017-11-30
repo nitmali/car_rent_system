@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 
 @Controller
@@ -44,7 +41,7 @@ public class CarController {
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
     public String saveCarInfo(
-            String id,
+            Integer id,
             String brand,
             String color,
             String licensePlate,
@@ -62,12 +59,12 @@ public class CarController {
             if (licensePlate.length() > 8) {
                 return "{\"msg\":\"error\"}";
             }
-            if (carService.existsByLicensePlate(licensePlate) && !Objects.equals(id, String.valueOf(carService.findByLicensePlate(licensePlate).getId()))) {
+            if (carService.existsByLicensePlate(licensePlate) && !Objects.equals(id, carService.findByLicensePlate(licensePlate).getId())) {
                 return "{\"msg\":\"lp_repeat\"}";
             } else {
                 Car car = new Car();
-                if (id != null && !Objects.equals(id, "")) {
-                    car = carService.findOne(Integer.valueOf(id));
+                if (id != null) {
+                    car = carService.findOne(id);
                 }
                 car.setBrand(brand);
                 car.setColor(color);
@@ -108,10 +105,10 @@ public class CarController {
 
     @RequestMapping(value = "/manage/deleteCarInfo", method = RequestMethod.POST)
     @ResponseBody
-    public String deleteCarInfo(String id) {
+    public String deleteCarInfo(Integer id) {
         if (id != null) {
-            storageService.delete(carService.findOne(Integer.parseInt(id)).getImage());
-            carService.delete(Integer.parseInt(id));
+            storageService.delete(carService.findOne(id).getImage());
+            carService.delete(id);
             return "{\"msg\":\"success\"}";
         } else {
             return "{\"msg\":\"error\"}";
@@ -136,9 +133,18 @@ public class CarController {
 
     @RequestMapping(value = "/getAvailableCars", method = RequestMethod.GET)
     @ResponseBody
-    public List<Car> getAvailableCars(Timestamp planingLendStartTime, Timestamp planingLendEndTime, int lowestPrice, int highestPrice) {
+    public List<Car> getAvailableCars(Timestamp planingLendStartTime, Timestamp planingLendEndTime,
+                                      @RequestParam(required = false) Integer lowestPrice,
+                                      @RequestParam(required = false) Integer highestPrice) {
         Assert.notNull(planingLendEndTime, "planing time can not be empty");
         Assert.notNull(planingLendStartTime, "planing time can not be empty");
-        return carService.getAvailableCars(planingLendStartTime, planingLendEndTime, lowestPrice, highestPrice);
+        if (lowestPrice == null && highestPrice == null) {
+            return carService.getAvailableCars(planingLendStartTime, planingLendEndTime);
+        }
+        if (lowestPrice != null && highestPrice != null) {
+            return carService.getAvailableCars(planingLendStartTime, planingLendEndTime, lowestPrice, highestPrice);
+        } else {
+            return new ArrayList<>();
+        }
     }
 }

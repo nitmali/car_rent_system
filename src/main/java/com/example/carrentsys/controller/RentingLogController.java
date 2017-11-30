@@ -99,8 +99,8 @@ public class RentingLogController {
 
     @RequestMapping(value = "/manage/givebackCar", method = RequestMethod.POST)
     @ResponseBody
-    public String givebackCar(@RequestParam("id") String id) {
-        RentingLog rentingLog = rentService.findOne(Integer.valueOf(id));
+    public String givebackCar(@RequestParam("id") Integer id) {
+        RentingLog rentingLog = rentService.findOne(id);
         Car car = rentingLog.getCar();
         rentingLog.setLendEndTime(new Timestamp(System.currentTimeMillis()));
         rentingLog.setStatus(RentingLog.Status.FINISH);

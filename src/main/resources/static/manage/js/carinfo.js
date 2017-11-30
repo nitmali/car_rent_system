@@ -84,7 +84,8 @@ function modifyCarInfo() {
         $("input[name='licensePlate']").val("");
         $("input[name='price']").val("");
         $("select[name='status']").val(0);
-        $("#img").val("");
+        $("input[name='pic']").val("");
+        $("#img").hide();
         var modal = $("#modal").modal();
 
         $("#save").unbind("click").click(function () {
@@ -134,6 +135,7 @@ function modifyCarInfo() {
             var rowdata = table.row(this).data();
             var modal = $("#modal").modal();
             $("#delete").show();
+            $("#img").show();
             $("input[name='id']").val(rowdata.id);
             $("input[name='brand']").val(rowdata.brand);
             $("input[name='color']").val(rowdata.color);
@@ -147,6 +149,7 @@ function modifyCarInfo() {
                 $("select[name='status']").val(0);
             }
             $("#img").attr('src', '/carImage?id=' + rowdata.id);
+            $("input[name='pic']").val('');
 
             $("#delete").unbind("click").click(function () {
                 $.post("/manage/deleteCarInfo", {id: rowdata.id}, function (data) {
