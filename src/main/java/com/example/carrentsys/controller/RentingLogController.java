@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,10 +69,10 @@ public class RentingLogController {
     @RequestMapping(value = "/manage/reviewLogs", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
-    public String handleReviewLogs(@RequestParam("id") Long id, String type, HttpServletRequest request) {
+    public String handleReviewLogs(@RequestParam("id") String id, String type, HttpServletRequest request) {
         String username = (String) request.getSession().getAttribute("username");
         Admin admin = adminService.findByUsername(username);
-        RentingLog rentingLog = rentService.findOne(id);
+        RentingLog rentingLog = rentService.findOne(Integer.valueOf(id));
         Car car = rentingLog.getCar();
         if (type.equals("PASS")) {
             if (car.getStatus() == Car.Status.USING) return "{\"msg\":\"car is using\"}";
@@ -98,7 +99,7 @@ public class RentingLogController {
 
     @RequestMapping(value = "/manage/givebackCar", method = RequestMethod.POST)
     @ResponseBody
-    public String givebackCar(@RequestParam("id") Long id) {
+    public String givebackCar(@RequestParam("id") Integer id) {
         RentingLog rentingLog = rentService.findOne(id);
         Car car = rentingLog.getCar();
         rentingLog.setLendEndTime(new Timestamp(System.currentTimeMillis()));
@@ -109,9 +110,17 @@ public class RentingLogController {
         return "{\"msg\":\"success\"}";
     }
 
+    @RequestMapping(value = "/countSubmitByTime", method = RequestMethod.GET)
+    @ResponseBody
+    public long countSubmitByTime(Timestamp start, Timestamp end) {
+        Assert.notNull(start, "start time can not be empty");
+        Assert.notNull(end, "end time can not be empty");
+        return rentService.countSubmits(start, end);
+    }
+
     @RequestMapping(value = "/makeRenting", method = RequestMethod.POST)
     @ResponseBody
-    public String makeRenting(Long carid, Timestamp planingLendStartTime, Timestamp planingLendEndTime, HttpServletRequest request) {
+    public String makeRenting(int carid, Timestamp planingLendStartTime, Timestamp planingLendEndTime, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.getAttribute("usertype") != "client") return "{\"msg\":\"usertype error\"}";
         if (planingLendEndTime.getTime() - planingLendStartTime.getTime() <= 0)

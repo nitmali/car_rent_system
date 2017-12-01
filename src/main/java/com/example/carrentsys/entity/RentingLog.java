@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class RentingLog {
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @ManyToOne
     private Client client;
@@ -55,11 +55,11 @@ public class RentingLog {
         FINISH
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Car {
     @Id
     @GeneratedValue
-    private Long id;
+    private int id;
 
     @Column(length = 16,nullable = false)
     private String color;
@@ -37,11 +37,11 @@ public class Car {
         USING
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

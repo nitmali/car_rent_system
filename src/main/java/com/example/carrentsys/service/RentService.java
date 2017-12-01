@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,10 @@ public class RentService {
     public RentService(RentingLogRepository rentingLogRepository, CarRepository carRepository) {
         this.rentingLogRepository = rentingLogRepository;
         this.carRepository = carRepository;
+    }
+
+    public long countSubmits(Timestamp start, Timestamp end) {
+        return rentingLogRepository.countRentingLogsBySubmitTimeBetween(start, end);
     }
 
     public List<RentingLog> findByStatus(RentingLog.Status status) {
@@ -43,7 +48,7 @@ public class RentService {
         return rentingLogRepository.findAll(pageRequest);
     }
 
-    public RentingLog findOne(Long id) {
+    public RentingLog findOne(Integer id) {
         return rentingLogRepository.findOne(id);
     }
 

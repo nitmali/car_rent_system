@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CarRepository extends JpaRepository<Car, Long> {
+public interface CarRepository extends JpaRepository<Car, Integer> {
 
     List<Car> findAll();
 
@@ -18,8 +18,8 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     Car findByLicensePlate(String licensePlate);
 
-    Long countByStatus(Car.Status status);
+    int countByStatus(Car.Status status);
 
     @Query(value = "SELECT c FROM Car c WHERE c.price<=?1 OR c.price>=?2")
-    List<Car> findByPriceOutof(Integer start, Integer end);
+    List<Car> findByPriceOutof(int start, int end);
 }

@@ -64,7 +64,7 @@ public class UserController {
     @RequestMapping(value = "/clientInfo", method = RequestMethod.POST)
     @ResponseBody
     public String modifyClientInfo(Client client) {
-        Long id = clientService.findByUsername(client.getUsername()).getId();
+        Integer id = clientService.findByUsername(client.getUsername()).getId();
         client.setId(id);
         clientService.save(client);
         return "{\"msg\":\"success\"}";
@@ -79,7 +79,7 @@ public class UserController {
     @RequestMapping(value = "/adminInfo", method = RequestMethod.POST)
     @ResponseBody
     public String modifyAdminInfo(Admin admin) {
-        Long id = adminService.findByUsername(admin.getUsername()).getId();
+        Integer id = adminService.findByUsername(admin.getUsername()).getId();
         admin.setId(id);
         adminService.save(admin);
         return "{\"msg\":\"success\"}";

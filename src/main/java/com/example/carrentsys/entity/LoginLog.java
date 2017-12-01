@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 public class LoginLog {
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @Column(length = 10,nullable = false)
     private String usertype;
@@ -24,11 +24,11 @@ public class LoginLog {
     @Column(nullable = false)
     private Timestamp logintime;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
