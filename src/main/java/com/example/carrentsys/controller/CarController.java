@@ -9,7 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,7 +40,7 @@ public class CarController {
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
     public String saveCarInfo(
-            Integer id,
+            Long id,
             String brand,
             String color,
             String licensePlate,
@@ -96,7 +95,7 @@ public class CarController {
 
     @RequestMapping(value = "/carImage", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Resource> getCarImage(int id) {
+    public ResponseEntity<Resource> getCarImage(Long id) {
         String picname = carService.findOne(id).getImage();
         Resource file = storageService.loadAsResource(picname);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
@@ -105,7 +104,7 @@ public class CarController {
 
     @RequestMapping(value = "/protect/deleteCarInfo", method = RequestMethod.POST)
     @ResponseBody
-    public String deleteCarInfo(Integer id) {
+    public String deleteCarInfo(Long id) {
         if (id != null) {
             storageService.delete(carService.findOne(id).getImage());
             carService.delete(id);
@@ -117,8 +116,8 @@ public class CarController {
 
     @RequestMapping(value = "/countCarsByStatus", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Integer> countByStatus() {
-        Map<String, Integer> map = new HashMap<>();
+    public Map<String, Long> countByStatus() {
+        Map<String, Long> map = new HashMap<>();
         map.put("IDLE", carService.countByStatus(Car.Status.IDLE));
         map.put("BOOKING", carService.countByStatus(Car.Status.BOOKING));
         map.put("USING", carService.countByStatus(Car.Status.USING));
@@ -136,8 +135,6 @@ public class CarController {
     public List<Car> getAvailableCars(Timestamp planingLendStartTime, Timestamp planingLendEndTime,
                                       @RequestParam(required = false) Integer lowestPrice,
                                       @RequestParam(required = false) Integer highestPrice) {
-        Assert.notNull(planingLendEndTime, "planing time can not be empty");
-        Assert.notNull(planingLendStartTime, "planing time can not be empty");
         if (lowestPrice == null && highestPrice == null) {
             return carService.getAvailableCars(planingLendStartTime, planingLendEndTime);
         }

@@ -5,7 +5,6 @@ import com.example.carrentsys.service.AdminService;
 import com.example.carrentsys.service.ClientService;
 import com.example.carrentsys.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @RestController
 public class LoginController {
@@ -32,8 +32,7 @@ public class LoginController {
     public String loginCheck(@PathVariable(name = "usertype") String usertype, HttpServletRequest request) {
         String username=request.getParameter("username");
         String passwd=request.getParameter("passwd");
-        Assert.notNull(username, "username can not be empty");
-        Assert.notNull(passwd, "password can not be empty");
+        if (Objects.equals(username, "") || Objects.equals(passwd, "")) return "{\"msg\":\"error\"}";
         HttpSession session = request.getSession();
         LoginLog loginLog = new LoginLog();
         String ip = request.getRemoteAddr();

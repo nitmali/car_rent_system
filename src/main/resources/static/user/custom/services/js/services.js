@@ -80,12 +80,12 @@ function sorecar() {
     $.get("/getCarsByStatus?status=IDLE",
         function (data) {
             if ($("#sortcar").text() === "↑") {
-                $("#sortcar").text("↓")
+                $("#sortcar").text("↓");
                 data.sort(function (a, b) {
                     return a.price - b.price
                 });
             } else {
-                $("#sortcar").text("↑")
+                $("#sortcar").text("↑");
                 data.sort(function (a, b) {
                     return b.price - a.price
                 });
@@ -114,7 +114,7 @@ function displaycar(data, lowestprice, highestprice) {
         // language=HTML
         var car = "    <tr class=\"clist_tr\" id=\"car" + data[i].id + "\">\n" +
             "              <td class=\"pic\">\n" +
-            "                <img src=\"../custom/services/images/" + data[i].image + "\" alt=\"" + data[i].brand + "\">\n" +
+            "                <img src=\"/carImage?id=" + data[i].id + "\" alt=\"" + data[i].brand + "\">\n" +
             "              </td>\n" +
             "              <td class=\"info\">\n" +
             "                <p class=\"name\">" + data[i].brand + "&nbsp;&nbsp;(" + data[i].color + ")</p>\n" +
