@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Client {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @Column(nullable = false,unique = true)
     private String username;
@@ -26,11 +26,11 @@ public class Client {
     @Column(length = 18, nullable = false,unique = true)
     private String idCard;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

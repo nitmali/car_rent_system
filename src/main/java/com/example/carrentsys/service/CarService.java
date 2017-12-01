@@ -23,7 +23,7 @@ public class CarService {
         this.rentingLogRepository = rentingLogRepository;
     }
 
-    public Car findOne(Integer id) {
+    public Car findOne(Long id) {
         return carRepository.findOne(id);
     }
 
@@ -31,7 +31,7 @@ public class CarService {
         carRepository.save(car);
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         carRepository.delete(id);
     }
 
@@ -51,11 +51,11 @@ public class CarService {
         return carRepository.findByLicensePlate(licensePlate);
     }
 
-    public int countByStatus(Car.Status status) {
+    public Long countByStatus(Car.Status status) {
         return carRepository.countByStatus(status);
     }
 
-    public List<Car> findByPriceOutof(int start, int end) {
+    public List<Car> findByPriceOutof(Integer start, Integer end) {
         return carRepository.findByPriceOutof(start, end);
     }
 
