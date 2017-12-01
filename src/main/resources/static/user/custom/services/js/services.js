@@ -109,24 +109,49 @@ function getcar() {
             lowestPrice: lowestprice,
             highestPrice: highestprice
         }, function (data) {
+            if ($("#sortcar").attr("src") === "../custom/services/images/other/down.png") {
+                data.sort(function (a, b) {
+                    return b.price - a.price
+                });
+            } else {
+                data.sort(function (a, b) {
+                    return a.price - b.price
+                });
+            }
             removecar();
             displaycar(data);
         }
     );
 }
 
-// 车辆筛选,
+// 车辆筛选ajax,
 function sorecar() {
     var lowestprice = $("#lowestprice").val();
     var highestprice = $("#highestprice").val();
+    var planingLendStartTime = $("#starttime").val();
+    var planingLendEndTime = $("#endtime").val();
+
+    planingLendStartTime = planingLendStartTime.replace(/T/i, " ") + ":00";
+
+    if (planingLendEndTime === "") {
+        planingLendEndTime = "9999-11-11 11:11:11"
+    } else {
+        planingLendEndTime = (planingLendEndTime.replace(/T/i, " ") + ":00");
+    }
     if (lowestprice === "") {
-        lowestprice = 0;
+        lowestprice = "0";
     }
     if (highestprice === "") {
-        highestprice = 10000000;
+        highestprice = "99999999";
     }
 
-    $.get("/getCarsByStatus?status=IDLE",
+    $.get("/getAvailableCars",
+        {
+            planingLendStartTime: planingLendStartTime,
+            planingLendEndTime: planingLendEndTime,
+            lowestPrice: lowestprice,
+            highestPrice: highestprice
+        },
         function (data) {
             if ($("#sortcar").attr("src") === "../custom/services/images/other/down.png") {
                 $("#sortcar").attr("src", "../custom/services/images/other/rise.png");
@@ -212,14 +237,20 @@ function carmodalhtml(data, i, imgurl) {
         "      </div>\n" +
         "      <div class=\"ord\">\n" +
         "        <label><br/>\n" +
-        "          <p class=\"zc_left_title\">&nbsp;&nbsp;预定时间&nbsp;:&nbsp;&nbsp;" +
+        "          <p class=\"zc_left_title\">" +
+        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+        "预定时间&nbsp;:&nbsp;&nbsp;" +
         "<span class='starttime_order'></span>（请在预定时间内到门店提车）</p>\n" +
-        "          <p class=\"zc_left_title\">&nbsp;&nbsp;换车时间&nbsp;:&nbsp;&nbsp;" +
+        "          <p class=\"zc_left_title\">" +
+        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+        "还车时间&nbsp;:&nbsp;&nbsp;" +
         "<span class='endtime_order'></span>（以实际还车时间为准）</p>\n" +
         "        <br/></label>\n" +
         "      </div>\n" +
         "      <div class='zc_boxshd minhght clist_ct'> " +
-        "       <img src=\"" + imgurl + "\" alt=\"" + data[i].brand + "\">\n" +
+        "       <div class='carimg'> <img src=\"" + imgurl + "\" alt=\"" + data[i].brand + "\"></div>\n" +
         "    <table>" +
         "    <tr class=\"clist_tr\" id=\"car" + data[i].id + "\">\n" +
         "              <td class=\"info\">\n" +
@@ -258,7 +289,7 @@ function carmodalhtml(data, i, imgurl) {
         "         </table>" +
         "        </div>" +
         "        <div class=\"modal-footer\">\n" +
-        "        <button type=\"button\" id=\"" + data[i].id + "\" class=\"btn btn-success\" onclick='preprogram(this.id)' data-dismiss=\"modal\">预定\n" +
+        "        <button type=\"button\" id=\"" + data[i].id + "\" class=\"btn btn-success\" data-dismiss=\"modal\" onclick='preprogram(this.id)' >预定\n" +
         "        <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">关闭\n" +
         "        </button>\n" +
         "      </div>\n" +
@@ -294,11 +325,13 @@ function carorder(id) {
 
 //下单ajax
 function preprogram(id) {
+
+    var profile = "<a href=\"profile.html\">进入个人中心查看订单</a>";
+
     var planingLendStartTime = $("#starttime").val();
     var planingLendEndTime = $("#endtime").val();
     planingLendStartTime = planingLendStartTime.replace(/T/i, " ") + ":00";
     planingLendEndTime = planingLendEndTime.replace(/T/i, " ") + ":00";
-
 
     $.post("/makeRenting",
         {
@@ -309,6 +342,7 @@ function preprogram(id) {
         }, function (data) {
             if (data.msg === "success") {
                 $("#prompt").html("预订成功！");
+                $("#prompt").append(profile);
                 $("#promptmodal").modal();
                 $("#carttable").children("#car" + id).remove();
             }

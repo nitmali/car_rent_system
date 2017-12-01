@@ -27,14 +27,32 @@ a:link {
     width: 250px;
 }
 
-#promptmodal label {
-    font-size: 20px;
-}
-
 .carmodal {
     top: 5%;
 }
 
 .carmodal label {
     font-size: 15px;
+}
+
+#promptmodal .modal-content {
+    width: 500px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#promptmodal .modal-footer {
+    text-align: center;
+}
+
+.carmodal .carimg {
+    text-align: center;
+}
+
+.carmodal .modal-footer {
+    text-align: center;
+}
+
+.carmodal .modal-header {
+    text-align: center;
 }
