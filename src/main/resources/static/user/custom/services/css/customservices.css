@@ -8,9 +8,33 @@
 
 .filter {
     position: fixed;
-    top: 50px;
+    top: 70px;
 }
 
 a:link {
     text-decoration: none;
+}
+
+.filterinput {
+    width: 115px;
+}
+
+.filtertr {
+    height: 20px;
+}
+
+.dateinput {
+    width: 250px;
+}
+
+#promptmodal label {
+    font-size: 20px;
+}
+
+.carmodal {
+    top: 5%;
+}
+
+.carmodal label {
+    font-size: 15px;
 }

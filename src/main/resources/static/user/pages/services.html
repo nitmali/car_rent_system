@@ -155,52 +155,71 @@
     <!--筛选栏-->
     <div id="filter" class="initialfilter">
       <div class="lchoose_box">
-        <div class="cl-lbox bdbtm orderRent price1">
-          <p class="zc_left_title">价格 <span class="sma12">(元)</span></p>
-          <!--价格筛选-->
+        <div class="bdbtm  price1">
           <div>
-            <table>
-              <tr>
+            <table cellspacing="0" cellpadding="0">
+              <!--价格筛选-->
+              <tr class="filtertr">
                 <td>
-                  <div>
-                    <input type="number" class="form-control" value="None" id="lowestprice" onblur="price()">
-                  </div>
-
+                  <p class="zc_left_title">价格 <span class="sma12">(元)</span></p>
+                </td>
+              </tr>
+              <tr class="filtertr">
+                <td>
+                  <label>
+                    <input onkeyup="if(/\D/.test(this.value)){this.value='';}" class="filterinput form-control"
+                           id="lowestprice"
+                           onblur="price()" title="">
+                  </label>
                 </td>
                 <td>
-                  <em style="font-size: 5px">&nbsp;—&nbsp;</em>
+                  <span class="smfw-arrow"></span>
                 </td>
                 <td>
-                  <div>
-                    <input type="number" class="form-control" value="None" id="highestprice" onblur="price()">
-                  </div>
+                  <label>
+                    <input onkeyup="if(/\D/.test(this.value)){this.value='';}" class="filterinput form-control"
+                           id="highestprice"
+                           onblur="price()" title="">
+                  </label>
                 </td>
                 <td>
                   &nbsp;
                 </td>
                 <td>
-                  <a href="#" class="filter-price" onclick="sorecar()"><h4 id="sortcar">↓</h4></a>
+                  <img src="../custom/services/images/other/rise.png" height="16" width="16" class="filter-price"
+                       id="sortcar"
+                       onclick="sorecar()">
                 </td>
               </tr>
             </table>
+            <p>&nbsp;</p>
+            <p class="zc_left_title">开始时间</p>
+            <label>
+              <input type="datetime-local" id="starttime" class="dateinput form-control"
+                     onblur="verifystart(this.value)">
+            </label>
+            <p class="zc_left_title">结束时间</p>
+            <label>
+              <input type="datetime-local" id="endtime" class="dateinput form-control" onblur="verifyend(this.value)">
+            </label>
           </div>
         </div>
-        <div class="cl-lbox bdbtm orderBrand">
-          <p class="zc_left_title">品牌</p>
-          <ul class="car_brand">
-            <li class="orderlevelcheck filter_brand all"><a class="checked ppdefault">不限</a></li>
-            <li class="orderlevelcheck filter_brand brandname"><a>凯迪拉克</a></li>
-            <li class="orderlevelcheck filter_brand brandname"><a>悦达起亚</a></li>
-            <li class="orderlevelcheck filter_brand brandname"><a>沃尔沃</a></li>
-            <li class="orderlevelcheck filter_brand brandname"><a>大众</a></li>
-            <li class="orderlevelcheck filter_brand brandname"><a>丰田</a></li>
-            <li class="orderlevelcheck filter_brand brandname"><a>别克</a></li>
-            <li class="orderlevelcheck filter_brand brandname"><a>雪佛兰</a></li>
-          </ul>
-        </div>
+        <!--<div class="cl-lbox bdbtm orderBrand">-->
+        <!--<p class="zc_left_title">品牌</p>-->
+        <!--<ul class="car_brand">-->
+        <!--<li class="orderlevelcheck filter_brand all"><a class="checked ppdefault">不限</a></li>-->
+        <!--<li class="orderlevelcheck filter_brand brandname"><a>凯迪拉克</a></li>-->
+        <!--<li class="orderlevelcheck filter_brand brandname"><a>悦达起亚</a></li>-->
+        <!--<li class="orderlevelcheck filter_brand brandname"><a>沃尔沃</a></li>-->
+        <!--<li class="orderlevelcheck filter_brand brandname"><a>大众</a></li>-->
+        <!--<li class="orderlevelcheck filter_brand brandname"><a>丰田</a></li>-->
+        <!--<li class="orderlevelcheck filter_brand brandname"><a>别克</a></li>-->
+        <!--<li class="orderlevelcheck filter_brand brandname"><a>雪佛兰</a></li>-->
+        <!--</ul>-->
+        <!--</div>-->
         <dl class="storedl">
           <dt>门店地址(取车地址):</dt>
-          <dd>浙江省宁波市鄞州区浙江大学宁波理工学院西门（08:00-10:00）
+          <dd>浙江省宁波市鄞州区浙江大学宁波理工学院西门（08:00-20:00）
             <a href="http://map.baidu.com/?newmap=1&ie=utf-8&s=
             s%26wd%3D%E6%B5%99%E6%B1%9F%E5%A4%A7%E5%AD%A6%E5%AE%81%E6%B3%A2%E7%90%86%E5%B7%A5" target="view_window">
               线路查询</a>
@@ -210,7 +229,7 @@
           <dt>还车地址：</dt>
           <dd>浙江省宁波市鄞州区浙江大学宁波理工学院</dd>
           <dt class="oline">营业时间:
-            <span>08:00-10:00
+            <span>08:00-20:00
               </span>
           </dt>
           <dt class="oline">门店电话:
@@ -340,6 +359,31 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->
 </div>
+<!--温馨提示-->
+<div class="modal fade" id="promptmodal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- 模态框头部 -->
+      <div class="modal-header">
+        <h4 class="modal-title">温馨提示</h4>
+      </div>
+
+      <!-- 模态框主体 -->
+      <div class="modal-body">
+        <label>
+          <span id="prompt"></span>
+        </label>
+      </div>
+
+      <!-- 模态框底部 -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 <!-- //Footer -->
 <!--登录页面-->
 <link rel='stylesheet' href="../custom/css/login.css">
@@ -377,7 +421,6 @@
     </div>
   </div>
 </div>
-
 
 <script src="../assets/js/jquery.1.12.4.min.js"></script>
 <script src="../assets/js/plugins/bootstrap.min.js"></script>

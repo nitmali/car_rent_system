@@ -32,8 +32,6 @@ function register() {
     }
 }
 
-//协议
-
 //username
 function Inputusername() {
     $("#UsernameSpan").html("");
