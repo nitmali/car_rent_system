@@ -33,7 +33,7 @@ public class Car {
 
     public enum Status {
         IDLE,
-        BOOKING,
+        UNAVAILABLE,
         USING
     }
 

@@ -1,22 +1,22 @@
-var vm_client = new Vue({
-    el: '#modal-client',
-    data: {
-        username: "",
-        idCard: "",
-        phone: ""
-    }
-});
-var vm_car = new Vue({
-    el: '#modal-car',
-    data: {
-        brand: "",
-        color: "",
-        licensePlate: "",
-        price: "",
-        status: ""
-    }
-});
 $().ready(function () {
+    var vm_client = new Vue({
+        el: '#modal-client',
+        data: {
+            username: "",
+            idCard: "",
+            phone: ""
+        }
+    });
+    var vm_car = new Vue({
+        el: '#modal-car',
+        data: {
+            brand: "",
+            color: "",
+            licensePlate: "",
+            price: "",
+            status: ""
+        }
+    });
     var table = $("#order_table").DataTable({
         language: {
             "sProcessing": "处理中...",

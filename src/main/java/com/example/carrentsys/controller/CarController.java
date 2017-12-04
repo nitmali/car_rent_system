@@ -2,7 +2,7 @@ package com.example.carrentsys.controller;
 
 import com.example.carrentsys.entity.Car;
 import com.example.carrentsys.service.CarService;
-import com.example.carrentsys.service.storage.FileSystemStorageService;
+import com.example.carrentsys.service.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -22,10 +22,10 @@ import java.util.*;
 @Controller
 public class CarController {
     private final CarService carService;
-    private final FileSystemStorageService storageService;
+    private final StorageService storageService;
 
     @Autowired
-    public CarController(CarService carRepository, FileSystemStorageService storageService) {
+    public CarController(CarService carRepository, StorageService storageService) {
         this.carService = carRepository;
         this.storageService = storageService;
     }
@@ -45,14 +45,14 @@ public class CarController {
             String color,
             String licensePlate,
             String price,
-            String status,
+            Car.Status status,
             @RequestParam(value = "pic", required = false) MultipartFile file
     ) {
         if (Objects.equals(brand, "") ||
                 Objects.equals(color, "") ||
                 Objects.equals(licensePlate, "") ||
                 Objects.equals(price, "") ||
-                Objects.equals(status, "")) {
+                status == null) {
             return "{\"msg\":\"null\"}";
         } else {
             if (licensePlate.length() > 8) {
@@ -69,22 +69,9 @@ public class CarController {
                 car.setColor(color);
                 car.setLicensePlate(licensePlate);
                 car.setPrice(Integer.parseInt(price));
-                switch (status) {
-                    case "0":
-                        car.setStatus(Car.Status.IDLE);
-                        break;
-                    case "1":
-                        car.setStatus(Car.Status.BOOKING);
-                        break;
-                    case "2":
-                        car.setStatus(Car.Status.USING);
-                        break;
-                    default:
-                        System.out.println("status input error!");
-                        return "{\"msg\":\"error\"}";
-                }
+                car.setStatus(status);
                 if (!file.isEmpty()) {
-                    String picname = storageService.store(file, licensePlate);
+                    String picname = storageService.store(file);
                     car.setImage(picname);
                 }
                 carService.save(car);
@@ -119,7 +106,7 @@ public class CarController {
     public Map<String, Long> countByStatus() {
         Map<String, Long> map = new HashMap<>();
         map.put("IDLE", carService.countByStatus(Car.Status.IDLE));
-        map.put("BOOKING", carService.countByStatus(Car.Status.BOOKING));
+        map.put("UNAVAILABLE", carService.countByStatus(Car.Status.UNAVAILABLE));
         map.put("USING", carService.countByStatus(Car.Status.USING));
         return map;
     }

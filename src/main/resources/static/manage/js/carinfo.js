@@ -83,7 +83,7 @@ function modifyCarInfo() {
         $("input[name='color']").val("");
         $("input[name='licensePlate']").val("");
         $("input[name='price']").val("");
-        $("select[name='status']").val(0);
+        $("select[name='status']").val("IDLE");
         $("input[name='pic']").val("");
         $("#img").hide();
         var modal = $("#modal").modal();
@@ -141,13 +141,7 @@ function modifyCarInfo() {
             $("input[name='color']").val(rowdata.color);
             $("input[name='licensePlate']").val(rowdata.licensePlate);
             $("input[name='price']").val(rowdata.price);
-            if (rowdata.status === "BOOKING") {
-                $("select[name='status']").val(1);
-            } else if (rowdata.status === "USING") {
-                $("select[name='status']").val(2);
-            } else if (rowdata.status === "IDLE") {
-                $("select[name='status']").val(0);
-            }
+            $("select[name='status']").val(rowdata.status);
             $("#img").attr('src', '/carImage?id=' + rowdata.id);
             $("input[name='pic']").val('');
 

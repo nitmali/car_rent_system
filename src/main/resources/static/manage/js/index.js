@@ -13,8 +13,8 @@ $().ready(function () {
                     label: "空闲",
                     value: data.IDLE
                 }, {
-                    label: "已预约",
-                    value: data.BOOKING
+                    label: "不可用",
+                    value: data.UNAVAILABLE
                 }, {
                     label: "已借出",
                     value: data.USING

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,15 +75,13 @@ public class RentingLogController {
         RentingLog rentingLog = rentService.findOne(id);
         Car car = rentingLog.getCar();
         if (type.equals("PASS")) {
-            if (car.getStatus() == Car.Status.USING) return "{\"msg\":\"car is using\"}";
+            if (car.getStatus() != Car.Status.IDLE) return "{\"msg\":\"car is unavailable\"}";
             rentingLog.setStatus(RentingLog.Status.PASS);
             rentingLog.setLendStartTime(new Timestamp(System.currentTimeMillis()));
             car.setStatus(Car.Status.USING);
             rentingLog.setCar(car);
         } else if (type.equals("REJECT")) {
             rentingLog.setStatus(RentingLog.Status.REJECT);
-            car.setStatus(Car.Status.IDLE);
-            rentingLog.setCar(car);
         }
         rentingLog.setApprovalTime(new Timestamp(System.currentTimeMillis()));
         rentingLog.setAdmin(admin);
@@ -111,7 +110,10 @@ public class RentingLogController {
 
     @RequestMapping(value = "/makeRenting", method = RequestMethod.POST)
     @ResponseBody
-    public String makeRenting(Long carid, Timestamp planingLendStartTime, Timestamp planingLendEndTime, HttpServletRequest request) {
+    public String makeRenting(Long carid,
+                              Timestamp planingLendStartTime,
+                              Timestamp planingLendEndTime,
+                              HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.getAttribute("usertype") != "client") return "{\"msg\":\"usertype error\"}";
         if (planingLendEndTime.getTime() - planingLendStartTime.getTime() <= 0)
@@ -121,7 +123,6 @@ public class RentingLogController {
         if (!availableCars.contains(car)) {
             return "{\"msg\":\"car is not available\"}";
         }
-        car.setStatus(Car.Status.BOOKING);
         String username = (String) session.getAttribute("username");
         Client client = clientService.findByUsername(username);
         RentingLog rentingLog = new RentingLog();
@@ -134,9 +135,56 @@ public class RentingLogController {
         return "{\"msg\":\"success\"}";
     }
 
+    @RequestMapping(value = "/modifyRenting", method = RequestMethod.POST)
+    @ResponseBody
+    public String modifyRenting(Long id,
+                                Long carid,
+                                Timestamp planingLendStartTime,
+                                Timestamp planingLendEndTime,
+                                HttpServletRequest request) {
+        if (id == null) return "{\"msg\":\"id error\"}";
+        RentingLog rawRentingLog = rentService.findOne(id);
+        HttpSession session = request.getSession();
+        if (session.getAttribute("usertype") != "client" ||
+                session.getAttribute("username") != rawRentingLog.getClient().getUsername())
+            return "{\"msg\":\"usertype error\"}";
+        if (rawRentingLog.getStatus() != RentingLog.Status.PENDING) return "{\"msg\":\"cannot be modified\"}";
+
+        List<Car> availableCars = carService.getAvailableCars(planingLendStartTime, planingLendEndTime);
+        Car car = carService.findOne(carid);
+        if (!availableCars.contains(car)) return "{\"msg\":\"car is not available\"}";
+        rawRentingLog.setCar(car);
+        rawRentingLog.setSubmitTime(new Timestamp(System.currentTimeMillis()));
+        rawRentingLog.setPlaningLendStartTime(planingLendStartTime);
+        rawRentingLog.setPlaningLendEndTime(planingLendEndTime);
+        return "{\"msg\":\"success\"}";
+    }
+
+    @RequestMapping(value = "/cancelRenting", method = RequestMethod.POST)
+    @ResponseBody
+    public String cancelRenting(Long id) {
+        RentingLog rentingLog = rentService.findOne(id);
+        rentingLog.setStatus(RentingLog.Status.CANCEL);
+        return "{\"msg\":\"success\"}";
+    }
+
+    @RequestMapping(value = "/historyRenting", method = RequestMethod.GET)
+    @ResponseBody
+    public List<RentingLog> historyRenting(HttpServletRequest request, @RequestParam(required = false) RentingLog.Status status) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("usertype") != "client") return new ArrayList<>();
+        String username = (String) session.getAttribute("username");
+        Client client = clientService.findByUsername(username);
+        System.out.println(client);
+        if (status == null) return rentService.findByClient(client);
+        else {
+            return rentService.findByClientAndStatus(client, status);
+        }
+    }
+
     @RequestMapping(value = "/countCarLogs", method = RequestMethod.GET)
     @ResponseBody
     public List<Map> countCarLogs() {
-        return rentService.countByCar();
+        return rentService.countLogsByCar();
     }
 }

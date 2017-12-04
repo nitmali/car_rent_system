@@ -52,7 +52,8 @@ public class RentingLog {
         PENDING,
         PASS,
         REJECT,
-        FINISH
+        FINISH,
+        CANCEL
     }
 
     public Long getId() {

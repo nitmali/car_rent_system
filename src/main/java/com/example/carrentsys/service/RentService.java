@@ -1,6 +1,7 @@
 package com.example.carrentsys.service;
 
 import com.example.carrentsys.entity.Car;
+import com.example.carrentsys.entity.Client;
 import com.example.carrentsys.entity.RentingLog;
 import com.example.carrentsys.repository.CarRepository;
 import com.example.carrentsys.repository.RentingLogRepository;
@@ -51,7 +52,7 @@ public class RentService {
         rentingLogRepository.save(rentingLog);
     }
 
-    public List<Map> countByCar() {
+    public List<Map> countLogsByCar() {
         List<Car> list = carRepository.findAll();
         List<Map> ret = new ArrayList<>();
         for (Car car : list) {
@@ -61,5 +62,13 @@ public class RentService {
             ret.add(map);
         }
         return ret;
+    }
+
+    public List<RentingLog> findByClient(Client client) {
+        return rentingLogRepository.findByClient(client);
+    }
+
+    public List<RentingLog> findByClientAndStatus(Client client, RentingLog.Status status) {
+        return rentingLogRepository.findByClientAndStatus(client, status);
     }
 }
