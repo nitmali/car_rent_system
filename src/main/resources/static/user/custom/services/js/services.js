@@ -203,7 +203,7 @@ function carhtml(data, i, imgurl) {
         "                    <div class=\"car_price\">\n" +
         "                    <span class=\"pri_ye\">\n" +
         "                      <em class=\"rmb\">¥</em>\n" +
-        "                      <em class=\"num\">" + data[i].price + "</em>\n" +
+        "                      <em class=\"num\"> " + data[i].price + "</em>\n" +
         "                      <em class=\"unit\">/日均</em>\n" +
         "                    </span>\n" +
         "                      <div class=\"sz_priceTotal\" style=\"cursor: pointer;\" data=\"normal\" modelevel=\"3\" modeid=\"842\">\n" +
@@ -235,45 +235,75 @@ function carmodalhtml(data, i, imgurl) {
         "          确认订单\n" +
         "        </h4>\n" +
         "      </div>\n" +
-        "      <div class=\"ord\">\n" +
-        "        <label><br/>\n" +
-        "          <p class=\"zc_left_title\">" +
-        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-        "预定时间&nbsp;:&nbsp;&nbsp;" +
-        "<span class='starttime_order'></span>（请在预定时间内到门店提车）</p>\n" +
-        "          <p class=\"zc_left_title\">" +
-        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-        "还车时间&nbsp;:&nbsp;&nbsp;" +
-        "<span class='endtime_order'></span>（以实际还车时间为准）</p>\n" +
-        "        <br/></label>\n" +
-        "      </div>\n" +
+
         "      <div class='zc_boxshd minhght clist_ct'> " +
         "       <div class='carimg'> <img src=\"" + imgurl + "\" alt=\"" + data[i].brand + "\"></div>\n" +
         "    <table>" +
         "    <tr class=\"clist_tr\" id=\"car" + data[i].id + "\">\n" +
         "              <td class=\"info\">\n" +
+        "                <div style='margin-left:50px'>" +
         "                <p style='font-size: 10px'>" + data[i].brand + "&nbsp;&nbsp;(" + data[i].color + ")</p>\n" +
         "                <div class=\"alltips\">\n" +
         "                  <p class=\"tip bh_cp\">车牌号</p>\n" +
         "                  <p class=\"tip bh_hm\">" + data[i].licensePlate + "</p>\n" +
         "                </div>\n" +
+        "               </div>" +
         "              </td>\n" +
         "              <td class=\"ord\">\n" +
         "                <div class=\"order_box\">\n" +
-        "                  <div class=\"od_price\">\n" +
+        "                  <div class=\"od_price\" style='margin-left:100px'>\n" +
         "                    <div class=\"houfu \"></div>\n" +
         "                    <div class=\"car_price\">\n" +
         "                    <span class=\"pri_ye\">\n" +
         "                      <em class=\"rmb\">¥</em>\n" +
         "                      <em class=\"num\">" + data[i].price + "</em>\n" +
+        "                      <input type='text' id='price" + data[i].id + "' value='" + data[i].price + "' style='display: none'>\n" +
         "                      <em class=\"unit\">/日均</em>\n" +
         "                    </span>\n" +
         "                      <div class=\"sz_priceTotal\" style=\"cursor: pointer;\" data=\"normal\" modelevel=\"3\" modeid=\"842\">\n" +
         "                        <div class=\"fl clear\">\n" +
         "                        <span class=\"fl pri_all\">\n" +
         "                          <em class=\"unit\">油费自理（赠送1L）</em>\n" +
+        "                        </span>\n" +
+        "                        </div>\n" +
+        "                      </div>\n" +
+        "                      <div class=\"sz_priceTotal\" style=\"cursor: pointer;\" data=\"normal\" modelevel=\"3\" modeid=\"842\">\n" +
+        "                        <div class=\"fl clear\">\n" +
+        "                        </div>\n" +
+        "                      </div>\n" +
+        "                    </div>\n" +
+        "                  </div>\n" +
+        "                </div>\n" +
+        "              </td>\n" +
+        "            </tr>\n" +
+        "         </table>" + "" +
+        "         <table>" +
+        "            <tr class=\"clist_tr\">\n" +
+        "              <td>" +
+        "                  <div class=\"ord\" style='width: 240px;margin-left:50px'>\n" +
+        "                    <label><br/>\n" +
+        "                      <p class=\"zc_left_title\">" +
+        "                       预定时间&nbsp;:&nbsp;&nbsp;" +
+        "                       <span id='starttime_order" + data[i].id + "'></span></p>\n" + "<p>&nbsp;</p>" +
+        "                      <p class=\"zc_left_title\">" +
+        "                       还车时间&nbsp;:&nbsp;&nbsp;" +
+        "                       <span id='endtime_order" + data[i].id + "'></span></p>\n" +
+        "                    <br/></label>\n" +
+        "                  </div>\n" +
+        "              </td>" +
+        "              <td class=\"ord\">\n" +
+        "                <div class=\"order_box\"  style='width: 205px; margin-right:15px '>\n" +
+        "                  <div class=\"od_price\">\n" +
+        "                    <div class=\"car_price\">\n" +
+        "                    <span class=\"pri_ye\">\n" +
+        "                      <em class=\"rmb\">¥</em>\n" +
+        "                      <em class=\"num\"><span id='totalprice" + data[i].id + "'></span></em>\n" +
+        "                      <em class=\"unit\">/总计<span id='day" + data[i].id + "'></span>天</em>\n" +
+        "                    </span>\n" +
+        "                      <div class=\"sz_priceTotal\" style=\"cursor: pointer;\" data=\"normal\" modelevel=\"3\" modeid=\"842\">\n" +
+        "                        <div class=\"fl clear\">\n" +
+        "                        <span class=\"fl pri_all\">\n" +
+        "                          <em class=\"unit\">价格以实际价格为准</em>\n" +
         "                        </span>\n" +
         "                        </div>\n" +
         "                      </div>\n" +
@@ -308,8 +338,14 @@ function removecar() {
 function carorder(id) {
     var planingLendStartTime = $("#starttime").val();
     var planingLendEndTime = $("#endtime").val();
+    var sarttime = new Date(planingLendStartTime);
+    var endtime = new Date(planingLendEndTime);
+    var differencetime = endtime.getTime() - sarttime.getTime();
+    var totalday = differencetime / (24 * 60 * 60 * 1000);
+
     planingLendStartTime = planingLendStartTime.replace(/T/i, " ");
     planingLendEndTime = planingLendEndTime.replace(/T/i, " ");
+
 
     if ($("#endtime").val() === "") {
         $("#prompt").html("请先选择租车日期");
@@ -318,8 +354,10 @@ function carorder(id) {
     }
     else {
         $("#carmodal" + id).modal();
-        $(".starttime_order").html(planingLendStartTime);
-        $(".endtime_order").html(planingLendEndTime);
+        $("#starttime_order" + id).html(planingLendStartTime);
+        $("#endtime_order" + id).html(planingLendEndTime);
+        $("#totalprice" + id).html(totalday * $("#price" + id).val());
+        $("#day" + id).html(totalday);
     }
 }
 
