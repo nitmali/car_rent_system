@@ -26,6 +26,9 @@ public class Client {
     @Column(length = 18, nullable = false,unique = true)
     private String idCard;
 
+    @Column
+    private String driverLicenseImg;
+
     public Long getId() {
         return id;
     }
@@ -64,5 +67,13 @@ public class Client {
 
     public void setIdCard(String idCard) {
         this.idCard = idCard;
+    }
+
+    public String getDriverLicenseImg() {
+        return driverLicenseImg;
+    }
+
+    public void setDriverLicenseImg(String driverLicenseImg) {
+        this.driverLicenseImg = driverLicenseImg;
     }
 }
