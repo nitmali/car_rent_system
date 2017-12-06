@@ -145,7 +145,7 @@
         <div class="form-horizontal">
           <span class="heading">新用户注册</span>
           <div class="form-group">
-            <input type="text" class="form-control" id="inputUsernameRegister" placeholder="用户名"
+            <input type="text" class="form-control" id="inputUsernameRegister" name="username" placeholder="用户名"
                    onclick="Inputusername()"
                    onblur="compareusername()">
             <span id="UsernameSpan" class="text text-danger"></span>
@@ -158,29 +158,37 @@
           </div>
 
           <div class="form-group help">
-            <input type="password" class="form-control" id="inputPasswordConfirm" placeholder="再次输入密码"
+            <input type="password" class="form-control" id="inputPasswordConfirm" name="password" placeholder="再次输入密码"
                    onblur="comparepassword()" onclick="InputPasswordConfirm()">
             <span id="PasswordConfirmSpan" class="text text-danger"></span>
           </div>
           <div class="form-group help">
-            <input type="text" class="form-control" id="inpuId" placeholder="身份证号码" onblur="compareid()"
-                   onclick="Inputid()">
-            <span id="IdSpan" class="text text-danger"></span>
-          </div>
-          <div class="form-group help">
-            <input type="text" class="form-control" id="inputPhone" placeholder="手机号码" onblur="comparephone()"
+            <input type="text" class="form-control" id="inputPhone" name="phone" placeholder="手机号码"
+                   onblur="comparephone()"
                    onclick="Inputphone()">
             <span id="PhoneSpan" class="text text-danger"></span>
           </div>
+          <div class="form-group help">
+            <input type="text" class="form-control" id="inpuId" name="idCard" placeholder="身份证号码" onblur="compareid()"
+                   onclick="Inputid()">
+            <span id="IdSpan" class="text text-danger"></span>
+          </div>
+          <form enctype="multipart/form-data">
+            <div class="form-group help" style="text-align: left">
+              <p class="text text-info">请上传驾照正面照片</p>
+              <input class="text-info" type="file" id="inputImage" name="file" accept="image/*" onclick="Inputimage()">
+              <span id="Imagespan" class="text text-danger"></span>
+            </div>
+          </form>
 
           <div class="form-group help">
             <div class="main-checkbox">
-              <input type="checkbox" value="None" id="checkbox" name="check"/>
+              <input type="checkbox" value="None" id="checkbox"/>
               <label for="checkbox" id="agree"></label>
             </div>
             <a href="#" class="text" id="tiaokuanbtn" data-toggle="modal" data-target="#tkregister">同意服务条款</a>
-            <button class="btn" onclick="register()">注册</button>
-            <span id="registerspan" class="text text-danger"></span>
+            <a class="btn" onclick="register()">注册</a>
+            <span id="Registerspan" class="text text-danger"></span>
           </div>
 
         </div>

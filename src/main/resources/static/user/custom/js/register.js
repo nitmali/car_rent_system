@@ -3,32 +3,44 @@ var flag = [[false], [false], [false], [false], [false]];
 
 //post
 function register() {
+    var formdata = new FormData($("form")[0]);
+    formdata.append("username", $("#inputUsernameRegister").val());
+    formdata.append("password", md5($("#inputPasswordConfirm").val()));
+    formdata.append("phone", $("#inputPhone").val());
+    formdata.append("idCard", $("#inpuId").val());
+
 
     if ($('#checkbox').is(':checked')) {
-        $("#registerspan").html("");
+        $("#Registerspan").html("");
         flag[0] = true;
     }
     if (flag[0] === true && flag[1] === true && flag[2] === true && flag[3] === true && flag[4] === true) {
-        $.post("/clientRegister",
-            {
-                username: $("#inputUsernameRegister").val(),
-                password: md5($("#inputPasswordConfirm").val()),
-                idCard: $("#inpuId").val(),
-                phone: $("#inputPhone").val()
-            }, function (data) {
+        $.ajax({
+            url: '/clientRegister',
+            type: 'POST',
+            cache: false,
+            data: formdata,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            success: function (data) {
                 if (data.msg === "success") {
-                    window.location.href = "index.html";
+                    //window.location.href = "index.html";
+                } else if (data.msg === "image error") {
+                    $("#Imagespan").html("请上传驾照照片");
                 } else {
-                    nameorid(data.msg)
+                    nameorid(data.msg);
                 }
-            }, "json"
-        );
+            }
+        });
     }
+
+
     else if (flag[1] === true && flag[2] === true && flag[3] === true && flag[4] === true) {
-        $("#registerspan").html("请阅读本网站服务条款")
+        $("#Registerspan").html("请阅读本网站服务条款")
     }
     else {
-        $("#registerspan").html("请填写完整有效的注册信息")
+        $("#Registerspan").html("请填写完整有效的注册信息")
     }
 }
 
@@ -53,7 +65,7 @@ function compareusername() {
 }
 //password
 function comparepassword() {
-    $("#registerspan").html("");
+    $("#Registerspan").html("");
     if ($("#inputPasswordRegister").val().length < 6 && $("#inputPasswordRegister").val() !== "") {
         $("#PasswordSpan").html("请输入至少6位数的密码");
     }
@@ -66,18 +78,18 @@ function comparepassword() {
 }
 
 function InputPassword() {
-    $("#registerspan").html("");
+    $("#Registerspan").html("");
     $("#PasswordConfirmSpan").html("");
     $("#PasswordSpan").html("");
 }
 
 function InputPasswordConfirm() {
-    $("#registerspan").html("");
+    $("#Registerspan").html("");
     $("#PasswordConfirmSpan").html("");
 }
 //idcard
 function compareid() {
-    $("#registerspan").html("");
+    $("#Registerspan").html("");
     var id = $("#inpuId").val();
     if (id.length !== 18 && $("#inpuId").val() !== "") {
         $("#IdSpan").html("请输入18位有效身份证号码");
@@ -88,12 +100,12 @@ function compareid() {
 }
 
 function Inputid() {
-    $("#registerspan").html("");
+    $("#Registerspan").html("");
     $("#IdSpan").html("");
 }
 //phone
 function comparephone() {
-    $("#registerspan").html("");
+    $("#Registerspan").html("");
     var phone = $("#inputPhone").val();
     if (phone.length !== 11 && $("#inputPhone").val() !== "") {
         $("#PhoneSpan").html("请输入11位有效手机号码");
@@ -104,8 +116,12 @@ function comparephone() {
 }
 
 function Inputphone() {
-    $("#registerspan").html("");
+    $("#Registerspan").html("");
     $("#PhoneSpan").html("");
+}
+
+function Inputimage() {
+    $("#Imagespan").html("");
 }
 
 $(document).ready(function () {
