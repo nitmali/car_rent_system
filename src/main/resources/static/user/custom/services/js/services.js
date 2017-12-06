@@ -242,7 +242,7 @@ function carmodalhtml(data, i, imgurl) {
         "    <tr class=\"clist_tr\" id=\"car" + data[i].id + "\">\n" +
         "              <td class=\"info\">\n" +
         "                <div style='margin-left:50px'>" +
-        "                <p style='font-size: 10px'>" + data[i].brand + "&nbsp;&nbsp;(" + data[i].color + ")</p>\n" +
+        "                <p style='font-size: 17px'>" + data[i].brand + "&nbsp;&nbsp;(" + data[i].color + ")</p>\n" +
         "                <div class=\"alltips\">\n" +
         "                  <p class=\"tip bh_cp\">车牌号</p>\n" +
         "                  <p class=\"tip bh_hm\">" + data[i].licensePlate + "</p>\n" +
@@ -319,7 +319,7 @@ function carmodalhtml(data, i, imgurl) {
         "         </table>" +
         "        </div>" +
         "        <div class=\"modal-footer\">\n" +
-        "        <button type=\"button\" id=\"" + data[i].id + "\" class=\"btn btn-success\" data-dismiss=\"modal\" onclick='preprogram(this.id)' >预定\n" +
+        "        <button type=\"button\" id=\"" + data[i].id + "\" class=\"btn\" data-dismiss=\"modal\" onclick='preprogram(this.id)' >预定\n" +
         "        <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">关闭\n" +
         "        </button>\n" +
         "      </div>\n" +
@@ -341,7 +341,8 @@ function carorder(id) {
     var sarttime = new Date(planingLendStartTime);
     var endtime = new Date(planingLendEndTime);
     var differencetime = endtime.getTime() - sarttime.getTime();
-    var totalday = differencetime / (24 * 60 * 60 * 1000);
+    var totalday = (differencetime / (24 * 60 * 60 * 1000)).toFixed(2);
+
 
     planingLendStartTime = planingLendStartTime.replace(/T/i, " ");
     planingLendEndTime = planingLendEndTime.replace(/T/i, " ");
@@ -356,7 +357,7 @@ function carorder(id) {
         $("#carmodal" + id).modal();
         $("#starttime_order" + id).html(planingLendStartTime);
         $("#endtime_order" + id).html(planingLendEndTime);
-        $("#totalprice" + id).html(totalday * $("#price" + id).val());
+        $("#totalprice" + id).html((totalday * $("#price" + id).val()).toFixed(2));
         $("#day" + id).html(totalday);
     }
 }
