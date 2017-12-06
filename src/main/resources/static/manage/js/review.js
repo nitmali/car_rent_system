@@ -46,8 +46,7 @@ $().ready(function () {
         columnDefs: [{
             targets: 6,
             render: function (row) {
-                var id = row.id;
-                return '<a type="button" class="btn btn-primary" href="#" onclick="btn_action(' + id + ',\'PASS\')">通过(取车)</a> <a type="button" class="btn btn-danger" onclick="btn_action(' + id + ',\'REJECT\')" href="#">拒绝</a>';
+                return '<a type="button" class="btn btn-primary" href="#" onclick="btn_action(' + row.id + ',\'PASS\')">通过(取车)</a> <a type="button" class="btn btn-danger" onclick="btn_action(' + row.id + ',\'REJECT\')" href="#">拒绝</a>';
             }
         },
             {"orderable": false, "targets": 6}
@@ -70,7 +69,7 @@ function btn_action(id, type) {
                 table.ajax.reload(null, false);
             } else {
                 console.log(data);
-                alert("车辆正被使用");
+                alert("车辆不可用");
             }
         },
         error: function () {

@@ -91,6 +91,7 @@ public class CarController {
 
     @RequestMapping(value = "/protect/deleteCarInfo", method = RequestMethod.POST)
     @ResponseBody
+    @Transactional(rollbackFor = Exception.class)
     public String deleteCarInfo(Long id) {
         if (id != null) {
             storageService.delete(carService.findOne(id).getImage());
