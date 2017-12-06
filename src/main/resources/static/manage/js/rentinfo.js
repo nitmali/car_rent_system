@@ -57,8 +57,8 @@ $().ready(function () {
             {data: 'id'},
             {data: 'client.username'},
             {data: 'car.licensePlate'},
-            {data: 'planingLendStartTime'},
-            {data: 'planingLendEndTime'},
+            // {data: 'planingLendStartTime'},
+            // {data: 'planingLendEndTime'},
             {
                 data: function (obj) {
                     if (obj.lendStartTime === null) return null;
@@ -84,6 +84,7 @@ $().ready(function () {
                     return obj.admin.username;
                 }
             },
+            {data: 'amount'},
             {data: 'status'}
         ]
     });

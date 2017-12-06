@@ -104,6 +104,8 @@ public class RentingLogController {
         rentingLog.setStatus(RentingLog.Status.FINISH);
         car.setStatus(Car.Status.IDLE);
         rentingLog.setCar(car);
+        String amount = rentService.calAmount(rentingLog);
+        rentingLog.setAmount(amount);
         rentService.save(rentingLog);
         return "{\"msg\":\"success\"}";
     }
