@@ -1,8 +1,14 @@
 var flag = [[false], [false], [false], [false], [false]];
 // 协议：0 用户名：1 密码：2 身份证：3 手机号码：4
 
+$(document).ready(function () {
+    $("#inputUsernameRegister")[0].focus();
+
+});
+
 //post
 function register() {
+
     var formdata = new FormData($("form")[0]);
     formdata.append("username", $("#inputUsernameRegister").val());
     formdata.append("password", md5($("#inputPasswordConfirm").val()));
@@ -46,6 +52,7 @@ function register() {
 
 //username
 function Inputusername() {
+    $("#Registerspan").html("");
     $("#UsernameSpan").html("");
 }
 
@@ -121,10 +128,5 @@ function Inputphone() {
 }
 
 function Inputimage() {
-    $("#Imagespan").html("");
+    $("#Imagespan").html("")
 }
-
-$(document).ready(function () {
-    $("#inputUsernameRegister")[0].focus();
-});
-

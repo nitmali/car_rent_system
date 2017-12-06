@@ -1,7 +1,52 @@
 $(document).ready(function () {
+    loginhtml();
     loginofenter();
     remember();
 });
+
+function loginhtml() {
+    var login = "<div class=\"modal fade\" id=\"loginmodal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\n" +
+        "  <div class=\"container\">\n" +
+        "    <div class=\"row\">\n" +
+        "      <div class=\"col-md-offset-3 col-md-6\">\n" +
+        "        <div class=\"form-horizontal\">\n" +
+        "          <button type=\"button\" class=\"close\" data-dismiss=\"modal\"\n" +
+        "                  aria-hidden=\"true\">\n" +
+        "            &nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;\n" +
+        "          </button>\n" +
+        "          <span class=\"heading\">" +
+        "            <p>用户登录</p>" +
+        "            <div><a href='../../user/pages/register.html' style='font-size: 15px'>没有账号？点击注册</a></div>" +
+        "          </span>\n" +
+        "          <div class=\"form-group\">\n" +
+        "            <input type=\"text\" class=\"form-control\" id=\"inputUsername\" placeholder=\"用户名\">\n" +
+        "            <i class=\"fa fa-user\"></i>\n" +
+        "          </div>\n" +
+        "          <div class=\"form-group help\">\n" +
+        "            <input type=\"password\" class=\"form-control\" id=\"inputPassword\" placeholder=\"密　码\">\n" +
+        "            <i class=\"fa fa-lock\"></i>\n" +
+        "            <a href=\"#\" class=\"fa fa-question-circle\"></a>\n" +
+        "          </div>\n" +
+        "          <div class=\"form-group help\">\n" +
+        "            <span class=\"text-danger\" id=\"loginmessage\"></span>\n" +
+        "          </div>\n" +
+        "          <div class=\"form-group\">\n" +
+        "            <div class=\"main-checkbox\">\n" +
+        "              <input type=\"checkbox\" value=\"None\" id=\"checkbox1\" name=\"check\"/>\n" +
+        "              <label for=\"checkbox1\"></label>\n" +
+        "            </div>\n" +
+        "            <span class=\"text\">Remember me</span>\n" +
+        "            <button class=\"btn btn-default\" onclick=\"loginin()\">登录</button>\n" +
+        "          </div>\n" +
+        "        </div>\n" +
+        "      </div>\n" +
+        "    </div>\n" +
+        "  </div>\n" +
+        "  ,\n" +
+        "</div>"
+
+    $(".loginhtml").html(login);
+}
 
 function remember() {
     $("#checkbox1").attr("checked", 'true');
