@@ -31,4 +31,8 @@ public class ClientService {
     public void save(Client client) {
         clientRepository.save(client);
     }
+
+    public Client findOne(Long id) {
+        return clientRepository.findOne(id);
+    }
 }

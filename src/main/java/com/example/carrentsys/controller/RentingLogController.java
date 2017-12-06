@@ -170,12 +170,18 @@ public class RentingLogController {
 
     @RequestMapping(value = "/historyRenting", method = RequestMethod.GET)
     @ResponseBody
-    public List<RentingLog> historyRenting(HttpServletRequest request, @RequestParam(required = false) RentingLog.Status status) {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("usertype") != "client") return new ArrayList<>();
-        String username = (String) session.getAttribute("username");
-        Client client = clientService.findByUsername(username);
-        System.out.println(client);
+    public List<RentingLog> historyRenting(HttpServletRequest request,
+                                           @RequestParam(required = false) String clientUsername,
+                                           @RequestParam(required = false) RentingLog.Status status) {
+        Client client;
+        if (clientUsername == null) {
+            HttpSession session = request.getSession();
+            if (session.getAttribute("usertype") != "client") return new ArrayList<>();
+            String username = (String) session.getAttribute("username");
+            client = clientService.findByUsername(username);
+        } else {
+            client = clientService.findByUsername(clientUsername);
+        }
         if (status == null) return rentService.findByClient(client);
         else {
             return rentService.findByClientAndStatus(client, status);
