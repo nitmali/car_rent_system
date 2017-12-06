@@ -53,7 +53,8 @@ public class UserController {
         if (!clientService.existsByUsername(client.getUsername()) &&
                 !clientService.existsByIdCard(client.getIdCard())) {
             if (file == null) return "{\"msg\":\"image error\"}";
-            storageService.store(file);
+            String picName = storageService.store(file);
+            client.setDriverLicenseImg(picName);
             clientService.save(client);
             HttpSession session = request.getSession();
             session.setAttribute("username", client.getUsername());

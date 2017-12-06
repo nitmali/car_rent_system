@@ -4,7 +4,8 @@ $().ready(function () {
         data: {
             username: "",
             idCard: "",
-            phone: ""
+            phone: "",
+            imgsrc: ""
         }
     });
     var vm_car = new Vue({
@@ -93,6 +94,7 @@ $().ready(function () {
         vm_client.username = rowdata.client.username;
         vm_client.idCard = rowdata.client.idCard;
         vm_client.phone = rowdata.client.phone;
+        vm_client.imgsrc = "/driverLicenseImage?id=" + rowdata.client.id;
         $("#modal-client").modal();
     });
     $('#order_table tbody').on('click', 'td:nth-child(3)', function () {

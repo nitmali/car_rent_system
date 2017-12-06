@@ -1,4 +1,13 @@
 var table;
+var vm_client = new Vue({
+    el: '#modal-client',
+    data: {
+        username: "",
+        idCard: "",
+        phone: "",
+        imgsrc: ""
+    }
+});
 $().ready(function () {
     table = $("#review_table").DataTable({
         language: {
@@ -52,7 +61,14 @@ $().ready(function () {
             {"orderable": false, "targets": 6}
         ]
     });
-
+    $('#review_table tbody').on('click', 'td:nth-child(2)', function () {
+        var rowdata = table.row(this).data();
+        vm_client.username = rowdata.client.username;
+        vm_client.idCard = rowdata.client.idCard;
+        vm_client.phone = rowdata.client.phone;
+        vm_client.imgsrc = "/driverLicenseImage?id=" + rowdata.client.id;
+        $("#modal-client").modal();
+    });
 });
 
 function btn_action(id, type) {
