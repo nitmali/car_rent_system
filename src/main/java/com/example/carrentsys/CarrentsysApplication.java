@@ -1,7 +1,7 @@
 package com.example.carrentsys;
 
-import com.example.carrentsys.service.storage.FileSystemStorageService;
 import com.example.carrentsys.service.storage.StorageProperties;
+import com.example.carrentsys.service.storage.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +19,7 @@ public class CarrentsysApplication {
 	}
 
     @Bean
-    CommandLineRunner init(FileSystemStorageService storageService) {
+    CommandLineRunner init(StorageService storageService) {
         return (args) -> storageService.init();
     }
 }

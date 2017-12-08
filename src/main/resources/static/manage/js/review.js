@@ -66,7 +66,7 @@ $().ready(function () {
         vm_client.username = rowdata.client.username;
         vm_client.idCard = rowdata.client.idCard;
         vm_client.phone = rowdata.client.phone;
-        vm_client.imgsrc = "/driverLicenseImage?id=" + rowdata.client.id;
+        vm_client.imgsrc = "/driverLicenseImage?id=" + rowdata.client.id + '&' + Math.random();
         $("#modal-client").modal();
     });
 });

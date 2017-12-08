@@ -15,7 +15,8 @@ $().ready(function () {
             color: "",
             licensePlate: "",
             price: "",
-            status: ""
+            status: "",
+            carimg: ""
         }
     });
     var table = $("#order_table").DataTable({
@@ -94,7 +95,7 @@ $().ready(function () {
         vm_client.username = rowdata.client.username;
         vm_client.idCard = rowdata.client.idCard;
         vm_client.phone = rowdata.client.phone;
-        vm_client.imgsrc = "/driverLicenseImage?id=" + rowdata.client.id;
+        vm_client.imgsrc = "/driverLicenseImage?id=" + rowdata.client.id + '&' + Math.random();
         $("#modal-client").modal();
     });
     $('#order_table tbody').on('click', 'td:nth-child(3)', function () {
@@ -104,6 +105,7 @@ $().ready(function () {
         vm_car.licensePlate = rowdata.car.licensePlate;
         vm_car.price = rowdata.car.price;
         vm_car.status = rowdata.car.status;
+        vm_car.carimg = "/carImage?id=" + rowdata.car.id + '&' + Math.random();
         $("#modal-car").modal();
     });
 });

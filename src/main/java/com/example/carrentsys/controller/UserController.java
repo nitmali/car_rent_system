@@ -52,7 +52,7 @@ public class UserController {
     public String clientRegister(HttpServletRequest request, Client client, MultipartFile file) {
         if (!clientService.existsByUsername(client.getUsername()) &&
                 !clientService.existsByIdCard(client.getIdCard())) {
-            if (file == null) return "{\"msg\":\"image error\"}";
+            if (file.isEmpty()) return "{\"msg\":\"image error\"}";
             String picName = storageService.store(file);
             client.setDriverLicenseImg(picName);
             clientService.save(client);

@@ -142,7 +142,7 @@ function modifyCarInfo() {
             $("input[name='licensePlate']").val(rowdata.licensePlate);
             $("input[name='price']").val(rowdata.price);
             $("select[name='status']").val(rowdata.status);
-            $("#img").attr('src', '/carImage?id=' + rowdata.id);
+            $("#img").attr('src', '/carImage?id=' + rowdata.id + '&' + Math.random());
             $("input[name='pic']").val('');
 
             $("#delete").unbind("click").click(function () {
