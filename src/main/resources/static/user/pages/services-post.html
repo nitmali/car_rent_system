@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
   <meta name="description" content="html 5 template">
   <meta name="author" content="chinaz.com">
-  <title>后续服务</title>
+  <title>谁我们留言</title>
   <!-- Bootstrap core CSS -->
   <link href="../assets/css/plugins/bootstrap.min.css" rel="stylesheet">
   <link href="../assets/css/plugins/jquery.smartmenus.bootstrap.css" rel="stylesheet">
@@ -21,15 +21,15 @@
   <!-- Icon Font-->
   <link href="../iconfont/style.css" rel="stylesheet">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
-        rel="stylesheet">
+  <!--<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"-->
+  <!--rel="stylesheet">-->
 
   <link rel='stylesheet' href="../custom/css/index.css">
   <link rel='stylesheet' href="../custom/css/login.css">
   <link rel="icon" type="image/png" href="../custom/image/car.png"/>
 </head>
 
-<body class="page__service-post">
+<body class="page__contacts">
 <!-- Loader -->
 <div class="plash">
   <div id="scene">
@@ -153,18 +153,28 @@
 
 <!-- Content  -->
 <main id="page-content">
-  <div class="container">
-    <div class="row">
-      <div style="margin:200px auto">
-        <img src="../assets/images/bg-building.png">
-        <h4>此功能正在建设中...</h4>
-        <h4>In the building...</h4>
+  <div class="breadcrumbs" style="min-height: 500px">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <img src="../assets/images/bg-building.png">
+          <div class="breadcrumbs__items">
+            <div class="breadcrumbs__wrap">
+              <div class="breadcrumbs__item">
+                <br>
+                <p>此功能正在建设中...</p>
+                <p>In the building...</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  <!-- // Breadcrumbs  -->
+
 </main>
 <!-- // Content  -->
-
 <!-- Footer -->
 <footer class="site-footer">
   <section class="site-footer__top-panel">
@@ -262,52 +272,23 @@
 </div>
 <!-- //Footer -->
 <!--登录页面-->
-<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-offset-3 col-md-6">
-        <div class="form-horizontal">
-          <button type="button" class="close" data-dismiss="modal"
-                  aria-hidden="true">&nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;
-          </button>
-          <span class="heading">用户登录</span>
-          <div class="form-group">
-            <input type="text" class="form-control" id="inputUsername" placeholder="用户名">
-            <i class="fa fa-user"></i>
-          </div>
-          <div class="form-group help">
-            <input type="password" class="form-control" id="inputPassword" placeholder="密　码">
-            <i class="fa fa-lock"></i>
-            <a href="#" class="fa fa-question-circle"></a>
-          </div>
-          <div class="form-group help">
-            <span class="text-danger" id="loginmessage"></span>
-          </div>
-          <div class="form-group">
-            <div class="main-checkbox">
-              <input type="checkbox" value="None" id="checkbox1" name="check"/>
-              <label for="checkbox1"></label>
-            </div>
-            <span class="text">Remember me</span>
-            <button class="btn btn-default" onclick="loginin()">登录</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<span class="loginhtml"></span>
 
+<!-- Google map -->
+<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>-->
+<!-- Google map -->
 <script src="../assets/js/jquery.1.12.4.min.js"></script>
 <script src="../assets/js/plugins/bootstrap.min.js"></script>
 <script src="../assets/js/plugins/jquery.smartmenus.min.js"></script>
 <script src="../assets/js/plugins/jquery.smartmenus.bootstrap.js"></script>
+<script src="../assets/js/plugins/jquery.form.js"></script>
+<script src="../assets/js/plugins/jquery.validate.min.js"></script>
 <script src="../assets/js/plugins/stickup.min.js"></script>
 <script src="../assets/js/custom.js"></script>
 
 <script src="../../manage/vendor/js-md5/md5.min.js"></script>
 <script src="../custom/js/login.js"></script>
 <script src="../custom/js/index.js"></script>
-
 </body>
 
 </html>

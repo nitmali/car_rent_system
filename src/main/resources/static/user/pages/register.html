@@ -20,6 +20,13 @@
   <link href="../assets/css/plugins/animate.css" rel="stylesheet">
   <link href="../assets/css/main-style.css" rel="stylesheet">
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <!-- Icon Font-->
+  <link href="../iconfont/style.css" rel="stylesheet">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <link rel='stylesheet' href="../custom/css/index.css">
   <link rel='stylesheet' href="../custom/css/login.css">
   <link rel='stylesheet' href="../custom/css/register.css">
@@ -139,11 +146,14 @@
 <!-- // Header -->
 <!-- Content  -->
 <div id="registerdiv">
-  <div class="container">
+  <div class="container registrdiv">
     <div class="row">
-      <div class="col-md-offset-3 col-md-6">
         <div class="form-horizontal">
           <span class="heading">新用户注册</span>
+          <span class="heading"><img src="../assets/images/nitlogo.png" alt=""></span>
+          <div class="form-group">
+            <p class="text text-left">下面请输入您的账户信息</p>
+          </div>
           <div class="form-group">
             <input type="text" class="form-control" id="inputUsernameRegister" name="username" placeholder="用户名"
                    onclick="Inputusername()"
@@ -162,6 +172,9 @@
                    onblur="comparepassword()" onclick="InputPasswordConfirm()">
             <span id="PasswordConfirmSpan" class="text text-danger"></span>
           </div>
+          <div class="form-group">
+            <p class="text text-left">下面请填写您的个人信息</p>
+          </div>
           <div class="form-group help">
             <input type="text" class="form-control" id="inputPhone" name="phone" placeholder="手机号码"
                    onblur="comparephone()"
@@ -175,24 +188,23 @@
           </div>
           <form enctype="multipart/form-data">
             <div class="form-group help" style="text-align: left">
-              <p class="text text-info">请上传驾照正面照片</p>
+              <p class="text text-left">请上传驾照正面照片</p><br>
               <input class="text-info" type="file" id="inputImage" name="file" accept="image/*" onclick="Inputimage()">
               <span id="Imagespan" class="text text-danger"></span>
             </div>
           </form>
-
           <div class="form-group help">
             <div class="main-checkbox">
-              <input type="checkbox" value="None" id="checkbox"/>
+              <input type="checkbox" value="None" id="checkbox" checked/>
               <label for="checkbox" id="agree"></label>
             </div>
             <a href="#" class="text" id="tiaokuanbtn" data-toggle="modal" data-target="#tkregister">同意服务条款</a>
-            <a class="btn" onclick="register()">注册</a>
+          </div>
+          <div class="form-group">
+            <a class="btn btn-lg btn-login btn-block" onclick="register()">注册</a>
             <span id="Registerspan" class="text text-danger"></span>
           </div>
-
         </div>
-      </div>
     </div>
   </div>
 </div>
@@ -241,7 +253,7 @@
           <ul class="footer-list">
             <li><a href="https://weibo.com/login.php">博客</a></li>
             <li><a href="https://www.zhihu.com/">FAQs</a></li>
-            <li><a href="#" data-toggle="modal" data-target="#tkregister">服务条款</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#tk">服务条款</a></li>
           </ul>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
@@ -268,6 +280,7 @@
       </div>
     </div>
   </section>
+
   <a href="#" class="scrollup"><i class="icon-arrow-down-sign-to-navigate"></i></a>
 </footer>
 <!--//Footer-->
@@ -303,7 +316,6 @@
 <script src="../assets/js/plugins/stickup.min.js"></script>
 <script src="../assets/js/custom.js"></script>
 <!-- jQuery -->
-
 <script src="../../manage/vendor/js-md5/md5.min.js"></script>
 <script src="../custom/js/login.js"></script>
 <script src="../custom/js/register.js"></script>

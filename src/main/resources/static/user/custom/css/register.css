@@ -1,24 +1,21 @@
 #registerdiv {
-    height: 1000px;
+    height: 1300px;
     background: url("../../assets/images/slider/slide_2.jpg");
     background-size: cover;
 }
 
 .form-horizontal {
-    margin-top: 100px;
+    margin-top: 50px;
     margin-bottom: 100px;
     background-color: rgba(255, 255, 255, 0.98);
 }
 
-/*#registerdiv .container*/
-/*{*/
-/*background: red;*/
-/*}*/
+.registrdiv {
 
-/*#registerdiv .row{*/
-/*background: yellow;*/
-/*}*/
-/*#registerdiv .col-md-offset-3 col-md-6*/
-/*{*/
-/*background: green;*/
-/*}*/
+    float: right;
+    margin-right: 450px;
+}
+
+.registrdiv .form-horizontal {
+    width: 550px;
+}
