@@ -78,7 +78,7 @@ public class RentService {
         timediff /= 1000;
         double time = timediff * 1.0 / (3600 * 24);
         double amount = rentingLog.getCar().getPrice() * time;
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("#0.00");
         return df.format(amount);
     }
 }

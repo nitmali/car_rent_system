@@ -7,17 +7,23 @@ import com.example.carrentsys.service.ClientService;
 import com.example.carrentsys.service.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class UserController {
@@ -73,6 +79,22 @@ public class UserController {
         return clientService.findByUsername((String) request.getSession().getAttribute("username"));
     }
 
+    @RequestMapping(value = "/manage/allClientsInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getAllClientsInfo(@RequestParam(required = false, defaultValue = "1") int draw,
+                                                 @RequestParam(required = false, defaultValue = "0") int start,
+                                                 @RequestParam(required = false, defaultValue = "10") int length) {
+        PageRequest pagerequset = new PageRequest((start / length), length);
+        Page<Client> page = clientService.findAll(pagerequset);
+        Map<String, Object> maps = new HashMap<>();
+        long totalCount = page.getTotalElements();
+        maps.put("draw", draw);
+        maps.put("recordsTotal", totalCount);
+        maps.put("recordsFiltered", totalCount);
+        maps.put("data", page.getContent());
+        return maps;
+    }
+
     @RequestMapping(value = "/driverLicenseImage", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Resource> getClientDLImage(Long id) {
@@ -92,10 +114,23 @@ public class UserController {
         return "{\"msg\":\"success\"}";
     }
 
+    @RequestMapping(value = "/manage/deleteClientInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteClientsInfo(Long id) {
+        clientService.delete(id);
+        return "{\"msg\":\"success\"}";
+    }
+
     @RequestMapping(value = "/adminInfo", method = RequestMethod.GET)
     @ResponseBody
     public Admin getAdminInfo(HttpServletRequest request) {
         return adminService.findByUsername((String) request.getSession().getAttribute("username"));
+    }
+
+    @RequestMapping(value = "/manage/allAdminsInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Admin> getAllAdminsInfo() {
+        return adminService.findAll();
     }
 
     @RequestMapping(value = "/adminInfo", method = RequestMethod.POST)
@@ -104,6 +139,13 @@ public class UserController {
         Long id = adminService.findByUsername(admin.getUsername()).getId();
         admin.setId(id);
         adminService.save(admin);
+        return "{\"msg\":\"success\"}";
+    }
+
+    @RequestMapping(value = "/manage/deleteAdminInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteAdminInfo(Long id) {
+        adminService.delete(id);
         return "{\"msg\":\"success\"}";
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class AdminService {
@@ -26,5 +28,13 @@ public class AdminService {
 
     public void save(Admin admin) {
         adminRepository.save(admin);
+    }
+
+    public void delete(Long id) {
+        adminRepository.delete(id);
+    }
+
+    public List<Admin> findAll() {
+        return adminRepository.findAll();
     }
 }

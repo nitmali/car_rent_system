@@ -61,6 +61,12 @@ Vue.component('my-component', {
     '          <li>\n' +
     '            <a href="carinfo.html"><i class="fa fa-car fa-fw"></i> 车辆信息</a>\n' +
     '          </li>\n' +
+    '          <li>\n' +
+    '            <a href="client.html"><i class="fa fa-male fa-fw"></i> 客户信息</a>\n' +
+    '          </li>\n' +
+    '          <li>\n' +
+    '            <a href="admin.html"><i class="fa fa-github-alt fa-fw"></i> 业务员信息</a>\n' +
+    '          </li>\n' +
     '        </ul>\n' +
     '      </div>\n' +
     '      <!-- /.sidebar-collapse -->\n' +
