@@ -4,7 +4,7 @@ blockquote, body, button, code, dd, div, dl, dt, em, fieldset, form, h1, h2, h3,
     padding: 0
 }
 
-body {
+.servicesbody {
     font: 12px/1.5 Arial, "Microsoft yahei", Helvetica, Verdana, SimHei, sans-serif;
     color: #333;
     background-color: #fff
@@ -31,12 +31,12 @@ table {
     text-align: right
 }
 
-a {
-    color: #6ab0ff;
-    text-decoration: none;
-    blr: expression(this.onFocus=this.blur());
-    outline: 0
-}
+/*a {*/
+/*color: #6ab0ff;*/
+/*text-decoration: none;*/
+/*blr: expression(this.onFocus=this.blur());*/
+/*outline: 0*/
+/*}*/
 
 a:focus {
     outline: 0
@@ -5691,126 +5691,6 @@ a.moreabox:hover {
     text-decoration: none
 }
 
-.zc_index .zc_footer {
-    min-width: 1200px;
-    width: 100%;
-    background-color: #1b2b3b;
-    color: #6985a5;
-    position: relative
-}
-
-.zc_index .zc_footer a {
-    color: #6985a5
-}
-
-.zc_index .zc_footcopyright .ainfor a {
-    color: #6985a5
-}
-
-.zc_index .zc_footer a:hover {
-    text-decoration: none;
-    color: #fabe00
-}
-
-.zc_index .zc_footer .zc_footer_city {
-    overflow: hidden
-}
-
-.zc_index .zc_footer .title {
-    font-size: 20px;
-    width: 140px;
-    height: 30px;
-    line-height: 30px;
-    position: absolute;
-    top: 43px;
-    left: 50%;
-    margin-left: -70px;
-    text-align: center;
-    background-color: #1b2b3b
-}
-
-.zc_index .zc_footer .city_list {
-    padding: 60px 0;
-    overflow: hidden;
-    height: 190px
-}
-
-.zc_index .zc_footer .city_list ul {
-    border-top: 1px solid #32414f;
-    padding: 50px 0 30px 0;
-    overflow: hidden
-}
-
-.zc_index .zc_footer .city_list ul li {
-    text-align: right;
-    font-size: 16px;
-    line-height: 24px;
-    padding: 5px 0;
-    margin-left: 33px;
-    float: left;
-    border-bottom: 2px solid #1b2b3b
-}
-
-.zc_index .zc_footer .city_list ul li.rmtext {
-    text-align: left;
-    margin-left: 12px
-}
-
-.zc_index .zc_footer .city_list ul li a {
-    display: inline-block;
-    height: 26px;
-    line-height: 26px
-}
-
-.zc_index .zc_footer .city_list ul li a:hover, .zc_index .zc_footer .city_list ul li.cur a {
-    border-bottom: 2px solid #fabe00;
-    height: 24px;
-    color: #fabe00;
-    cursor: pointer
-}
-
-.zc_index .zc_footer .city_list .city {
-    display: none
-}
-
-.zc_index .zc_footer .city_list .city.cur {
-    display: block
-}
-
-.zc_index .zc_footer .city_list .city a {
-    display: inline-block;
-    font-size: 14px;
-    width: 96px;
-    padding: 5px 0
-}
-
-.zc_index .zc_footer .fri_link {
-    border-top: 1px solid #32414f;
-    height: 110px;
-    padding-top: 30px
-}
-
-.zc_index .zc_footer .fri_link span {
-    font-size: 14px;
-    float: left;
-    line-height: 26px
-}
-
-.zc_index .zc_footer .fri_link a {
-    display: inline-block;
-    font-size: 12px;
-    width: 83px;
-    padding: 5px 0
-}
-
-.zc_index .zc_footer .zc_footcopyright .ainfor {
-    border-color: #32414f
-}
-
-.zc_index .zc_footer .zc_copyright p {
-    color: #6985a5
-}
-
 .arrowd, .arrowd-y, .lighten {
     display: inline-block;
     background: url(https://image.zuchecdn.com/newversion/news/common/icon.png) no-repeat
@@ -7956,7 +7836,7 @@ body, html {
 
 .clist_tr .od_price .pri_ye .unit {
     display: inline-block;
-    font-size: 12px;
+    font-size: 15px;
     font-style: normal;
     margin-top: 12px
 }
