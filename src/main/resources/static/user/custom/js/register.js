@@ -31,7 +31,7 @@ function register() {
             dataType: "json",
             success: function (data) {
                 if (data.msg === "success") {
-                    //window.location.href = "index.html";
+                    window.location.href = "index.html";
                 } else if (data.msg === "image error") {
                     $("#Imagespan").html("请上传驾照照片");
                 } else {

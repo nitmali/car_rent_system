@@ -60,3 +60,7 @@ a:link {
 #services {
     background: #f5f5f5;
 }
+
+.clist_tr .od_price .pri_ye .eminfo {
+    font-size: 18px;
+}

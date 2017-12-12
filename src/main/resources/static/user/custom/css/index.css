@@ -10,3 +10,7 @@
     -webkit-overflow-scrolling: touch;
     outline: 0;
 }
+
+.phonrrow {
+    height: 800px;
+}

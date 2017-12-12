@@ -15,7 +15,7 @@ function loginhtml() {
         "            &nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;\n" +
         "          </button>\n" +
         "          <span class=\"heading\">" +
-        "            <p>用户登录</p>" +
+        "            用户登录<br><br>" +
         "            <div><a href='../../user/pages/register.html' style='font-size: 15px'>没有账号？点击注册</a></div>" +
         "          </span>\n" +
         "          <div class=\"form-group\">\n" +
@@ -42,8 +42,7 @@ function loginhtml() {
         "      </div>\n" +
         "    </div>\n" +
         "  </div>\n" +
-        "  ,\n" +
-        "</div>"
+        "</div>";
 
     $(".loginhtml").html(login);
 }
@@ -73,10 +72,10 @@ function loginofenter() {
 }
 
 function loginin() {
+    var logintime = new Date().getTime();
     //令牌
     var str_username = $("#inputUsername").val();
-    // var str_password = $("#inputPassword").val();
-    $.cookie("Token", str_username, {expires: 7});
+    $.cookie("Token", str_username + logintime, {expires: 7});
     // Remember Me
     if ($('#checkbox1').is(':checked')) {
         $.cookie("rmbUser", "true", {expires: 7});
@@ -84,7 +83,6 @@ function loginin() {
         // $.cookie("password", str_password, {expires: 7});
     } else {
         $.cookie("username", "", {expires: -1});
-        $.cookie("password", "", {expires: -1});
     }
 
     //登录验证
@@ -111,7 +109,7 @@ function loginin() {
 function logout() {
     $(".notlogin").show();
     $(".getlogin").hide();
-    $.cookie("Token", "", {expires: -1});
+    $.cookie("Token", "");
 }
 
 //jquery.cookie.js
