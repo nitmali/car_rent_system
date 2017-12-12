@@ -3,6 +3,8 @@ package com.example.carrentsys.service;
 import com.example.carrentsys.entity.Client;
 import com.example.carrentsys.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,5 +36,13 @@ public class ClientService {
 
     public Client findOne(Long id) {
         return clientRepository.findOne(id);
+    }
+
+    public Page<Client> findAll(PageRequest pageRequest) {
+        return clientRepository.findAll(pageRequest);
+    }
+
+    public void delete(Long id) {
+        clientRepository.delete(id);
     }
 }
