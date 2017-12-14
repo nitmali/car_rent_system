@@ -39,15 +39,13 @@ public class CarController {
     @RequestMapping(value = "/protect/saveCarInfo", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
-    public String saveCarInfo(
-            Long id,
-            String brand,
-            String color,
-            String licensePlate,
-            String price,
-            Car.Status status,
-            @RequestParam(value = "pic", required = false) MultipartFile file
-    ) {
+    public String saveCarInfo(Long id,
+                              String brand,
+                              String color,
+                              String licensePlate,
+                              String price,
+                              Car.Status status,
+                              @RequestParam(value = "pic", required = false) MultipartFile file) {
         if (Objects.equals(brand, "") ||
                 Objects.equals(color, "") ||
                 Objects.equals(licensePlate, "") ||
@@ -69,7 +67,7 @@ public class CarController {
                 car.setColor(color);
                 car.setLicensePlate(licensePlate);
                 car.setPrice(Integer.parseInt(price));
-                car.setStatus(status);
+                if (car.getStatus() != Car.Status.USING) car.setStatus(status);
                 if (!file.isEmpty()) {
                     String picname = storageService.store(file);
                     car.setImage(picname);
