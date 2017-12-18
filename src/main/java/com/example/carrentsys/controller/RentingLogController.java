@@ -47,8 +47,13 @@ public class RentingLogController {
     @ResponseBody
     public Map<String, Object> getRentingLog(@RequestParam(required = false, defaultValue = "1") int draw,
                                              @RequestParam(required = false, defaultValue = "0") int start,
-                                             @RequestParam(required = false, defaultValue = "10") int length) {
-        Sort sort = new Sort(Sort.Direction.DESC, "lendEndTime");
+                                             @RequestParam(required = false, defaultValue = "10") int length,
+                                             @RequestParam(value = "order[0][column]", required = false) int column,
+                                             @RequestParam(value = "order[0][dir]", required = false) String dir,
+                                             HttpServletRequest request) {
+        String columnName = request.getParameter("columns[" + column + "][name]");
+        Sort sort;
+        sort = new Sort(Sort.Direction.fromString(dir), columnName);
         PageRequest pagerequset = new PageRequest((start / length), length, sort);
         Map<String, Object> maps = new HashMap<>();
         Page<RentingLog> page = rentService.findAll(pagerequset);
@@ -104,7 +109,7 @@ public class RentingLogController {
         rentingLog.setStatus(RentingLog.Status.FINISH);
         car.setStatus(Car.Status.IDLE);
         rentingLog.setCar(car);
-        String amount = rentService.calAmount(rentingLog);
+        double amount = rentService.calAmount(rentingLog);
         rentingLog.setAmount(amount);
         rentService.save(rentingLog);
         return "{\"msg\":\"success\"}";

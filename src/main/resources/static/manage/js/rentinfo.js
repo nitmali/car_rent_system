@@ -49,12 +49,24 @@ $().ready(function () {
         processing: true,
         serverSide: true,
         searching: false,
-        bSort: false,
+        // bSort: false,
         ajax: {
             url: '/manage/getRentingLog',
             type: 'post',
             datatype: 'json'
         },
+        columnDefs: [
+            {"name": "id", "targets": 0},
+            {"name": "client.username", "targets": 1},
+            {"name": "car.licensePlate", "targets": 2},
+            {"name": "lendStartTime", "targets": 3},
+            {"name": "lendEndTime", "targets": 4},
+            {"name": "submitTime", "targets": 5},
+            {"name": "approvalTime", "targets": 6},
+            {"name": "admin.username", "targets": 7},
+            {"name": "amount", "targets": 8},
+            {"name": "status", "targets": 9}
+        ],
         columns: [
             {data: 'id'},
             {data: 'client.username'},

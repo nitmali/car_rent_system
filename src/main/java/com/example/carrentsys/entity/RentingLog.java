@@ -48,8 +48,8 @@ public class RentingLog {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Column(length = 8)
-    private String amount;
+    @Column(scale = 2)
+    private Double amount;
 
     public enum Status {
         PENDING,
@@ -147,11 +147,11 @@ public class RentingLog {
         this.admin = admin;
     }
 
-    public String getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 }

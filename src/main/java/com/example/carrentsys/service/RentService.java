@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,12 +72,10 @@ public class RentService {
         return rentingLogRepository.findByClientAndStatus(client, status);
     }
 
-    public String calAmount(RentingLog rentingLog) {
+    public double calAmount(RentingLog rentingLog) {
         Long timediff = rentingLog.getLendEndTime().getTime() - rentingLog.getLendStartTime().getTime();
         timediff /= 1000;
         double time = timediff * 1.0 / (3600 * 24);
-        double amount = rentingLog.getCar().getPrice() * time;
-        DecimalFormat df = new DecimalFormat("#0.00");
-        return df.format(amount);
+        return rentingLog.getCar().getPrice() * time;
     }
 }
