@@ -171,8 +171,14 @@ public class RentingLogController {
     @ResponseBody
     public String cancelRenting(Long id) {
         RentingLog rentingLog = rentService.findOne(id);
-        rentingLog.setStatus(RentingLog.Status.CANCEL);
-        return "{\"msg\":\"success\"}";
+        if (rentingLog.getStatus() == RentingLog.Status.PENDING) {
+            rentingLog.setStatus(RentingLog.Status.CANCEL);
+            rentService.save(rentingLog);
+            return "{\"msg\":\"success\"}";
+        } else {
+            return "{\"msg\":\"can not cancel\"}";
+        }
+
     }
 
     @RequestMapping(value = "/historyRenting", method = RequestMethod.GET)

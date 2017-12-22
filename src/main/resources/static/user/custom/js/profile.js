@@ -46,7 +46,8 @@ var table = $("#order_table").DataTable({
     bAutoWidth: true,
     processing: true,
     searching: false,
-    bSort: false,
+    bSort: true,
+    aaSorting: [[0, "desc"]],
     ajax: {
         url: '/historyRenting',
         type: 'get',
@@ -82,6 +83,37 @@ var table = $("#order_table").DataTable({
             }
         },
         {data: 'amount'},
-        {data: 'status'}
+        {data: 'status'},
+        {data: null}
+    ],
+    columnDefs: [{
+        targets: 9,
+        render: function (row) {
+            return '<a type="button" class="btn btn-danger" href="#" onclick="btn_action(' + row.id + ')">取消</a>';
+        }
+    },
+        {"orderable": false, "targets": 9}
     ]
+
 });
+
+function btn_action(id) {
+    $.ajax({
+        url: '/cancelRenting',
+        type: "POST",
+        dataType: "json",
+        data: {
+            "id": id
+        },
+        success: function (data) {
+            if (data.msg === "success") {
+                table.ajax.reload(null, false);
+            } else {
+                alert("订单不可取消");
+            }
+        },
+        error: function () {
+            alert("System Error!");
+        }
+    });
+}
