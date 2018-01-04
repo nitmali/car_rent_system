@@ -196,13 +196,11 @@
             <label>
               <input type="datetime-local" :min="starttime" class="dateinput form-control"
                      onblur="verifystart(this.value)" v-model="starttime" v-on:input="change()" onload="verifystart()">
-              {{starttime}}
             </label>
             <p class="zc_left_title">结束时间</p>
             <label>
               <input type="datetime-local" :min="starttime" class="dateinput form-control"
                      onblur="verifyend(this.value)" v-model="endtime" v-on:input="change()" onload="verifyend()">
-              {{endtime}}
             </label>
           </div>
         </div>

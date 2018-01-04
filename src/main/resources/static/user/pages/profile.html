@@ -23,6 +23,7 @@
   <link rel='stylesheet' href="../custom/css/index.css">
   <link rel='stylesheet' href="../custom/css/index.css">
   <link rel='stylesheet' href="../custom/css/login.css">
+  <link rel="stylesheet" href="../custom/css/profile.css">
 
 </head>
 
@@ -137,30 +138,45 @@
 <!-- // Header -->
 
 <!-- Content  -->
-<div id="main" style="width:90%;margin-left: auto;margin-right: auto;">
+<div id="main" style="min-height: 500px">
   <!--<iframe width="100%" id="iframeid" onload="SetCwinHeight()" height="1" frameborder="0" src="profile/index.html"-->
   <!--scrolling="no">-->
   <!--您的浏览器不支持iframe，请升级-->
   <!--</iframe>-->
-  <div>
-    <table width="100%" class="table table-striped table-bordered table-hover" id="order_table">
-      <thead>
-      <tr>
-        <th>订单编号</th>
-        <th>车牌号</th>
-        <th>租借开始时间</th>
-        <th>租借结束时间</th>
-        <th>提交时间</th>
-        <th>审批时间</th>
-        <th>审批人</th>
-        <th>总价</th>
-        <th>状态</th>
-        <th>操作</th>
-      </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-lg-1">
+        <ul class="nav nav-pills nav-stacked">
+          <br/>
+          <li role="presentation"><a href="#" onclick="new_table()">所有订单</a></li>
+          <li role="presentation"><a href="#" onclick="new_table('PENDING')">预约订单</a></li>
+          <li role="presentation"><a href="#" onclick="new_table('PASS')">实时订单</a></li>
+          <li role="presentation"><a href="#" onclick="new_table('FINISH')">历史订单</a></li>
+          <li role="presentation"><a href="#" onclick="new_table('REJECT')">拒绝订单</a></li>
+          <li role="presentation"><a href="#" onclick="new_table('CANCEL')">失效订单</a></li>
+        </ul>
+      </div>
+      <div class="col-xs-12 col-lg-11">
+        <table width="100%" class="table table-striped table-bordered table-hover" id="order_table">
+          <thead>
+          <tr>
+            <th>订单编号</th>
+            <th>车牌号</th>
+            <th>租借开始时间</th>
+            <th>租借结束时间</th>
+            <th>提交时间</th>
+            <th>审批时间</th>
+            <th>审批人</th>
+            <th>总价</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 

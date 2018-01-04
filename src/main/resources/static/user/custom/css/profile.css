@@ -1,0 +1,16 @@
+.btn {
+    line-height: 0;
+}
+
+select.input-sm {
+    line-height: 1.5;
+}
+
+.pagination li a {
+    width: 85px;
+}
+
+.nav a {
+    color: black;
+    font-size: 20px;
+}
