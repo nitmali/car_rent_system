@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 public class UserController {
@@ -112,6 +113,10 @@ public class UserController {
             if (file.isEmpty()) return "{\"msg\":\"image error\"}";
             String picName = storageService.store(file);
             client.setDriverLicenseImg(picName);
+        }
+
+        if (Objects.equals(client.getPassword(), "")) {
+            client.setPassword(clientService.findByUsername(client.getUsername()).getPassword());
         }
         clientService.save(client);
         return "{\"msg\":\"success\"}";
