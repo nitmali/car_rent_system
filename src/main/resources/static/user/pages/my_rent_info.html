@@ -1,23 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
   <meta name="description" content="html 5 template">
   <meta name="author" content="chinaz.com">
-  <title>Home</title>
-
+  <title>个人中心</title>
   <!-- Bootstrap core CSS -->
   <link href="../assets/css/plugins/bootstrap.min.css" rel="stylesheet">
   <link href="../assets/css/plugins/jquery.smartmenus.bootstrap.css" rel="stylesheet">
-  <link href="../assets/css/plugins/nivo-slider.css" rel="stylesheet">
-  <link href="../assets/css/plugins/swiper.min.css" rel="stylesheet">
-  <link href="../assets/css/plugins/intlTelInput.min.css" rel="stylesheet">
-  <link href="../assets/css/plugins/remodal.min.css" rel="stylesheet">
-  <link href="../assets/css/plugins/animate.css" rel="stylesheet">
   <link href="../assets/css/main-style.css" rel="stylesheet">
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -26,14 +19,16 @@
   <![endif]-->
   <!-- Icon Font-->
   <link href="../iconfont/style.css" rel="stylesheet">
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+
+  <link rel='stylesheet' href="../custom/css/index.css">
   <link rel='stylesheet' href="../custom/css/index.css">
   <link rel='stylesheet' href="../custom/css/login.css">
-  <link rel='stylesheet' href="../custom/css/register.css">
+  <link rel="stylesheet" href="../custom/css/my_rent_info.css">
+
 </head>
 
-<body class="page__home">
-<!-- Loader -->
+<body class="page__about">
+<!--Loader-->
 <div class="plash">
   <div id="scene">
     <span></span>
@@ -43,8 +38,8 @@
   </div>
   <div class="loading">Loading<span>...</span></div>
 </div>
-<!-- //Loader -->
-<!-- Header -->
+<!--//Loader-->
+<!--Header-->
 <header class="site-header">
   <div class="mobile-top-panel"></div>
   <div class="mobile-top-panel__fixed">
@@ -72,8 +67,31 @@
             <!-- Left nav -->
             <ul class="menu-navigation__list nav navbar-nav">
               <li>&nbsp;</li>
-              <li><a href="register.html" style="color: #6678ea">注册</a></li>
+              <li><a href="#" data-toggle="modal" data-target="#loginmodal">登录</a></li>
+              <li><a href="register.html">注册</a></li>
               <li><a href="../../manage/pages/login.html">管理员入口</a></li>
+            </ul>
+          </div>
+          <div>
+            <!-- Left nav -->
+            <ul class="menu-navigation__list nav navbar-nav">
+              <li>&nbsp;</li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false"><span class="myself" style="color: #6678ea"></span>
+                </a>
+                <ul class="dropdown-menu" style="left: 0px">
+                  <li role="separator"></li>
+                  <li>
+                    <a href="my_rent_info.html">&nbsp;我的订单</a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <a href="profile.html">&nbsp;个人信息</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="/logout">退出</a></li>
             </ul>
           </div>
         </div><!--/.nav-collapse -->
@@ -112,94 +130,82 @@
             <li><a href="services-post.html">后续服务</a></li>
             <li><a href="contacts.html">给我们留言</a></li>
           </ul>
-          <div class="notlogin">
+          <div>
             <div class="menu-navigation navbar-collapse collapse" style="float:right">
               <!-- Left nav -->
               <ul class="menu-navigation__list nav navbar-nav">
                 <li>&nbsp;</li>
-                <li><a href="register.html" style="color: #6678ea">注册</a></li>
-                <li><a href="../../manage/pages/login.html">管理员入口</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                     aria-expanded="false"><span class="myself" style="color: #6678ea"></span>
+                  </a>
+                  <ul class="dropdown-menu" style="left: 0px">
+                    <li role="separator"></li>
+                    <li>
+                      <a href="my_rent_info.html">&nbsp;我的订单</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                      <a href="profile.html">&nbsp;个人信息</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a href="/logout">退出</a></li>
               </ul>
             </div>
           </div>
+
         </div><!--/.nav-collapse -->
 
       </div><!--/.container -->
     </div>
   </div>
-
 </header>
 <!-- // Header -->
+
 <!-- Content  -->
-<div id="registerdiv">
-  <div>
-    <label>welcome</label>
-  </div>
-  <div class="container registrdiv">
+<div id="main" style="min-height: 500px">
+  <div class="container-fluid">
     <div class="row">
-        <div class="form-horizontal">
-          <span class="heading">新用户注册</span>
-          <span class="heading"><img src="../assets/images/nitlogo.png" alt=""></span>
-          <div class="form-group">
-            <p class="text text-left">下面请输入您的账户信息</p>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" id="inputUsernameRegister" name="username" placeholder="用户名"
-                   onclick="Inputusername()"
-                   onblur="compareusername()">
-            <span id="UsernameSpan" class="text text-danger"></span>
-          </div>
-          <div class="form-group help">
-            <input type="password" class="form-control" id="inputPasswordRegister" placeholder="密　码 (请输入至少6位的密码)"
-                   onblur="comparepassword()"
-                   onclick="InputPassword()">
-            <span id="PasswordSpan" class="text text-danger"></span>
-          </div>
-          <div class="form-group help">
-            <input type="password" class="form-control" id="inputPasswordConfirm" name="password" placeholder="再次输入密码"
-                   onblur="comparepassword()" onclick="InputPasswordConfirm()">
-            <span id="PasswordConfirmSpan" class="text text-danger"></span>
-          </div>
-          <div class="form-group">
-            <p class="text text-left">下面请填写您的个人信息</p>
-          </div>
-          <div class="form-group help">
-            <input type="text" class="form-control" id="inputPhone" name="phone" placeholder="手机号码"
-                   onblur="comparephone()"
-                   onclick="Inputphone()">
-            <span id="PhoneSpan" class="text text-danger"></span>
-          </div>
-          <div class="form-group help">
-            <input type="text" class="form-control" id="inpuId" name="idCard" placeholder="身份证号码" onblur="compareid()"
-                   onclick="Inputid()">
-            <span id="IdSpan" class="text text-danger"></span>
-          </div>
-          <form enctype="multipart/form-data">
-            <div class="form-group help" style="text-align: left">
-              <p class="text text-left">请上传驾照正面照片</p><br>
-              <input class="text-info" type="file" id="inputImage" name="file" accept="image/*" onclick="Inputimage()">
-              <span id="Imagespan" class="text text-danger"></span>
-            </div>
-          </form>
-          <div class="form-group help">
-            <div class="main-checkbox">
-              <input type="checkbox" value="None" id="checkbox" checked/>
-              <label for="checkbox" id="agree"></label>
-            </div>
-            <a href="#" class="text" id="tiaokuanbtn" data-toggle="modal" data-target="#tkregister">同意服务条款</a>
-          </div>
-          <div class="form-group">
-            <a class="btn btn-lg btn-login btn-block" onclick="register()">注册</a>
-            <span id="Registerspan" class="text text-danger"></span>
-          </div>
-        </div>
+      <div class="col-xs-12 col-lg-1">
+        <ul class="nav nav-pills nav-stacked">
+          <br/>
+          <li role="presentation"><a href="#" onclick="new_table()">所有订单</a></li>
+          <li role="presentation"><a href="#" onclick="new_table('PENDING')">预约订单</a></li>
+          <li role="presentation"><a href="#" onclick="new_table('PASS')">实时订单</a></li>
+          <li role="presentation"><a href="#" onclick="new_table('FINISH')">历史订单</a></li>
+          <li role="presentation"><a href="#" onclick="new_table('REJECT')">拒绝订单</a></li>
+          <li role="presentation"><a href="#" onclick="new_table('CANCEL')">失效订单</a></li>
+        </ul>
+      </div>
+      <div class="col-xs-12 col-lg-11">
+        <table width="100%" class="table table-striped table-bordered table-hover" id="order_table">
+          <thead>
+          <tr>
+            <th>订单编号</th>
+            <th>车牌号</th>
+            <th>租借开始时间</th>
+            <th>租借结束时间</th>
+            <th>提交时间</th>
+            <th>审批时间</th>
+            <th>审批人</th>
+            <th>总价</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
+
+<!-- // Content  -->
 <!-- Footer -->
 <span class="footerhtml"></span>
-<!--//Footer-->
-<div class="modal fade" id="tkregister" aria-hidden="true">
+<div class="modal fade" id="tk" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -220,23 +226,23 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->
 </div>
+
+
 <script src="../assets/js/jquery.1.12.4.min.js"></script>
 <script src="../assets/js/plugins/bootstrap.min.js"></script>
-<script src="../assets/js/plugins/wow.min.js"></script>
 <script src="../assets/js/plugins/jquery.smartmenus.min.js"></script>
 <script src="../assets/js/plugins/jquery.smartmenus.bootstrap.js"></script>
-<script src="../assets/js/plugins/jquery.nivo.slider.js"></script>
-<script src="../assets/js/plugins/swiper.min.js"></script>
-<script src="../assets/js/plugins/intlTelInput.min.js"></script>
 <script src="../assets/js/plugins/stickup.min.js"></script>
 <script src="../assets/js/custom.js"></script>
 <script src="../assets/js/plugins/cookie.js"></script>
 
-<script src="../../manage/vendor/js-md5/md5.min.js"></script>
+<!-- DataTables JavaScript -->
+<script src="../../manage/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="../../manage/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+<script src="../../manage/vendor/datatables-responsive/dataTables.responsive.js"></script>
+
 <script src="../custom/js/login.js"></script>
-<script src="../custom/js/register.js"></script>
 <script src="../custom/js/index.js"></script>
-
+<script src="../custom/js/my_rent_info.js"></script>
 </body>
-
 </html>

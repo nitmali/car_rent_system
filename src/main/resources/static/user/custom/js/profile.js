@@ -1,133 +1,66 @@
-// $('iframe').hover(
-//     function () {
-//         SetCwinHeight();
-//     }
-// );
-//
-// function SetCwinHeight() {
-//     var iframeid = document.getElementById("iframeid"); //iframe id
-//     if (document.getElementById) {
-//         if (iframeid && !window.opera) {
-//             if (iframeid.contentDocument && iframeid.contentDocument.body.offsetHeight) {
-//                 iframeid.height = iframeid.contentDocument.body.offsetHeight;
-//             } else if (iframeid.Document && iframeid.Document.body.scrollHeight) {
-//                 iframeid.height = iframeid.Document.body.scrollHeight;
-//             }
-//         }
-//     }
-// }
-let table;
-
-$(document).ready(function () {
-    new_table('');
-});
-
-function new_table(status) {
-    $("#order_table").dataTable().fnDestroy();
-    table = $("#order_table").DataTable({
-        language: {
-            "sProcessing": "处理中...",
-            "sLengthMenu": "显示 _MENU_ 项结果",
-            "sZeroRecords": "没有匹配结果",
-            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-            "sInfoPostFix": "",
-            "sSearch": "搜索:",
-            "sUrl": "",
-            "sEmptyTable": "表中数据为空",
-            "sLoadingRecords": "载入中...",
-            "sInfoThousands": ",",
-            "oPaginate": {
-                "sFirst": "首页",
-                "sPrevious": "上页",
-                "sNext": "下页",
-                "sLast": "末页"
-            },
-            "oAria": {
-                "sSortAscending": ": 以升序排列此列",
-                "sSortDescending": ": 以降序排列此列"
+let profileApp = new Vue({
+    el: '#profileApp',
+    data: {
+        profile_info: '',
+    },
+    created: function () {
+        this.get_profile_info();
+    },
+    methods: {
+        set_driver_License_Img(event) {
+            profileApp.profile_info.driverLicenseImg = event.target.files[0];
+        },
+        get_profile_info: function () {
+            $.get("/clientInfo",
+                function (get_holidayPlanFormModel) {
+                    profileApp.profile_info = get_holidayPlanFormModel;
+                    profileApp.profile_info.password = '';
+                    profileApp.profile_info.first_input_password = '';
+                }
+            )
+        },
+        set_profile_info: function () {
+            if ((profileApp.profile_info.password !== '')
+                && (profileApp.profile_info.password.length < 6 || profileApp.profile_info.password.length > 16)) {
+                alert("请输入6到16位有效密码 ")
             }
-        },
-        responsive: true,
-        bAutoWidth: true,
-        processing: true,
-        searching: false,
-        bSort: true,
-        aaSorting: [[0, "desc"]],
-        ajax: {
-            url: '/historyRenting',
-            data: {
-                status: status
-            },
-            type: 'get',
-            datatype: 'json',
-            dataSrc: ''
-        },
-        columns: [
-            {data: 'id'},
-            {data: 'car.licensePlate'},
+            else if (profileApp.profile_info.first_input_password !== profileApp.profile_info.password)
             {
-                data: function (obj) {
-                    if (obj.lendStartTime === null) return null;
-                    return obj.lendStartTime;
-                }
-            },
-            {
-                data: function (obj) {
-                    if (obj.lendEndTime === null) return null;
-                    return obj.lendEndTime;
-                }
-            },
-            {data: 'submitTime'},
-            {
-                data: function (obj) {
-                    if (obj.approvalTime === null) return null;
-                    return obj.approvalTime;
-                }
-            },
-            {
-                data: function (obj) {
-                    if (obj.admin === null) return null;
-                    return obj.admin.username;
-                }
-            },
-            {data: 'amount'},
-            {data: 'status'},
-            {data: null}
-        ],
-        columnDefs: [{
-            targets: 9,
-            render: function (row) {
-                return '<a type="button" class="btn btn-danger"  href="#" onclick="btn_action(' + row.id + ')">取消</a>';
-            }
-        },
-            {"orderable": false, "targets": 9}
-        ]
-
-    });
-}
-
-
-
-
-function btn_action(id) {
-    $.ajax({
-        url: '/cancelRenting',
-        type: "POST",
-        dataType: "json",
-        data: {
-            "id": id
-        },
-        success: function (data) {
-            if (data.msg === "success") {
-                table.ajax.reload(null, false);
+                alert("两次输入密码不一致")
+            } else if (profileApp.profile_info.phone.length !== 11) {
+                alert("请输入有效手机号码")
             } else {
-                alert("订单不可取消");
+                const formData = new FormData;
+                formData.append("id", profileApp.profile_info.id);
+                formData.append("username", profileApp.profile_info.username);
+                formData.append("phone", profileApp.profile_info.phone);
+                if (profileApp.profile_info.password === '') {
+                    formData.append("password", '');
+                } else {
+                    formData.append("password", md5(profileApp.profile_info.password));
+                }
+                formData.append("idCard", profileApp.profile_info.idCard);
+                formData.append("driverLicenseImg", '');
+                formData.append("file", profileApp.profile_info.driverLicenseImg);
+                $.ajax({
+                    url: '/clientInfo',
+                    type: 'POST',
+                    cache: false,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.msg === "image error") {
+                            alert("图片上传出错");
+                        }
+                        if (data.msg === "success") {
+                            alert("修改成功");
+                            profileApp.get_profile_info();
+                        }
+                    }
+                });
             }
-        },
-        error: function () {
-            alert("System Error!");
         }
-    });
-}
+    }
+});

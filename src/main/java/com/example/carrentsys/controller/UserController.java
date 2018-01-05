@@ -107,9 +107,12 @@ public class UserController {
 
     @RequestMapping(value = "/clientInfo", method = RequestMethod.POST)
     @ResponseBody
-    public String modifyClientInfo(Client client) {
-        Long id = clientService.findByUsername(client.getUsername()).getId();
-        client.setId(id);
+    public String modifyClientInfo(Client client, MultipartFile file) {
+        if (file != null) {
+            if (file.isEmpty()) return "{\"msg\":\"image error\"}";
+            String picName = storageService.store(file);
+            client.setDriverLicenseImg(picName);
+        }
         clientService.save(client);
         return "{\"msg\":\"success\"}";
     }
