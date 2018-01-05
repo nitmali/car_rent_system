@@ -50,7 +50,7 @@ function new_table(status) {
             }
         },
         responsive: true,
-        bAutoWidth: true,
+        bAutoWidth: false,
         processing: true,
         searching: false,
         bSort: true,
