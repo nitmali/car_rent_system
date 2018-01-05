@@ -9,7 +9,7 @@ function user() {
     $.get("/getusername",
         function (data) {
             if (data.msg !== "error") {
-                if ((data.usertype === "client") && (data.username === $.cookie("username")) && ($.cookie("Token") !== "")) {
+                if ((data.usertype === "client") && ($.cookie("Token") !== "")) {
                     $(".myself").html(data.username);
                     $(".notlogin").hide();
                     $(".getlogin").show();
